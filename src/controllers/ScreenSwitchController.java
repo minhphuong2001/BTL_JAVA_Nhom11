@@ -18,6 +18,7 @@ import views.ManagementCustomerView;
 import views.ManagementEmployeeView;
 import views.ManagementProductView;
 import views.ManagementReceptView;
+import views.ManagementStatisticalView;
 
 /**
  *
@@ -69,10 +70,8 @@ public class ScreenSwitchController {
         }
 
         @Override
-        public void mousePressed(MouseEvent e) { //Được triệu hồi khi chuột trỏ đến
+        public void mousePressed(MouseEvent e) { 
             kindSelected = kind;
-//            jpanelItem.setBackground(new Color(108, 92, 231));
-//            jlabeItem.setBackground(new Color(108, 92, 231));
         }
 
         @Override
@@ -95,6 +94,9 @@ public class ScreenSwitchController {
                     break;
                 case "ManagementRecept":
                     node = new ManagementReceptView();
+                    break; 
+                case "ManagementStatistical":
+                    node = new ManagementStatisticalView();
                     break;
                 default:
                     break;
@@ -115,10 +117,7 @@ public class ScreenSwitchController {
 
         @Override
         public void mouseExited(MouseEvent e) {
-//            if (!kindSelected.equalsIgnoreCase(kind)) {
-//                jpanelItem.setBackground(new Color(108, 92, 231));
-//                jlabeItem.setBackground(new Color(108, 92, 231));
-//            }
+
         }
     }
 

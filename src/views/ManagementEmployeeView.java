@@ -158,7 +158,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         jLabel5.setText("Địa chỉ");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Ngày công");
+        jLabel6.setText("Lương");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

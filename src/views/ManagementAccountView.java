@@ -129,6 +129,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
         roleComboBox.setMinimumSize(new java.awt.Dimension(64, 40));
 
+        accountTable.setFont(new java.awt.Font("Cambria", 0, 24)); // NOI18N
         accountTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -137,6 +138,9 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 "ID", "Tài khoản", "Mật khẩu", "Vai Trò"
             }
         ));
+        accountTable.setRowHeight(24);
+        accountTable.setRowMargin(4);
+        accountTable.setRowSelectionAllowed(false);
         accountTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 accountTableMouseClicked(evt);
