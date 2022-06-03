@@ -11,6 +11,7 @@ import models.Account;
 import models.Customer;
 import java.io.IOException;
 import models.Employee;
+import models.product;
 
 /**
  *
@@ -238,4 +239,76 @@ public class FileController {
             }
         }
     }
+        //====================================================================================================================
+        //File product
+        
+         public static void writeProductToFile(String filename, product product){
+        try {
+            fileWriter = new FileWriter(filename, true);
+            bufWriter = new BufferedWriter(fileWriter);
+            bufWriter.write(product.toFile());
+            System.out.println("write file successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                bufWriter.close();  
+                fileWriter.close();
+            } catch (Exception e) {         
+                System.out.println("error1: " + e);  
+            }
+        }
+    }
+    public static List<product> readProductFromFile(String filename){
+        List<product> listProduct = new ArrayList<product>();
+        try {
+            fileReader = new FileReader(filename);
+            bufReader = new BufferedReader(fileReader);
+            File file = new File(filename);
+                if(file.exists()){
+                file.createNewFile();
+            }
+            String line = "";
+            while((line = bufReader.readLine()) != null){
+                String[] data = line.split("\\|");
+                product Product = new product(Integer.parseInt(data[0]), data[1],Float.parseFloat(data[2]), Float.parseFloat(data[3]), Float.parseFloat(data[4]), Integer.parseInt(data[5]));
+                listProduct.add(Product);
+            }
+        } catch (Exception e) {
+            System.out.println("error2: " + e);
+        } finally {
+            try {
+                bufReader.close();  
+                fileReader.close();
+            } catch (Exception e) {         
+                System.out.println("error3: " + e);  
+            }
+        }
+        return listProduct;
+    }
+    
+    public static void updateListProductToFile(String filename, List<product> listProduct){
+        try {
+            fileWriter = new FileWriter(filename, false);
+            bufWriter = new BufferedWriter(fileWriter);
+            for(product item : listProduct){
+                bufWriter.write(item.toFile());
+            }
+            System.out.println("update file successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                bufWriter.close();  
+                fileWriter.close();
+            } catch (Exception e) {         
+                System.out.println("error4: " + e);  
+            }
+        }
+    }        
+        
+        //====================================================================================================================
+        
+        
+        
 }
