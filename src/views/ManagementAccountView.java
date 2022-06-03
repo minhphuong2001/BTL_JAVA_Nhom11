@@ -7,10 +7,12 @@ package views;
 import controllers.FileController;
 import controllers.Utils;
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Account;
@@ -53,6 +55,15 @@ public class ManagementAccountView extends javax.swing.JPanel {
         deleteBtn.setEnabled(false);
         setBgButtonNull();
         increaseIndex();
+        
+        ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
+        searchLabel.setIcon(searchIcon);
+        ImageIcon deleteIcon=iconimage(25,25,"src/icons/bin2.png");
+        deleteBtn.setIcon(deleteIcon);
+        ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
+        editBtn.setIcon(updateIcon);
+        ImageIcon addIcon=iconimage(25,25,"src/icons/add-user.png");
+        addBtn.setIcon(addIcon);
     }
 
     /**
@@ -80,7 +91,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         showError = new javax.swing.JLabel();
         searchField = new java.awt.TextField();
-        jLabel1 = new javax.swing.JLabel();
+        searchLabel = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(985, 670));
         setRequestFocusEnabled(false);
@@ -88,24 +99,31 @@ public class ManagementAccountView extends javax.swing.JPanel {
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(75, 123, 236));
         titleLabel.setText("QUẢN LÝ TÀI KHOẢN");
+        add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 22, 310, 52));
 
         idLabel.setText("ID");
+        add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 126, -1, -1));
+        add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 115, 275, 35));
 
         usernameLabel.setText("Tên người dùng");
+        add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 usernameFieldKeyReleased(evt);
             }
         });
+        add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 169, 275, 35));
 
         passwordLabel.setText("Mật khẩu");
+        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, -1));
 
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 passwordFieldKeyReleased(evt);
             }
         });
+        add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 275, 35));
 
         addBtn.setBackground(new java.awt.Color(75, 123, 236));
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,8 +133,10 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 addBtnActionPerformed(evt);
             }
         });
+        add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 130, 50));
 
         roleLabel.setText("Vai trò");
+        add(roleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
 
         editBtn.setBackground(new java.awt.Color(102, 255, 102));
         editBtn.setText("Cập nhật");
@@ -125,10 +145,12 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 editBtnActionPerformed(evt);
             }
         });
+        add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, 130, 50));
 
         roleComboBox.setEditable(true);
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
         roleComboBox.setMinimumSize(new java.awt.Dimension(64, 40));
+        add(roleComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 275, 35));
 
         accountTable.setFont(new java.awt.Font("Cambria", 0, 24)); // NOI18N
         accountTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,6 +176,8 @@ public class ManagementAccountView extends javax.swing.JPanel {
             accountTable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 378, 912, 300));
+
         deleteBtn.setBackground(new java.awt.Color(255, 0, 0));
         deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         deleteBtn.setText("Xóa");
@@ -162,8 +186,10 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 deleteBtnActionPerformed(evt);
             }
         });
+        add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 290, 130, 50));
 
         showError.setForeground(new java.awt.Color(255, 0, 0));
+        add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 730, 40));
 
         searchField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -171,92 +197,8 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-
-        jLabel1.setText("Tìm kiếm");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idLabel)
-                                    .addComponent(usernameLabel)
-                                    .addComponent(passwordLabel))
-                                .addGap(28, 28, 28))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(showError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(searchField, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                            .addComponent(idField)
-                            .addComponent(usernameField)
-                            .addComponent(passwordField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(roleLabel)
-                                .addGap(28, 28, 28)
-                                .addComponent(roleComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(editBtn)
-                                .addGap(58, 58, 58)
-                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(43, 43, 43))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(331, 331, 331))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(9, 9, 9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idLabel))
-                                .addGap(19, 19, 19)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(usernameLabel)
-                                    .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(passwordLabel)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(roleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(roleLabel)))
-                        .addGap(18, 18, 18)
-                        .addComponent(showError)
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 275, 35));
+        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 54, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
@@ -467,9 +409,20 @@ public class ManagementAccountView extends javax.swing.JPanel {
     }
     private void setBgButtonHasColor(){
         addBtn.setBackground(new Color(223, 230, 233));
-        editBtn.setBackground(new Color(102,255,102));
-        deleteBtn.setBackground(new Color(255, 0, 0));
+//        editBtn.setBackground(new Color(102,255,102));
+//        deleteBtn.setBackground(new Color(255, 0, 0));
+        editBtn.setBackground(new Color(0,153,51));
+        //deleteBtn.setBackground(new Color(204,51,0));
+        deleteBtn.setBackground(new Color(204,37,31));
     }
+    
+       public ImageIcon iconimage(int w,int h,String link){
+        ImageIcon Icon = new ImageIcon(link);
+        Image img= Icon.getImage();
+        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
+        ImageIcon Scale=new ImageIcon(imgScale);
+        return Scale;
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
@@ -478,13 +431,13 @@ public class ManagementAccountView extends javax.swing.JPanel {
     private javax.swing.JButton editBtn;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel idLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField passwordField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JComboBox<String> roleComboBox;
     private javax.swing.JLabel roleLabel;
     private java.awt.TextField searchField;
+    private javax.swing.JLabel searchLabel;
     private javax.swing.JLabel showError;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField usernameField;
