@@ -83,6 +83,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(985, 670));
+        setRequestFocusEnabled(false);
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(75, 123, 236));
