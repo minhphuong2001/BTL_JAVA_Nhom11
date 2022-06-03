@@ -5,6 +5,7 @@
 package views;
 
 import controllers.ScreenSwitchController;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import models.CategoriesModel;
@@ -32,6 +33,7 @@ public class Main extends javax.swing.JFrame {
         listCate.add(new CategoriesModel("ManagementRecept", management_receptPanel, receptLabel));
         listCate.add(new CategoriesModel("ManagementStatistical", management_statisticalPanel, statistifyLabel));
         ssController.setEvent(listCate);
+
     }
 
     @SuppressWarnings("unchecked")

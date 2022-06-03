@@ -136,7 +136,7 @@
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="inpSearch" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="jTextField1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" pref="33" max="32767" attributes="0"/>

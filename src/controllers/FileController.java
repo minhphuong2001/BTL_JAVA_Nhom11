@@ -11,6 +11,7 @@ import models.Account;
 import models.Customer;
 import java.io.IOException;
 import models.Employee;
+import models.product;
 
 /**
  *
@@ -174,20 +175,21 @@ public class FileController {
 //    }
     public static void writeEmployeeToFile(String filename,Employee employee)
     {
+        System.out.println("bbb");
         FileWriter fw=null;
         BufferedWriter bw=null;
         try {
             fw= new FileWriter(filename, true);
             bw= new BufferedWriter(fw);
-            bw.write(employee.getEmployeeId()+"|"+employee.getEmployeeName()+"|"+employee.getEmployeePhone()+"|"+employee.getEmployeeAddress()+"\n");  
+            bw.write(employee.getEmployeeId()+"|"+employee.getEmployeeName()+"|"+employee.getEmployeePhone()+"|"+employee.getEmployeeAddress()+"|"+employee.getEmployeeSalary()+"|"+employee.getEmployeeDate()+"\n");  
         } catch (IOException e0) {
-            System.out.println("Error: " + e0);
+            System.out.println("Error0: " + e0);
         } finally {
             try {
                 bw.close();
                 fw.close();
             } catch (IOException e1) {
-                System.out.println("Error: " + e1);
+                System.out.println("Error1: " + e1);
             }
         }
     }
@@ -199,19 +201,19 @@ public class FileController {
             fr = new FileReader(filename);
             br = new BufferedReader(fr);
             String line = "";
-            while((line = br.readLine()) != null){
+            while((line = br.readLine())!= null){
                 String[] data = line.split("\\|");
-                Employee employee = new Employee(Integer.parseInt(data[0]),data[1],data[2],data[3]);
+                Employee employee = new Employee(Integer.parseInt(data[0]),data[1],data[2],data[3],Double.parseDouble(data[4]),data[5]);
                 employees.add(employee);
             }
         } catch (Exception e0) {
-            System.out.println("Error: " + e0);
+            System.out.println("Error0: " + e0);
         } finally {
             try {
                 br.close();  
                 fr.close();
             } catch (Exception e1) {         
-                System.out.println("Error: " + e1);  
+                System.out.println("Error1: " + e1);  
             }
         }
         return employees;
@@ -224,7 +226,7 @@ public class FileController {
             fw = new FileWriter(filename,false);
             bw = new BufferedWriter(fw);
             for(Employee item : employees){
-                bw.write(item.getEmployeeId()+"|"+item.getEmployeeName()+"|"+item.getEmployeePhone()+"|"+item.getEmployeeAddress()+"\n");
+                bw.write(item.getEmployeeId()+"|"+item.getEmployeeName()+"|"+item.getEmployeePhone()+"|"+item.getEmployeeAddress()+"|"+item.getEmployeeSalary()+"|"+item.getEmployeeDate()+"\n");
             }
         } catch (Exception e0) {
             System.out.println("Error: "+e0);
@@ -237,4 +239,76 @@ public class FileController {
             }
         }
     }
+        //====================================================================================================================
+        //File product
+        
+         public static void writeProductToFile(String filename, product product){
+        try {
+            fileWriter = new FileWriter(filename, true);
+            bufWriter = new BufferedWriter(fileWriter);
+            bufWriter.write(product.toFile());
+            System.out.println("write file successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                bufWriter.close();  
+                fileWriter.close();
+            } catch (Exception e) {         
+                System.out.println("error1: " + e);  
+            }
+        }
+    }
+    public static List<product> readProductFromFile(String filename){
+        List<product> listProduct = new ArrayList<product>();
+        try {
+            fileReader = new FileReader(filename);
+            bufReader = new BufferedReader(fileReader);
+            File file = new File(filename);
+                if(file.exists()){
+                file.createNewFile();
+            }
+            String line = "";
+            while((line = bufReader.readLine()) != null){
+                String[] data = line.split("\\|");
+                product Product = new product(Integer.parseInt(data[0]), data[1],Float.parseFloat(data[2]), Float.parseFloat(data[3]), Float.parseFloat(data[4]), Integer.parseInt(data[5]));
+                listProduct.add(Product);
+            }
+        } catch (Exception e) {
+            System.out.println("error2: " + e);
+        } finally {
+            try {
+                bufReader.close();  
+                fileReader.close();
+            } catch (Exception e) {         
+                System.out.println("error3: " + e);  
+            }
+        }
+        return listProduct;
+    }
+    
+    public static void updateListProductToFile(String filename, List<product> listProduct){
+        try {
+            fileWriter = new FileWriter(filename, false);
+            bufWriter = new BufferedWriter(fileWriter);
+            for(product item : listProduct){
+                bufWriter.write(item.toFile());
+            }
+            System.out.println("update file successfully...");
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                bufWriter.close();  
+                fileWriter.close();
+            } catch (Exception e) {         
+                System.out.println("error4: " + e);  
+            }
+        }
+    }        
+        
+        //====================================================================================================================
+        
+        
+        
 }
