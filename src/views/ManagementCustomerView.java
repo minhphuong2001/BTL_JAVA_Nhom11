@@ -5,10 +5,15 @@
 package views;
 
 import controllers.FileController;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import models.Customer;
 
 /**
@@ -31,7 +36,38 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
             });
         });
+
         inpCustomerId.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        inpAccumulatePoints.setEnabled(false);
+
+        setBgButtonNull();
+        setID();
+    }
+    
+    private void setBgButtonNull(){
+        btnAdd.setBackground(new Color(75,123,236));
+        btnUpdate.setBackground(new Color(223, 230, 233));
+        btnDelete.setBackground(new Color(223, 230, 233));
+    }
+    private void setBgButtonHasColor(){
+        btnAdd.setBackground(new Color(223, 230, 233));
+        btnUpdate.setBackground(new Color(102,255,102));
+        btnDelete.setBackground(new Color(255, 0, 0));
+    }
+    
+    public void setID() {
+        Integer id;
+        if(customers.size()==0) id = 0;
+        else id = customers.get(customers.size()-1).getCustomerId() + 1;
+        inpCustomerId.setText(id+"");
+    }
+    
+    public void setInpNull() {
+        inpCustomerName.setText("");
+        inpCustomerPhone.setText("");
+        inpAccumulatePoints.setText("");
     }
 
     /**
@@ -43,7 +79,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        form = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -59,9 +95,16 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        inpSearch = new javax.swing.JTextField();
+        error = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(76, 175, 80));
+
+        form.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(75, 123, 236));
@@ -146,83 +189,94 @@ public class ManagementCustomerView extends javax.swing.JPanel {
 
         jLabel6.setText("Tìm kiếm");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        inpSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inpSearchKeyReleased(evt);
+            }
+        });
+
+        error.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        error.setForeground(new java.awt.Color(204, 0, 51));
+
+        javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
+        form.setLayout(formLayout);
+        formLayout.setHorizontalGroup(
+            formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(formLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addComponent(inpCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inpSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(inpCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(inpCustomerPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inpAccumulatePoints, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(283, 283, 283))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formLayout.createSequentialGroup()
                 .addGap(0, 30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(error, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        formLayout.setVerticalGroup(
+            formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(formLayout.createSequentialGroup()
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(inpCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(inpCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(formLayout.createSequentialGroup()
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(inpCustomerPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(inpAccumulatePoints, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(95, 95, 95)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addComponent(error, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(inpSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -232,12 +286,12 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(form, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,54 +327,97 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnAdd.setEnabled(false);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
+        setBgButtonHasColor();
     }//GEN-LAST:event_tbCustomerMouseClicked
 
     private void tbCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCustomerMouseExited
-        // TODO add your handling code here:
-        //        inpCustomerId.setText("");
-        //        inpCustomerName.setText("");
-        //        inpCustomerPhone.setText("");
-        //        inpAccumulatePoints.setText("");
-        //
-        //        btnAdd.setEnabled(true);
-        //        btnUpdate.setEnabled(true);
-        //        btnDelete.setEnabled(true);
 
     }//GEN-LAST:event_tbCustomerMouseExited
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        try {
-            Integer id = customers.get(customers.size()-1).getCustomerId() + 1;
-            String name = inpCustomerName.getText().trim();
-            String phone = inpCustomerPhone.getText().trim();
-            Float accPoints= Float.parseFloat(inpAccumulatePoints.getText().trim());
-
-            Customer cus= new Customer(id, name, phone, accPoints);
-            FileController.writeCustomerToFile("customer.txt", cus);
-            model.addRow(new Object[]{
-                id, name, phone, accPoints
-            });
-            customers.add(cus);
-
-            inpCustomerId.setText("");
-            inpCustomerName.setText("");
-            inpCustomerPhone.setText("");
-            inpAccumulatePoints.setText("");
-            JOptionPane.showMessageDialog(jPanel1, "Thêm khách hàng mới thành công");
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(jPanel1, "Hay nhap du thong tin");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(jPanel1, e.getMessage());
+        if(inpCustomerName.getText().trim().compareTo("") == 0){
+            error.setText("Vui lòng nhập tên");
+            return;
         }
+        String regexName = "^[a-z A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{0,50}$";
+                Pattern pattern = Pattern.compile(regexName);
+        Matcher match = pattern.matcher(inpCustomerName.getText().trim());
+        if(!match.matches()){
+            error.setText("Tên không bao gồm số và các kí tự đặc biệt,tối đa 30 kí tự");
+            return;
+        }
+            
+            
+        if(inpCustomerPhone.getText().trim().compareTo("") == 0){
+            error.setText("Vui lòng nhập số điện thoại");
+            return;
+        }
+        String regexPhone = "^[0-9]{10,11}$";
+        Pattern patternPhone = Pattern.compile(regexPhone);
+        Matcher matchPhone = patternPhone.matcher(inpCustomerPhone.getText().trim());
+        if(!matchPhone.matches()){
+            error.setText("Số điện thoại chỉ bao gồm số: 10 số hoặc 11 số");
+            return;
+        }
+            
+        Integer id = Integer.parseInt(inpCustomerId.getText().trim());
+        String name = inpCustomerName.getText().trim();
+        String phone = inpCustomerPhone.getText().trim();
+        Float accPoints = 0f;
+
+        Customer cus = new Customer(id, name, phone, accPoints);
+        FileController.writeCustomerToFile("customer.txt", cus);
+        model.addRow(new Object[]{
+            id, name, phone, accPoints
+        });
+        customers.add(cus);
+        setInpNull();
+        setID();
+        error.setText("");
+        inpCustomerName.requestFocus();
+        JOptionPane.showMessageDialog(null, "Thêm khách hàng mới thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);           
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        if(inpCustomerName.getText().trim().compareTo("") == 0){
+            error.setText("Vui lòng nhập tên");
+            return;
+        }
+//        String regexName = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ].*[\\s\\.]{0,50}$";
+//        String regexName = "^[a-zA-Z ]{0,50}$";
+
+        String regexName = "^[a-z A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
+        Pattern pattern = Pattern.compile(regexName);
+        Matcher match = pattern.matcher(inpCustomerName.getText().trim());
+        if(!match.matches()){
+            error.setText("Tên chỉ bao gồm các kí tự và tối đa 50 kí tự");
+            return;
+        }
+               
+        if(inpCustomerPhone.getText().trim().compareTo("") == 0){
+        error.setText("Vui lòng nhập số điện thoại");
+        return;
+        }
+        String regexPhone = "^[0-9]{10,11}$";
+        Pattern patternPhone = Pattern.compile(regexPhone);
+        Matcher matchPhone = patternPhone.matcher(inpCustomerPhone.getText().trim());
+        if(!matchPhone.matches()){
+            error.setText("Số điện thoại chỉ bao gồm số: 10 số hoặc 11 số");
+            return;
+        }
+
         Integer id = Integer.parseInt(inpCustomerId.getText().trim());
-        String name= inpCustomerName.getText().trim();
-        String phone= inpCustomerPhone.getText().trim();
-        Float accPoints= Float.parseFloat(inpAccumulatePoints.getText().trim());
+        String name = inpCustomerName.getText().trim();
+        String phone = inpCustomerPhone.getText().trim();
+        Float accPoints = Float.parseFloat(inpAccumulatePoints.getText().trim());
+
+        
+//        Integer id = Integer.parseInt(inpCustomerId.getText().trim());
+//        String name= inpCustomerName.getText().trim();
+//        String phone= inpCustomerPhone.getText().trim();
+//        Float accPoints= Float.parseFloat(inpAccumulatePoints.getText().trim());
 
         int row= tbCustomer.getSelectedRow();
 
@@ -331,47 +428,86 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         tbCustomer.setValueAt(name, row, 1);
         tbCustomer.setValueAt(phone, row, 2);
         tbCustomer.setValueAt(accPoints, row, 3);
-
-        inpCustomerId.setText("");
-        inpCustomerName.setText("");
-        inpCustomerPhone.setText("");
-        inpAccumulatePoints.setText("");
+        
+        setInpNull();
+        
+        setBgButtonNull();
+        btnUpdate.setEnabled(false);
+        btnDelete.setEnabled(false);
+        btnAdd.setEnabled(true);
+        setID();
+        error.setText("");
+        JOptionPane.showMessageDialog(null, "Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        inpCustomerId.requestFocus();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int row= tbCustomer.getSelectedRow();
-        //xoa tren giao dien
-        model.removeRow(row);
+        int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION,0);
+        if(answer == 0){
+            int row= tbCustomer.getSelectedRow();
+            //xoa tren giao dien
+            model.removeRow(row);
 
-        customers.remove(row);
-        FileController.writeListCustomerFile("customer.txt", customers);
+            customers.remove(row);
+            FileController.writeListCustomerFile("customer.txt", customers);
 
-        //set cac o input ve rong
-        inpCustomerId.setText("");
-        inpCustomerName.setText("");
-        inpCustomerPhone.setText("");
-        inpAccumulatePoints.setText("");
+            btnUpdate.setEnabled(false);
+            btnDelete.setEnabled(false);
+            btnAdd.setEnabled(true);
+            setID();
+            inpCustomerId.requestFocus();
+            setBgButtonNull();
+            setInpNull();
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void inpSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpSearchKeyReleased
+        // TODO add your handling code here:
+
+        String search = inpSearch.getText().trim();
+
+        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
+
+        tbCustomer.setRowSorter(rowSorter);
+
+        if(search.length() == 0){
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + search, 2));
+        }
+    }//GEN-LAST:event_inpSearchKeyReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        setID();
+        setInpNull();
+        btnAdd.setEnabled(true);
+        btnDelete.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        inpAccumulatePoints.setEnabled(false);
+
+        setBgButtonNull();
+    }//GEN-LAST:event_formMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel error;
+    private javax.swing.JPanel form;
     private javax.swing.JTextField inpAccumulatePoints;
     private javax.swing.JTextField inpCustomerId;
     private javax.swing.JTextField inpCustomerName;
     private javax.swing.JTextField inpCustomerPhone;
+    private javax.swing.JTextField inpSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tbCustomer;
     // End of variables declaration//GEN-END:variables
 }
