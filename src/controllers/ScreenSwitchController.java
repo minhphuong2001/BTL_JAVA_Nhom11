@@ -46,6 +46,18 @@ public class ScreenSwitchController {
         jPanelRoot.repaint();
     }
 
+    public void setDashboardForEmployee(JPanel jpanelItem, JLabel jlabelItem){
+        kindSelected = "HomePage";
+        jpanelItem.setBackground(new Color(253, 203, 110));
+        jlabelItem.setBackground(new Color(253, 203, 110));
+
+        jPanelRoot.removeAll();
+        jPanelRoot.setLayout(new BorderLayout());
+        jPanelRoot.add(new ManagementProductView());
+        jPanelRoot.validate();
+        jPanelRoot.repaint();
+    }
+
     public void setEvent(List<CategoriesModel> listCategory) {
         this.listCategory = listCategory;
         for(CategoriesModel item : listCategory){
