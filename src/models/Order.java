@@ -83,17 +83,15 @@ public class Order {
         
         return totalMoneyDouble;
     }
-    public void setPoint(Float diem){
+    public void setPoint(Float diem,Float moi){
         List<Customer> odl=new ArrayList<>();
         Float Point=0f;
         odl=FileController.readCustomerFromFile("customer.txt");
         for(int i=0;i<odl.size();i++){
             if(odl.get(i).getCustomerId().equals(this.getCustomerID())){
                
-                Point=odl.get(i).getAccumulatePoints();
-                if(Point+diem<0f)
-                     Point=0f;
-                odl.get(i).setAccumulatePoints(Point+diem);
+                 Point=odl.get(i).getAccumulatePoints();
+                 odl.get(i).setAccumulatePoints(Point-diem+moi);
                 break;
             }
         }
