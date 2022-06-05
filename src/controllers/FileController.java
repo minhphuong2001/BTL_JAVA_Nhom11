@@ -10,6 +10,8 @@ import java.util.List;
 import models.Account;
 import models.Customer;
 import java.io.IOException;
+import models.Order;
+import models.OrderDetail;
 import models.Employee;
 import models.product;
 
@@ -309,6 +311,154 @@ public class FileController {
         
         //====================================================================================================================
         
-        
+      public static void writeOrderToFile(String filename, Order order){
+        try {
+            fileWriter=new FileWriter(filename, true);
+            bufWriter =new BufferedWriter(fileWriter);
+           bufWriter.write(order.getOrderID()+"|"+order.getCustomerID()+"|"+order.getDate()+"|"+order.getStatus()+"\n");  
+        } catch (Exception e) {
+            System.out.println("Lỗi  ghi file order  !"+e);
+        } finally {
+            try {
+               
+                bufWriter.close(); 
+                fileWriter.close();
+            } catch (Exception e) {
+                System.out.println("Không thể đóng file doc order !"+e);
+            }
+        }
+      
+    }
+    public static List<Order>readOrderFromFile(String filename){
+        List<Order> orders=new ArrayList<Order>();
+        try {
+            fileReader=new FileReader(filename);
+             bufReader=new BufferedReader(fileReader);
+             File file= new File(filename);
+             if(file.exists()){
+                file.createNewFile();
+             }
+             String line="";
+             while((line= bufReader.readLine())!=null){
+                 String []data=line.split("\\|");
+                 Order order;
+                 order = new Order(Integer.parseInt(data[0]),Integer.parseInt(data[1]),data[2],data[3]);
+                 orders.add(order);
+                 
+             }
+             
+        } catch (Exception e) {
+            System.out.println(" Lỗi đọc file order !"+e);        }
+       finally{
+            try {
+                bufReader.close();
+                fileReader.close();
+            } catch (Exception e) {
+                System.out.println("không thể đóng file order !"+e);
+            }
+        }
+            return orders;    
+    }
+     
+    public static void writeOrderDetailToFile(String filename, OrderDetail orderDetail){
+        try {
+            fileWriter=new FileWriter(filename, true);
+            bufWriter =new BufferedWriter(fileWriter);
+             bufWriter.write(orderDetail.getOrderID()+"|"+orderDetail.getProductID()+"|"+orderDetail.getQuantity()+"\n");  
+        } catch (Exception e) {
+            System.out.println("Lỗi ghi file  order !"+e);
+        } finally {
+            try {
+                bufWriter.close();
+                fileWriter.close();
+               
+            } catch (Exception e) {
+                System.out.println("Không thể đóng file order  !"+e);
+            }
+        }
+      
+    }
+    public static List<OrderDetail>readOrderDetailFromFile(String filename){
+        List<OrderDetail> orderDetails=new ArrayList<>();
+        try {
+            fileReader=new FileReader(filename);
+             bufReader=new BufferedReader(fileReader);
+             File file= new File(filename);
+             if(file.exists()){
+                file.createNewFile();
+             }
+             String line="";
+             while((line= bufReader.readLine())!=null){
+                 String []data=line.split("\\|");
+                 OrderDetail orderDetail=new OrderDetail(Integer.parseInt(data[0]),Integer.parseInt(data[1]),Integer.parseInt(data[2]));
+                 orderDetails.add(orderDetail);
+                 
+             }
+             
+        } catch (Exception e) {
+            System.out.println(" Lỗi đọc ghi file order !"+e);        }
+       finally{
+            try {
+                bufReader.close();
+                fileReader.close();
+            } catch (Exception e) {
+                System.out.println("không thể đóng file doc order !"+e);
+            }
+        }
+            return orderDetails;    
+    }
+
+   
+    public  static void updatelistOrderToFile(String filename, List<Order> orders) {
+       
+         FileWriter fw=null;
+        BufferedWriter bw=null;
+        try {
+            fw= new FileWriter(filename, false);
+            bw= new BufferedWriter(fw);
+            orders.forEach(item -> {
+                writeOrderToFile(filename, item);
+             });  
+            
+            System.out.println("update file order  successfully...");
+        } catch (IOException ex) {
+            System.out.println("loi update file order  file");
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                System.out.println("Loi khong the dong file order ");
+            }
+        }
+    }
+
+   
+
+    public static void updateListOrderDetail(String filename, List<OrderDetail> orderDetails) {
+        FileWriter fw=null;
+        BufferedWriter bw=null;
+        try {
+            fw= new FileWriter(filename, false);
+            bw= new BufferedWriter(fw);
+            orderDetails.forEach(item -> {
+                writeOrderDetailToFile(filename, item);
+             });  
+            
+            System.out.println("update file orderDetail successfully...");
+        } catch (IOException ex) {
+            System.out.println("loi update file orderdetail ");
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                System.out.println("Loi khong thẻ dong file orderdetail ");
+            }
+        }
+    }
+             
+    
+       
         
 }
