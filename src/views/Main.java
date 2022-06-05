@@ -33,7 +33,6 @@ public class Main extends javax.swing.JFrame {
         listCate.add(new CategoriesModel("ManagementRecept", management_receptPanel, receptLabel));
         listCate.add(new CategoriesModel("ManagementStatistical", management_statisticalPanel, statistifyLabel));
         ssController.setEvent(listCate);
-
     }
 
     @SuppressWarnings("unchecked")
