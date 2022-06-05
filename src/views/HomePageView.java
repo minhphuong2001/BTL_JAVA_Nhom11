@@ -4,17 +4,48 @@
  */
 package views;
 
+import controllers.FileController;
+import java.util.ArrayList;
+import java.util.List;
+import models.Customer;
+import models.OrderDetail;
+import models.product;
+import models.Order;
+import static views.ManagementCustomerView.customers;
+
 /**
  *
- * @author ADMIN
+ * @author Minh Phuong Do
  */
 public class HomePageView extends javax.swing.JPanel {
 
-    /**
-     * Creates new form HomePageView
-     */
+    static FileController fileController;
+    static List<product> listProduct = new ArrayList<product>();
+    static List<Customer> listCustomer= new ArrayList<>();
+    static List<OrderDetail> listOrderDetail = new ArrayList<>();
+    static List<Order> listOrder = new ArrayList<>();
+
     public HomePageView() {
         initComponents();
+        listCustomer = fileController.readCustomerFromFile("customer.txt");
+        listProduct = fileController.readProductFromFile("product.txt");
+        listOrderDetail = fileController.readOrderDetailFromFile("orderDetail.txt");
+        listOrder = fileController.readOrderFromFile("order.txt");
+
+        customerLabel.setText(listCustomer.size()-1 + "");
+        productLabel.setText(listProduct.size()-1 + "");
+
+        int sumQuantity=0;
+        for(OrderDetail item:listOrderDetail){
+            sumQuantity += item.getQuantity();
+        }
+        productSoldLabel.setText(sumQuantity + "");
+
+        float total=0;
+        for(Order item:listOrder){
+            total += item.getTotalMoneyDouble();
+        }
+        totalMoneyLabel.setText(total + "");
     }
 
     /**
@@ -29,19 +60,19 @@ public class HomePageView extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        customerLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        productSoldLabel = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        productLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        totalMoneyLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
 
@@ -51,9 +82,8 @@ public class HomePageView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.PNG"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("105");
+        customerLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        customerLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,22 +98,20 @@ public class HomePageView extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(customerLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(58, 58, 58))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(53, 53, 53))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
+                .addComponent(customerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -96,9 +124,8 @@ public class HomePageView extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Sản phẩm đã bán");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("512");
+        productSoldLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        productSoldLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/soldout.PNG"))); // NOI18N
 
@@ -109,13 +136,11 @@ public class HomePageView extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(46, 46, 46)))
-                .addContainerGap())
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(productSoldLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,13 +148,13 @@ public class HomePageView extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel7)
+                        .addComponent(productSoldLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(jLabel11)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(102, 153, 255));
@@ -139,9 +164,8 @@ public class HomePageView extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Sản phẩm");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("210");
+        productLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        productLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/product.PNG"))); // NOI18N
 
@@ -152,10 +176,10 @@ public class HomePageView extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(productLabel))
                 .addGap(50, 50, 50))
         );
         jPanel4Layout.setVerticalGroup(
@@ -166,10 +190,10 @@ public class HomePageView extends javax.swing.JPanel {
                 .addGap(51, 51, 51))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel5)
+                .addComponent(productLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 204, 102));
@@ -179,9 +203,8 @@ public class HomePageView extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tổng doanh thu");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("120M");
+        totalMoneyLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        totalMoneyLabel.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money.PNG"))); // NOI18N
 
@@ -192,11 +215,11 @@ public class HomePageView extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addGap(26, 26, 26))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(totalMoneyLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(24, 24, 24))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,13 +227,13 @@ public class HomePageView extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
+                        .addComponent(totalMoneyLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(jLabel12)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
@@ -250,7 +273,7 @@ public class HomePageView extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,23 +299,23 @@ public class HomePageView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel customerLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel productLabel;
+    private javax.swing.JLabel productSoldLabel;
+    private javax.swing.JLabel totalMoneyLabel;
     // End of variables declaration//GEN-END:variables
 }
