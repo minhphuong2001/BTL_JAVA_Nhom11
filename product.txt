@@ -1,8 +1,8 @@
 1|Áo Polo Nam|280000.0|10000.0|10.0|22
 2|Quần Jeans Clean Denim|599000.0|200000.0|10.0|2
 3|Áo thun nam Cotton Compact|259000.0|150000.0|20.0|3
-4|Quần Short nam Ultra Pro|189000.0|100000.0|15.0|5
+4|Quần Short nam Ultra Pro|189000.0|100000.0|15.0|2
 5|Đầm voan bèo vai|495000.0|200000.0|10.0|0
-6|Áo thun nam Cotton Compact|100000.0|150000.0|20.0|480
-7|Quần Short nam Ultra Pro|20000.0|100000.0|15.0|2
+6|Áo thun nam Cotton Compact|100000.0|150000.0|20.0|450
+7|Quần Short nam Ultra Pro|20000.0|100000.0|15.0|0
 8|Đầm voan bèo vai|495000.0|200000.0|10.0|1

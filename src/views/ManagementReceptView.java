@@ -131,6 +131,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         ipnSearch = new javax.swing.JTextField();
+        reloadBtn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 585));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -373,18 +374,31 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 .addComponent(jButton1))
         );
 
+        reloadBtn.setText("Cập nhật");
+        reloadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reloadBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(reloadBtn)
+                        .addGap(15, 15, 15)))
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -399,9 +413,10 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(reloadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(58, 58, 58))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -485,8 +500,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
         int row=orderTbl.getSelectedRow();
         Integer orderID=(Integer)orderTbl.getValueAt(row, 0);
-        String status=cbxstatus.getSelectedItem().toString();
-        System.out.println(status);
+        String status=cbxstatus.getSelectedItem().toString();  
         //update lai file
         Order order=new Order(orderID,cusID,strdate,status);
         orders.set(row,order);
@@ -511,6 +525,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         int row=orderTbl.getSelectedRow();
         String status=(String)orderTbl.getValueAt(row, 4);
         Integer OrderID=(Integer)orderTbl.getValueAt(row, 0);
+        Float Point =orders.get(row).getTotalMoneyDouble();
         if(status.equals(cbxstatus.getItemAt(0)))
         {
            int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hóa đơn này?", "Xác nhận", JOptionPane.YES_NO_OPTION, 0);
@@ -534,7 +549,9 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 fileController.updateListProductToFile("product.txt", products);
                 fileController.updateListOrderDetail("orderDetail.txt",orderDetails);
                 
-                orders.get(row).setPoint(-orders.get(row).getTotalMoneyDouble());
+                //orders.get(row).setPoint(-orders.get(row).getTotalMoneyDouble());
+                
+                orders.get(row).setPoint(Point,0f);
                 orders.remove(row);
                 fileController.updatelistOrderToFile("order.txt",orders);
                 model.setRowCount(0);
@@ -577,7 +594,6 @@ public class ManagementReceptView extends javax.swing.JPanel {
         }
         float total=(float)model.getValueAt(row, 3);
         String status=(String)model.getValueAt(row,4);
-        System.out.println(orderID);
         // đưa dữ liệu lên ô input
         ipnOrderID.setText(orderID+"");
         ipnCusmonerID.setText(cusID+"");
@@ -612,6 +628,24 @@ public class ManagementReceptView extends javax.swing.JPanel {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_ipnSearchKeyReleased
+
+    private void reloadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadBtnActionPerformed
+        // TODO add your handling code here:
+        model.setRowCount(0);
+            orders.forEach(item ->
+            {
+                model.addRow(new Object[]{
+                    item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
+                 });
+            });
+        modelCus.setRowCount(0);
+        customers.forEach(a -> {
+            modelCus.addRow(new Object[]{
+                a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
+            });
+        });
+        setNullTextField();
+    }//GEN-LAST:event_reloadBtnActionPerformed
 
      private void actionDisplay(){
         searchBtn.setEnabled(true);
@@ -665,6 +699,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable orderTbl;
+    private javax.swing.JButton reloadBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables

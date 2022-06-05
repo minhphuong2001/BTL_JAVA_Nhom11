@@ -67,13 +67,10 @@ public class OrderDetail {
         List<product> products =new ArrayList<>();
         products=FileController.readProductFromFile("product.txt");
         float tong=0;
-        for(product item :products){
-            System.out.println("\nProduct"+item);
-        }
+        
         for(product item:products){
            
             if(item.getmaSP().equals(getProductID())){
-                System.out.println("bang nhau" + getOrderID()+" o"+item.getmaSP());
                 tong=getQuantity()*item.getGiaBan()-(getQuantity()*item.getGiaBan())*item.getGiamGia()/100f;
             }}
         return tong;

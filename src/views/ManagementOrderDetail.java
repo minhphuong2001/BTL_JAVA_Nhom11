@@ -216,7 +216,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 .addGap(132, 132, 132))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 470, 240));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 460, 240));
 
         orderDetailTbl.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         orderDetailTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -242,7 +242,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(orderDetailTbl);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 470, 200));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 460, 200));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setText("Ngày tạo");
@@ -312,6 +312,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         Integer ProductID = Integer.parseInt(ipnProductID.getText());        
         Integer Quantity = Integer.parseInt(ipnQuantity.getText());
         Float money=(Float)model.getValueAt(row, 2);
+        Float Point =orders.get(orderIndex).getTotalMoneyDouble();
         for (product pr : products) {
             if (pr.getmaSP().equals(ProductID)) {
                 sl = pr.getSoLuong();
@@ -329,9 +330,10 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         model.setValueAt(Quantity, row, 1);
         model.setValueAt(Money, row, 2);
         ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
-        orders.get(orderIndex).setPoint(-money+Money); 
+        //orders.get(orderIndex).setPoint(-money+Money); 
         setNullIPN();
-        //orders.get(orderIndex).setPoint(orders.get(orderIndex).getTotalMoneyDouble());
+        
+        orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
     }//GEN-LAST:event_updateBtnActionPerformed
     
 
@@ -344,11 +346,11 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "So luong san pham khong du");
             return;
         }
-        System.out.println("hoadon"+orders.get(orderIndex));
+        Float Point =orders.get(orderIndex).getTotalMoneyDouble();
         OrderDetail od = new OrderDetail(orders.get(orderIndex).getOrderID(), ProductID, Quantity);
         orderDetails.add(od);
-        fileController.writeOrderDetailToFile("orderDetail.txt", od);        
-        System.out.println("money" + od.money());
+        fileController.writeOrderDetailToFile("orderDetail.txt", od); 
+       
         model.addRow(new Object[]{
             ProductID, Quantity, od.money()
         }
@@ -366,7 +368,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         
         ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
         setNullIPN();
-        orders.get(orderIndex).setPoint(od.money());
+        orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
         
     }//GEN-LAST:event_addBtnActionPerformed
     private void orderDetailTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderDetailTblMouseClicked
@@ -411,13 +413,13 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+            Float Point =orders.get(orderIndex).getTotalMoneyDouble();
             //xoa tren giao dien
             model.removeRow(row);
             orderDetails.remove(row);
             FileController.updateListOrderDetail("orderDetail.txt", orderDetails);
             ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble()+"");
-            orders.get(orderIndex).setPoint(-money);                                                                                    
+            orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));                                                                                  
             
         }
         
@@ -536,7 +538,6 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     private void OrderDetailDisplay() {
         
         Integer orderID = Integer.parseInt(ipnorderID.getText().trim());
-        System.out.println(orderID);
         model = (DefaultTableModel) orderDetailTbl.getModel();
         orderDetails = FileController.readOrderDetailFromFile("orderDetail.txt");
         for (OrderDetail a : orderDetails) {
