@@ -203,7 +203,7 @@ public class FileController {
             String line = "";
             while((line = br.readLine())!= null){
                 String[] data = line.split("\\|");
-                Employee employee = new Employee(Integer.parseInt(data[0]),data[1],data[2],data[3],Double.parseDouble(data[4]),data[5]);
+                Employee employee = new Employee(Integer.parseInt(data[0]),data[1],data[2],data[3],Integer.parseInt(data[4]),data[5]);
                 employees.add(employee);
             }
         } catch (Exception e0) {

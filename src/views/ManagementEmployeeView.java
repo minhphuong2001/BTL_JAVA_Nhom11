@@ -137,9 +137,9 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         employeeTitle.setText("QUẢN LÝ NHÂN VIÊN");
         employeePanel.add(employeeTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 260, 50));
 
-        Error.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Error.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         Error.setForeground(new java.awt.Color(204, 0, 51));
-        employeePanel.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 860, 30));
+        employeePanel.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 710, 30));
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,7 +161,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             tblEmployee.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 421, 860, 200));
+        employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 870, 260));
 
         addBtn.setBackground(new java.awt.Color(75, 123, 236));
         addBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -229,6 +229,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Lương");
+        employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, -1, -1));
 
         salaryField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,12 +246,12 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 276, 36));
+        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 276, 36));
 
         searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchLabel.setMaximumSize(new java.awt.Dimension(60, 70));
         searchLabel.setMinimumSize(new java.awt.Dimension(60, 70));
-        employeePanel.add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 60, 50));
+        employeePanel.add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 80, 50));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Ngày bắt đầu");
@@ -272,7 +273,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(employeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -282,12 +283,12 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             String phone = phoneField.getText().trim();
             String address = addressField.getText().trim();
             String salary= salaryField.getText().trim();
-            SimpleDateFormat da=new SimpleDateFormat("dd-MMMM-YYYY");
+           // SimpleDateFormat da=new SimpleDateFormat("dd-MMMM-YYYY");
 //            Date d=DateChooser.getDate();
 //            System.out.println("g:"+d);
              String date=((JTextField)DateChooser.getDateEditor().getUiComponent()).getText();
 
-            String regexName = "^[a-zA-Z]{1,30}$";
+            String regexName = "^[a-z A-Z]{1,30}$";
             Pattern pattern = Pattern.compile(regexName);
             Matcher match = pattern.matcher(name);
             if(name.compareTo("") == 0){
@@ -311,7 +312,6 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 return;
             }
             
-            
             String regexSalary = "^\\d+$";
             Pattern patternSalary = Pattern.compile(regexSalary);
             Matcher matchSalary = patternSalary.matcher(salary);
@@ -329,29 +329,28 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 Error.setText("Vui lòng nhập địa chỉ");
                 return;
             }
+            DateFormat dateFormat = null;
+            dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date d=dateFormat.parse(date);
+            Date datenow = new Date();
+            if(d.after(datenow)){
+                Error.setText("Không được chọn ngày bắt đầu làm trong tương lai");
+                return;
+            }
             Error.setText("");
-            Employee emp = new Employee(id,name,phone,address, Double.parseDouble(salary),date);
+            Employee emp = new Employee(id,name,phone,address, Integer.parseInt(salary),date);
             FileController.writeEmployeeToFile("employee.txt",emp);
             table.addRow(new Object[]{
                 id,name,phone,address,salary,date
             });
             employees.add(emp);
-            idField.setText("");
-            nameField.setText("");
-            phoneField.setText("");
-            salaryField.setText("");
-            addressField.setText("");
+            
+            clearField();
+            
             JOptionPane.showMessageDialog(null, "Thêm nhân viên mới thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
             //JOptionPane.showMessageDialog(rootPane,"Thêm nhân viên mới thành công");
-            if(employees.size()==0){
-                id=0;
-            }
-            else{
-                id =employees.get(employees.size()-1).getEmployeeId()+ 1;
-                System.out.println(id);
-            }
-            idField.setText(id.toString());
+            setIdField();
 
         }
          catch (Exception e) {
@@ -362,16 +361,69 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        try{
         Integer id = Integer.parseInt(idField.getText().trim());
+        
         String name = nameField.getText();
         String phone= phoneField.getText();
         String address = addressField.getText();
         String salary=salaryField.getText();
         String date=((JTextField)DateChooser.getDateEditor().getUiComponent()).getText();
+        
+            String regexName = "^[a-z A-Z]{1,30}$";
+            Pattern pattern = Pattern.compile(regexName);
+            Matcher match = pattern.matcher(name);
+            if(name.compareTo("") == 0){
+                Error.setText("Vui lòng nhập tên");
+                return;
+            }
+            if(!match.matches()){
+                Error.setText("Tên không bao gồm số và các kí tự đặc biệt, tối đa 30 kí tự");
+                return;
+            }
+
+            String regexPhone = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$";
+            Pattern patternPhone = Pattern.compile(regexPhone);
+            Matcher matchPhone = patternPhone.matcher(phone);
+            if(phone.compareTo("") == 0){
+                Error.setText("Vui lòng nhập số điện thoại");
+                return;
+            }
+            if(!matchPhone.matches()){
+                Error.setText("Nhập sai số điện thoại");
+                return;
+            }
+            String regexSalary = "^\\d+$";
+            Pattern patternSalary = Pattern.compile(regexSalary);
+            Matcher matchSalary = patternSalary.matcher(salary);
+
+            if(salary.compareTo("")==0){
+                Error.setText("Vui lòng nhập lương");
+                return;
+            }
+            if(!matchSalary.matches()){
+                Error.setText("Lương chỉ bao gồm chữ số");
+                return;
+            }
+
+            if(address.compareTo("") == 0){
+                Error.setText("Vui lòng nhập địa chỉ");
+                return;
+            }
+            DateFormat dateFormat = null;
+            dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date d=dateFormat.parse(date);
+            Date datenow = new Date();
+            if(d.after(datenow)){
+               
+                Error.setText("Không được chọn ngày bắt đầu làm trong tương lai");
+                return;
+            }
+        Error.setText("");
 
         int row = tblEmployee.getSelectedRow();
-
-        Employee emp = new Employee(id,name, phone, address,Double.parseDouble(salary),date);
+ 
+        Employee emp = new Employee(id,name, phone, address,Integer.parseInt(salary),date);
         employees.set(row, emp);
         FileController.updateEmployeeToFile("employee.txt", employees);
 
@@ -388,23 +440,18 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         updateBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
         addBtn.setEnabled(true);
-        idField.setText("");
-        nameField.setText("");
-        phoneField.setText("");
-        addressField.setText("");
-        salaryField.setText("");
+       
+        clearField();
+        
         Date date1 = new Date();
         DateChooser.setDate(date1);
-        
-        if(employees.size()==0){
-            id=0;
-        }
-        else{
-            id =employees.get(employees.size()-1).getEmployeeId()+ 1;
-            System.out.println(id);
-        }
-        idField.setText(id.toString());
+        setIdField();
         setBgButtonNull();
+        }catch (Exception e) {
+            Error.setText("Vui lòng lòng nhập đầy đủ thông tin");
+            Error.setText(e.toString());
+            System.out.println("E:"+e);
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -426,22 +473,10 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         }
 
         //JOptionPane.showMessageDialog(rootPane,"Xóa nhân viên thành công");
-        idField.setText("");
-        nameField.setText("");
-        phoneField.setText("");
-        addressField.setText("");
-        salaryField.setText("");
+        clearField();
         Date date1 = new Date();
         DateChooser.setDate(date1);
-
-        if(employees.size()==0){
-            id=0;
-        }
-        else{
-            id =employees.get(employees.size()-1).getEmployeeId()+ 1;
-            System.out.println(id);
-        }
-        idField.setText(id.toString());
+        setIdField();
         setBgButtonNull();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
@@ -452,24 +487,24 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             String name = (String) tblEmployee.getValueAt(row,1);
             String phone = (String) tblEmployee.getValueAt(row,2);
             String address = (String) tblEmployee.getValueAt(row,3);
-            Double salary=(Double) tblEmployee.getValueAt(row, 4);
+            Integer salary=(Integer) tblEmployee.getValueAt(row, 4);
             //Date date=(Date) tblEmployee.getValueAt(row, 5);
             SimpleDateFormat da=new SimpleDateFormat("dd-MM-YYYY");
             Date date;
             date = new SimpleDateFormat("dd-MM-yyyy").parse((String)tblEmployee.getValueAt(row, 5));
-                    idField.setText(id.toString());
-                    nameField.setText(name);
-                    phoneField.setText(phone);
-                    addressField.setText(address);
-                    salaryField.setText(salary.toString());
-                    DateChooser.setDate(date);
-                    Error.setText("");
+            idField.setText(id.toString());
+            nameField.setText(name);
+            phoneField.setText(phone);
+            addressField.setText(address);
+            salaryField.setText(salary.toString());
+            DateChooser.setDate(date);
+            Error.setText("");
                     
-                    idField.setEnabled(false);
-                    addBtn.setEnabled(false);
-                    deleteBtn.setEnabled(true);
-                    updateBtn.setEnabled(true);
-                    setBgButtonHasColor();
+            idField.setEnabled(false);
+            addBtn.setEnabled(false);
+            deleteBtn.setEnabled(true);
+            updateBtn.setEnabled(true);
+            setBgButtonHasColor();
         } catch (ParseException ex) {
             Logger.getLogger(ManagementEmployeeView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -528,13 +563,27 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         addBtn.setBackground(new Color(223, 230, 233));
         updateBtn.setBackground(new Color(0,153,51));
         //deleteBtn.setBackground(new Color(204,51,0));
-        deleteBtn.setBackground(new Color(204,37,31));
-
-    
-
-            
+        deleteBtn.setBackground(new Color(204,37,31));      
     }
-
+    private void clearField(){
+        idField.setText("");
+        nameField.setText("");
+        phoneField.setText("");
+        addressField.setText("");
+        salaryField.setText("");
+    }
+    private void setIdField(){
+        if(employees.size()==0){
+            id=0;
+        }
+        else{
+            id =employees.get(employees.size()-1).getEmployeeId()+ 1;
+            System.out.println(id);
+        }
+        idField.setText(id.toString());
+    }
+ 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DateChooser;
     private javax.swing.JLabel Error;

@@ -100,33 +100,37 @@ public class ManagementAccountView extends javax.swing.JPanel {
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(75, 123, 236));
         titleLabel.setText("QUẢN LÝ TÀI KHOẢN");
-        add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 22, 310, 52));
+        add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 310, 52));
 
+        idLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         idLabel.setText("ID");
-        add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 126, -1, -1));
-        add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 115, 275, 35));
+        add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 275, 35));
 
+        usernameLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         usernameLabel.setText("Tên người dùng");
-        add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 185, -1, -1));
 
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 usernameFieldKeyReleased(evt);
             }
         });
-        add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 169, 275, 35));
+        add(usernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 175, 275, 35));
 
+        passwordLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         passwordLabel.setText("Mật khẩu");
-        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, -1));
+        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
 
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 passwordFieldKeyReleased(evt);
             }
         });
-        add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 275, 35));
+        add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 275, 35));
 
         addBtn.setBackground(new java.awt.Color(75, 123, 236));
+        addBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Thêm");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -134,24 +138,26 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 addBtnActionPerformed(evt);
             }
         });
-        add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 130, 50));
+        add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 130, 50));
 
+        roleLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         roleLabel.setText("Vai trò");
-        add(roleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
+        add(roleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 185, -1, -1));
 
         editBtn.setBackground(new java.awt.Color(102, 255, 102));
+        editBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         editBtn.setText("Cập nhật");
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editBtnActionPerformed(evt);
             }
         });
-        add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, 130, 50));
+        add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 130, 50));
 
         roleComboBox.setEditable(true);
         roleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
         roleComboBox.setMinimumSize(new java.awt.Dimension(64, 40));
-        add(roleComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 275, 35));
+        add(roleComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 175, 275, 35));
 
         accountTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -175,9 +181,10 @@ public class ManagementAccountView extends javax.swing.JPanel {
             accountTable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 378, 912, 300));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 378, 870, 300));
 
         deleteBtn.setBackground(new java.awt.Color(255, 0, 0));
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         deleteBtn.setText("Xóa");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -185,8 +192,9 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 deleteBtnActionPerformed(evt);
             }
         });
-        add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 290, 130, 50));
+        add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 300, 130, 50));
 
+        showError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         showError.setForeground(new java.awt.Color(255, 0, 0));
         add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 730, 40));
 
@@ -196,8 +204,8 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 275, 35));
-        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 54, 50));
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 275, 35));
+        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 300, 90, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
