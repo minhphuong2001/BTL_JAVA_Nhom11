@@ -90,5 +90,10 @@ public class product {
     public void setSoLuong(Integer soLuong) {
         this.soLuong = soLuong;
     }
+
+    @Override
+    public String toString() {
+        return "product{" + "maSP=" + maSP + ", tenSP=" + tenSP + ", giaBan=" + giaBan + ", giaMua=" + giaMua + ", giamGia=" + giamGia + ", soLuong=" + soLuong + '}';
+    }
     
 } 
