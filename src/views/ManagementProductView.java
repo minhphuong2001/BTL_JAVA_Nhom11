@@ -6,12 +6,15 @@ package views;
 
 import controllers.FileController;
 import controllers.Utils;
+import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.product;
@@ -55,8 +58,24 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton.setEnabled(false);
         xoajButton.setEnabled(false);
         increaseProductId();
+        
+        
+        ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
+        searchLabel.setIcon(searchIcon);
+        ImageIcon deleteIcon=iconimage(25,25,"src/icons/bin2.png");
+        xoajButton.setIcon(deleteIcon);
+        ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
+        suajButton.setIcon(updateIcon);
+        ImageIcon addIcon=iconimage(25,25,"src/icons/add-product.png");
+        themjButton.setIcon(addIcon);
     }
-
+    public ImageIcon iconimage(int w,int h,String link){
+        ImageIcon Icon = new ImageIcon(link);
+        Image img= Icon.getImage();
+        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
+        ImageIcon Scale=new ImageIcon(imgScale);
+        return Scale;
+        }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,7 +93,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         giabanField = new java.awt.TextField();
         xoajButton = new javax.swing.JButton();
         soluongField = new java.awt.TextField();
-        jLabel7 = new javax.swing.JLabel();
+        searchLabel = new javax.swing.JLabel();
         showErr = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -82,6 +101,8 @@ public class ManagementProductView extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         suajButton.setBackground(new java.awt.Color(102, 255, 102));
         suajButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -91,10 +112,12 @@ public class ManagementProductView extends javax.swing.JPanel {
                 suajButtonActionPerformed(evt);
             }
         });
+        add(suajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 130, 50));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(75, 123, 236));
         jLabel2.setText("QUẢN LÝ SẢN PHẨM");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         themjButton.setBackground(new java.awt.Color(192, 192, 192));
         themjButton.setText("Thêm");
@@ -103,6 +126,7 @@ public class ManagementProductView extends javax.swing.JPanel {
                 themjButtonActionPerformed(evt);
             }
         });
+        add(themjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 130, 50));
 
         searchFieldProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,12 +138,14 @@ public class ManagementProductView extends javax.swing.JPanel {
                 searchFieldProductKeyReleased(evt);
             }
         });
+        add(searchFieldProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 275, 35));
 
         tenspField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tenspFieldKeyReleased(evt);
             }
         });
+        add(tenspField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 275, 35));
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,26 +161,35 @@ public class ManagementProductView extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(productTable);
+        if (productTable.getColumnModel().getColumnCount() > 0) {
+            productTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        }
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 880, 320));
 
         giamuaField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 giamuaFieldKeyReleased(evt);
             }
         });
+        add(giamuaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 275, 35));
 
         idspField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        add(idspField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 275, 35));
 
         giagiamField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 giagiamFieldKeyReleased(evt);
             }
         });
+        add(giagiamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 275, 35));
 
         giabanField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 giabanFieldKeyReleased(evt);
             }
         });
+        add(giabanField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 275, 35));
 
         xoajButton.setBackground(new java.awt.Color(255, 0, 0));
         xoajButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,136 +199,45 @@ public class ManagementProductView extends javax.swing.JPanel {
                 xoajButtonActionPerformed(evt);
             }
         });
+        add(xoajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 130, 50));
 
         soluongField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 soluongFieldKeyReleased(evt);
             }
         });
+        add(soluongField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 275, 35));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Tìm kiếm");
+        searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 97, 40));
 
+        showErr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         showErr.setForeground(new java.awt.Color(255, 0, 0));
+        add(showErr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 720, 30));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Mã sản phẩm");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tên sản phẩm");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Giá bán");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Giá mua");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Giảm giá");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Số lượng");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(364, 364, 364))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 952, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(41, 41, 41)
-                                        .addComponent(idspField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tenspField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(giabanField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(giamuaField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(searchFieldProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel6))
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(giagiamField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(soluongField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(showErr, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(themjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(suajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addComponent(xoajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(giagiamField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idspField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(32, 32, 32)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tenspField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(soluongField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel3)
-                        .addGap(9, 9, 9)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(giabanField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showErr, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(giamuaField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(xoajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(suajButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(themjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchFieldProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
-        );
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void productTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productTableMouseClicked
@@ -317,6 +261,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         themjButton.setEnabled(false);
         suajButton.setEnabled(true);
         xoajButton.setEnabled(true);
+        setBgButtonHasColor();
         // TODO add your handling code here:
     }//GEN-LAST:event_productTableMouseClicked
 
@@ -422,6 +367,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         themjButton.setEnabled(true);
         setTextNull("Cập nhật thông tin thành công", "Cập nhật sản phẩm");
         increaseProductId();
+        setBgButtonNull();
     }//GEN-LAST:event_suajButtonActionPerformed
 
     private void xoajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoajButtonActionPerformed
@@ -441,6 +387,7 @@ public class ManagementProductView extends javax.swing.JPanel {
             increaseProductId();
             tenspField.requestFocus();
         }
+        setBgButtonNull();
     }//GEN-LAST:event_xoajButtonActionPerformed
 
     private void setTextNull(String title, String subTitle) {
@@ -484,7 +431,17 @@ public class ManagementProductView extends javax.swing.JPanel {
     private void searchFieldProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldProductActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldProductActionPerformed
-
+    private void setBgButtonNull(){
+        themjButton.setBackground(new Color(75,123,236));
+        suajButton.setBackground(new Color(153,255,153));
+        xoajButton.setBackground(new Color(223, 230, 233));
+    }
+    private void setBgButtonHasColor(){
+        themjButton.setBackground(new Color(223, 230, 233));
+        suajButton.setBackground(new Color(0,153,51));
+        //deleteBtn.setBackground(new Color(204,51,0));
+        xoajButton.setBackground(new Color(204,37,31));      
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.TextField giabanField;
@@ -497,11 +454,11 @@ public class ManagementProductView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productTable;
     private javax.swing.JTextField searchFieldProduct;
+    private javax.swing.JLabel searchLabel;
     private javax.swing.JLabel showErr;
     private java.awt.TextField soluongField;
     private javax.swing.JButton suajButton;

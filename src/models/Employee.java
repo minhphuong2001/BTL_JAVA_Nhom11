@@ -13,13 +13,13 @@ public class Employee {
     private String employeeName;
     private String employeePhone;
     private String employeeAddress;
-    private Double employeeSalary;
+    private Integer employeeSalary;
     private String employeeDate;
 
     public Employee(){
         
     }
-    public Employee(Integer employeeId, String employeeName, String employeePhone, String employeeAddress, Double employeeSalary,String employeeDate ){
+    public Employee(Integer employeeId, String employeeName, String employeePhone, String employeeAddress, Integer employeeSalary,String employeeDate ){
         this.employeeId=employeeId;
         this.employeeName=employeeName;
         this.employeePhone=employeePhone;
@@ -52,10 +52,10 @@ public class Employee {
     public void setEmployeeAddress(String employeeAddress){
             this.employeeAddress=employeeAddress;
     }
-    public Double getEmployeeSalary(){
+    public Integer getEmployeeSalary(){
             return employeeSalary;
     }
-    public void setEmployeeSalary(Double employeeSalary){
+    public void setEmployeeSalary(Integer employeeSalary){
             this.employeeSalary=employeeSalary;
     }
     public String getEmployeeDate(){
@@ -65,6 +65,6 @@ public class Employee {
             this.employeeDate=employeeDate;
     }
     public String toFile(){
-        return String.format("%d|%s|%s|%s|%f|%s",employeeId , employeeName, employeePhone, employeeAddress,employeeSalary,employeeDate);
+        return String.format("%d|%s|%s|%s|%d|%s",employeeId , employeeName, employeePhone, employeeAddress,employeeSalary,employeeDate);
     }
 }
