@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 import models.product;
 import static views.ManagementAccountView.tableModal;
 import static views.ManagementAccountView.utils;
-
 /**
  *
  * @author Minh Phuong Do
@@ -34,6 +33,7 @@ public class ManagementProductView extends javax.swing.JPanel {
     static DefaultTableModel tableModal;
     static List<product> listProduct = new ArrayList<product>();
     static FileController file;
+    static Utils utils;
 
     Integer productID;
     public void increaseProductId(){
@@ -58,7 +58,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton.setEnabled(false);
         xoajButton.setEnabled(false);
         increaseProductId();
-        
+        utils.setBgButtonNull(themjButton, suajButton, xoajButton);
         
         ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
         searchLabel.setIcon(searchIcon);
@@ -83,7 +83,6 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         themjButton = new javax.swing.JButton();
-        searchFieldProduct = new javax.swing.JTextField();
         tenspField = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
@@ -101,6 +100,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        searchField = new java.awt.TextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -119,7 +119,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         jLabel2.setText("QUẢN LÝ SẢN PHẨM");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
-        themjButton.setBackground(new java.awt.Color(192, 192, 192));
+        themjButton.setBackground(new java.awt.Color(75, 123, 236));
         themjButton.setText("Thêm");
         themjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,18 +127,6 @@ public class ManagementProductView extends javax.swing.JPanel {
             }
         });
         add(themjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 130, 50));
-
-        searchFieldProduct.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchFieldProductActionPerformed(evt);
-            }
-        });
-        searchFieldProduct.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                searchFieldProductKeyReleased(evt);
-            }
-        });
-        add(searchFieldProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 275, 35));
 
         tenspField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -191,7 +179,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         });
         add(giabanField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 275, 35));
 
-        xoajButton.setBackground(new java.awt.Color(255, 0, 0));
+        xoajButton.setBackground(new java.awt.Color(204, 37, 31));
         xoajButton.setForeground(new java.awt.Color(255, 255, 255));
         xoajButton.setText("Xóa");
         xoajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +197,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         add(soluongField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 275, 35));
 
         searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 97, 40));
+        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 60, 40));
 
         showErr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         showErr.setForeground(new java.awt.Color(255, 0, 0));
@@ -238,6 +226,14 @@ public class ManagementProductView extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Số lượng");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
+
+        searchField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchFieldKeyReleased(evt);
+            }
+        });
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 350, 310, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void productTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productTableMouseClicked
@@ -261,8 +257,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         themjButton.setEnabled(false);
         suajButton.setEnabled(true);
         xoajButton.setEnabled(true);
-        setBgButtonHasColor();
-        // TODO add your handling code here:
+        utils.setBgButtonHasColor(themjButton, suajButton, xoajButton);
     }//GEN-LAST:event_productTableMouseClicked
 
     private void themjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themjButtonActionPerformed
@@ -367,7 +362,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         themjButton.setEnabled(true);
         setTextNull("Cập nhật thông tin thành công", "Cập nhật sản phẩm");
         increaseProductId();
-        setBgButtonNull();
+        utils.setBgButtonNull(themjButton, suajButton, xoajButton);
     }//GEN-LAST:event_suajButtonActionPerformed
 
     private void xoajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoajButtonActionPerformed
@@ -387,7 +382,7 @@ public class ManagementProductView extends javax.swing.JPanel {
             increaseProductId();
             tenspField.requestFocus();
         }
-        setBgButtonNull();
+        utils.setBgButtonNull(themjButton, suajButton, xoajButton);
     }//GEN-LAST:event_xoajButtonActionPerformed
 
     private void setTextNull(String title, String subTitle) {
@@ -399,10 +394,6 @@ public class ManagementProductView extends javax.swing.JPanel {
         soluongField.setText("");
         JOptionPane.showConfirmDialog(null, title, subTitle, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
     }
-    private void searchFieldProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldProductKeyReleased
-      // utils.filterByTable(searchFieldProduct, tableModal, productTable);
-    }//GEN-LAST:event_searchFieldProductKeyReleased
-
     private void giamuaFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_giamuaFieldKeyReleased
         // TODO add your handling code here:
         validateField("price", giamuaField.getText(), "Giá mua");
@@ -428,20 +419,11 @@ public class ManagementProductView extends javax.swing.JPanel {
         validateField("productName", tenspField.getText(), "");
     }//GEN-LAST:event_tenspFieldKeyReleased
 
-    private void searchFieldProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldProductActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchFieldProductActionPerformed
-    private void setBgButtonNull(){
-        themjButton.setBackground(new Color(75,123,236));
-        suajButton.setBackground(new Color(153,255,153));
-        xoajButton.setBackground(new Color(223, 230, 233));
-    }
-    private void setBgButtonHasColor(){
-        themjButton.setBackground(new Color(223, 230, 233));
-        suajButton.setBackground(new Color(0,153,51));
-        //deleteBtn.setBackground(new Color(204,51,0));
-        xoajButton.setBackground(new Color(204,37,31));      
-    }
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
+        // TODO: filter by account table
+        utils.filterByTable(searchField, tableModal, productTable);
+    }//GEN-LAST:event_searchFieldKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.TextField giabanField;
@@ -457,7 +439,7 @@ public class ManagementProductView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productTable;
-    private javax.swing.JTextField searchFieldProduct;
+    private java.awt.TextField searchField;
     private javax.swing.JLabel searchLabel;
     private javax.swing.JLabel showErr;
     private java.awt.TextField soluongField;

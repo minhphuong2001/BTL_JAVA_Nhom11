@@ -1,6 +1,8 @@
 package controllers;
 
+import java.awt.Color;
 import java.awt.TextField;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -11,16 +13,41 @@ import javax.swing.table.TableRowSorter;
  * @author Minh Phuong Do
  */
 public class Utils {
-    public static void filterByTable(TextField fieldName, DefaultTableModel tableModel, JTable tableName){
+    public static void filterByColummTable(TextField fieldName, DefaultTableModel tableModel, JTable tableName, int searchColumn){
         TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(tableModel);
 
         tableName.setRowSorter(rowSorter);
-        String searchUsername = fieldName.getText();
+        String searchUsername = fieldName.getText().trim().toLowerCase();
 
         if(searchUsername.trim().length() == 0){
             rowSorter.setRowFilter(null);
         } else {
-            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchUsername));
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchUsername, searchColumn));
         }
+    }
+
+    public static void filterByTable(TextField fieldName, DefaultTableModel tableModel, JTable tableName){
+        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(tableModel);
+
+        tableName.setRowSorter(rowSorter);
+        String search = fieldName.getText().trim().toLowerCase();
+
+        if(search.trim().length() == 0){
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + search));
+        }
+    }
+
+    public static void setBgButtonNull(JButton addBtn, JButton updateBtn, JButton deleteBtn){
+        addBtn.setBackground(new Color(75,123,236));
+        updateBtn.setBackground(new Color(223, 230, 233));
+        deleteBtn.setBackground(new Color(223, 230, 233));
+    }
+
+    public static void setBgButtonHasColor(JButton addBtn, JButton updateBtn, JButton deleteBtn){
+        addBtn.setBackground(new Color(223, 230, 233));
+        updateBtn.setBackground(new Color(0,153,51));
+        deleteBtn.setBackground(new Color(204,37,31));      
     }
 }
