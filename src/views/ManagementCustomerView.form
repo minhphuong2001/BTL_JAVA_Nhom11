@@ -268,7 +268,7 @@
         <Component class="javax.swing.JLabel" name="searchLabel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="263" width="50" height="40"/>
+              <AbsoluteConstraints x="50" y="280" width="50" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

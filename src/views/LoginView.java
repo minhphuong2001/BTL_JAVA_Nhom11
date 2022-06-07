@@ -119,7 +119,7 @@ public class LoginView extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Rockwell Condensed", 0, 40)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("WELCOME TO MINSHOP");
+        jLabel4.setText("WELCOME TO MINASHOP");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,7 +144,7 @@ public class LoginView extends javax.swing.JFrame {
                     .addGroup(leftPanelLayout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(jLabel6)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

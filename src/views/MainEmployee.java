@@ -61,16 +61,17 @@ public class MainEmployee extends javax.swing.JFrame {
 
         customerLabel.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        customerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thanh_toan.png"))); // NOI18N
         customerLabel.setText("QUẢN LÝ KHÁCH HÀNG");
 
         javax.swing.GroupLayout management_customerPanelLayout = new javax.swing.GroupLayout(management_customerPanel);
         management_customerPanel.setLayout(management_customerPanelLayout);
         management_customerPanelLayout.setHorizontalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(management_customerPanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_customerPanelLayout.createSequentialGroup()
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(customerLabel)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
         management_customerPanelLayout.setVerticalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,6 +83,7 @@ public class MainEmployee extends javax.swing.JFrame {
 
         productLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         productLabel.setForeground(new java.awt.Color(255, 255, 255));
+        productLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/quan_Li.png"))); // NOI18N
         productLabel.setText("QUẢN LÝ SẢN PHẨM");
 
         javax.swing.GroupLayout management_productPanelLayout = new javax.swing.GroupLayout(management_productPanel);
@@ -89,9 +91,9 @@ public class MainEmployee extends javax.swing.JFrame {
         management_productPanelLayout.setHorizontalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_productPanelLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(46, 46, 46)
                 .addComponent(productLabel)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,6 +106,7 @@ public class MainEmployee extends javax.swing.JFrame {
         receptLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         receptLabel.setForeground(new java.awt.Color(255, 255, 255));
         receptLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        receptLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         receptLabel.setText("QUẢN LÝ HÓA ĐƠN");
 
         javax.swing.GroupLayout management_receptPanelLayout = new javax.swing.GroupLayout(management_receptPanel);
@@ -111,21 +114,22 @@ public class MainEmployee extends javax.swing.JFrame {
         management_receptPanelLayout.setHorizontalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_receptPanelLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(43, 43, 43)
                 .addComponent(receptLabel)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(receptLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MINSHOP");
+        jLabel1.setText("MINASHOP");
 
         logoutBtn.setBackground(new java.awt.Color(204, 255, 204));
         logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,35 +141,35 @@ public class MainEmployee extends javax.swing.JFrame {
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(sidebarPanelLayout.createSequentialGroup()
-                    .addGap(80, 80, 80)
-                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-                .addGroup(sidebarPanelLayout.createSequentialGroup()
-                    .addGap(25, 25, 25)
-                    .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(management_customerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(28, 28, 28)))
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebarPanelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(management_customerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(sidebarPanelLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel1)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel1)
-                .addGap(46, 46, 46)
+                .addGap(62, 62, 62)
                 .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(management_customerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );

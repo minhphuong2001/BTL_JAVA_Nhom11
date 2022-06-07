@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Account;
+import static views.ManagementEmployeeView.employees;
 
 /**
  *
@@ -53,7 +54,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         }
         editBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, editBtn, deleteBtn);
         increaseIndex();
         
         ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
@@ -95,6 +96,11 @@ public class ManagementAccountView extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(985, 670));
         setRequestFocusEnabled(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -204,8 +210,8 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 275, 35));
-        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 300, 90, 50));
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 310, 310, 40));
+        add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 60, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
@@ -306,7 +312,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         editBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
         addBtn.setEnabled(true);
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, editBtn, deleteBtn);
         setTextNull("Cập nhật thông tin thành công", "Cập nhật tài khoản");
         increaseIndex();
         usernameField.requestFocus();
@@ -334,7 +340,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         addBtn.setEnabled(false);
         editBtn.setEnabled(true);
         deleteBtn.setEnabled(true);
-        setBgButtonHasColor();
+        utils.setBgButtonHasColor(addBtn, editBtn, deleteBtn);
     }//GEN-LAST:event_accountTableMouseClicked
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -350,7 +356,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
             editBtn.setEnabled(false);
             deleteBtn.setEnabled(false);
             addBtn.setEnabled(true);
-            setBgButtonNull();
+            utils.setBgButtonNull(addBtn, editBtn, deleteBtn);
             setTextNull("Xóa thành công", "Xóa tài khoản");
             increaseIndex();
             usernameField.requestFocus();
@@ -359,8 +365,28 @@ public class ManagementAccountView extends javax.swing.JPanel {
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         // TODO: filter by account table
-        utils.filterByTable(searchField, tableModal, accountTable);
+        utils.filterByColummTable(searchField, tableModal, accountTable, 1);
     }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        deleteBtn.setEnabled(false);
+        editBtn.setEnabled(false);
+        addBtn.setEnabled(true);
+        
+        idField.setText("");
+        usernameField.setText("");
+        passwordField.setText("");
+        roleComboBox.setSelectedIndex(0);
+
+        if(listAcc.size() == 0){
+            accountID = 0;
+        } else{
+            accountID=listAcc.get(listAcc.size()-1).getId()+ 1;
+        }
+        idField.setText(accountID.toString());
+        utils.setBgButtonNull(addBtn, editBtn, deleteBtn);
+    }//GEN-LAST:event_formMouseClicked
 
     private void validateField(String name, String value) {
             switch (name) {
@@ -408,28 +434,14 @@ public class ManagementAccountView extends javax.swing.JPanel {
         roleComboBox.setSelectedIndex(0);
         JOptionPane.showConfirmDialog(null, title, subTitle, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
     }
-
-    private void setBgButtonNull(){
-        addBtn.setBackground(new Color(75,123,236));
-        editBtn.setBackground(new Color(223, 230, 233));
-        deleteBtn.setBackground(new Color(223, 230, 233));
-    }
-    private void setBgButtonHasColor(){
-        addBtn.setBackground(new Color(223, 230, 233));
-//        editBtn.setBackground(new Color(102,255,102));
-//        deleteBtn.setBackground(new Color(255, 0, 0));
-        editBtn.setBackground(new Color(0,153,51));
-        //deleteBtn.setBackground(new Color(204,51,0));
-        deleteBtn.setBackground(new Color(204,37,31));
-    }
     
-       public ImageIcon iconimage(int w,int h,String link){
+    public ImageIcon iconimage(int w,int h,String link){
         ImageIcon Icon = new ImageIcon(link);
         Image img= Icon.getImage();
         Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
         ImageIcon Scale=new ImageIcon(imgScale);
         return Scale;
-        }
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;
