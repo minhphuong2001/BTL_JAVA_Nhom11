@@ -194,7 +194,7 @@ public class LoginView extends javax.swing.JFrame {
                         if(item.getRole().equals("admin")){
                             new Main().setVisible(true);
                         } else {
-                            jop.showMessageDialog(loginButton, "Login with employee.");
+                            new MainEmployee().setVisible(true);
                         }
                         check = true;
                     }

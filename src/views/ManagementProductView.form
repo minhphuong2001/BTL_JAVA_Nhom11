@@ -96,7 +96,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="30" y="430" width="880" height="320"/>
+          <AbsoluteConstraints x="30" y="430" width="880" height="240"/>
         </Constraint>
       </Constraints>
 
@@ -110,7 +110,7 @@
                 <Column editable="true" title="T&#xea;n S&#x1ea3;n Ph&#x1ea9;m" type="java.lang.Object"/>
                 <Column editable="true" title="Gi&#xe1; B&#xe1;n" type="java.lang.Object"/>
                 <Column editable="true" title="GI&#xe1; Mua" type="java.lang.Object"/>
-                <Column editable="true" title="Gi&#xe1;m Gi&#xe3;m" type="java.lang.Object"/>
+                <Column editable="true" title="Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
                 <Column editable="true" title="S&#x1ed1; L&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
               </Table>
             </Property>
