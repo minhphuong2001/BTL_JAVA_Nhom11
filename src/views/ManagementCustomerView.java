@@ -195,7 +195,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             tbCustomer.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 870, 260));
+        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 340));
 
         btnAdd.setBackground(new java.awt.Color(75, 123, 236));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -249,7 +249,9 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(form, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
