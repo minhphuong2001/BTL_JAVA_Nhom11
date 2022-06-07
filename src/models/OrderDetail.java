@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderDetail {
    
@@ -77,6 +78,36 @@ public class OrderDetail {
        @Override
     public String toString() {
         return "OrderDetail{" + "orderID=" + orderID + ", productID=" + productID + ", quantity=" + quantity + ", money=" + money() + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OrderDetail other = (OrderDetail) obj;
+        if (!Objects.equals(this.orderID, other.orderID)) {
+            return false;
+        }
+        if (!Objects.equals(this.productID, other.productID)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantity, other.quantity)) {
+            return false;
+        }
+        return true;
     }
 
     
