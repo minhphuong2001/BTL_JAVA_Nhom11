@@ -10,8 +10,6 @@ package models;
  * @author Kien Ninh
  */
 
-   ;
-
 
 import controllers.FileController;
 import java.util.ArrayList;

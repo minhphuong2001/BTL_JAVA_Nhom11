@@ -4,6 +4,21 @@
  */
 package views;
 
+import controllers.FileController;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import models.Order;
+import models.OrderDetail;
+import models.product;
+import static views.ManagementOrderDetail.model;
+import static views.ManagementOrderDetail.orderDetails;
+
 /**
  *
  * @author ADMIN
@@ -13,10 +28,87 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
     /**
      * Creates new form ManagementStatisticalView
      */
+    
+    static List<OrderDetail> orderDetails = new ArrayList<>();
+    static List<Order> orders = new ArrayList<>();
+    static List<product> products = new ArrayList<>();
+    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
+    
     public ManagementStatisticalView() {
         initComponents();
-    }
+        List<OrderDetail> orderDetailstest = new ArrayList<>();
+        model = (DefaultTableModel) tblReport.getModel();
+        orderDetails = FileController.readOrderDetailFromFile("orderDetail.txt");
+        orders = FileController.readOrderFromFile("order.txt");
+        products = FileController.readProductFromFile("product.txt");
+        
+  }  
+  
 
+    public void showTable(List<OrderDetail> orDetail)
+    {
+        List<Integer> listProductID = new ArrayList<>();
+        List<String> listProductName = new ArrayList<>();
+        List<String> listProductPrice = new ArrayList<>();
+        List<Integer> listProductSold = new ArrayList<>();
+        List<String> listProductRevenue = new ArrayList<>();
+        Float total = 0f;
+        
+        for(int i=0; i<orDetail.size(); i++)
+            if(!listProductID.contains(orDetail.get(i).getProductID())) 
+                listProductID.add(orDetail.get(i).getProductID());
+        
+        Collections.sort(listProductID);
+        
+        for(int i=0; i<listProductID.size(); i++)
+            for(int j=0; j<products.size(); j++)
+                if(products.get(j).getmaSP() == listProductID.get(i)) 
+                {
+                    listProductName.add(products.get(j).getTenSP());
+                    String priceFormat = numberFormat.format(products.get(j).getGiaBan());
+                    listProductPrice.add(priceFormat);
+                    break;
+                }
+        
+        for(int i=0; i<listProductID.size(); i++)
+        {
+            Integer totalQuantity = 0;
+            Float totalRevenue = 0f;
+            for(int j=0; j<orDetail.size(); j++)
+                if(orDetail.get(j).getProductID() == listProductID.get(i)) 
+                {
+                    totalQuantity += orDetail.get(j).getQuantity();
+                    totalRevenue += orDetail.get(j).money();        
+                }
+            total += totalRevenue;
+            String revenueFormat = numberFormat.format(totalRevenue);
+            listProductSold.add(totalQuantity);
+            listProductRevenue.add(revenueFormat);
+        }
+                
+        model.setRowCount(0); 
+        for (int i=0; i<listProductID.size(); i++) 
+            model.addRow(new Object[]{
+                listProductID.get(i), listProductName.get(i), listProductSold.get(i), listProductPrice.get(i), listProductRevenue.get(i)
+            });    
+        
+        tblReport.setAutoCreateRowSorter(true);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        
+        tblReport.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tblReport.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tblReport.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        tblReport.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        
+        String totalFormat = numberFormat.format(total);
+        labTotal.setText(totalFormat);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +118,152 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        inpMonth = new com.toedter.calendar.JMonthChooser();
+        inpYear = new com.toedter.calendar.JYearChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReport = new javax.swing.JTable();
+        labDate = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        labTotal = new javax.swing.JLabel();
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(75, 123, 236));
+        jLabel2.setText("THỐNG KÊ BÁO CÁO");
+
+        inpMonth.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inpMonth.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inpMonthPropertyChange(evt);
+            }
+        });
+
+        inpYear.setFocusable(false);
+        inpYear.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inpYear.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                inpYearPropertyChange(evt);
+            }
+        });
+
+        tblReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã SP", "Tên SP", "Số Lượng", "Giá Bán", "Doanh Thu"
+            }
+        ));
+        jScrollPane1.setViewportView(tblReport);
+        if (tblReport.getColumnModel().getColumnCount() > 0) {
+            tblReport.getColumnModel().getColumn(0).setMinWidth(100);
+            tblReport.getColumnModel().getColumn(0).setMaxWidth(150);
+            tblReport.getColumnModel().getColumn(1).setMinWidth(200);
+            tblReport.getColumnModel().getColumn(2).setMinWidth(150);
+            tblReport.getColumnModel().getColumn(2).setMaxWidth(200);
+        }
+
+        labDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Tổng");
+
+        labTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 889, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(inpMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(inpYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(638, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(labTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(32, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(labDate, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(253, 253, 253))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 697, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inpYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inpMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(labDate, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(labTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(299, 299, 299))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, labTotal});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {inpMonth, inpYear});
+
     }// </editor-fold>//GEN-END:initComponents
 
+    private void inpMonthPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inpMonthPropertyChange
+        // TODO add your handling code here:
+        filter();
+        
+    }//GEN-LAST:event_inpMonthPropertyChange
+
+    private void inpYearPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inpYearPropertyChange
+        // TODO add your handling code here:
+        filter();
+    }//GEN-LAST:event_inpYearPropertyChange
+
+    public void filter()
+    {
+        Integer month = inpMonth.getMonth() + 1;
+        Integer year = inpYear.getYear();
+
+        labDate.setText("Tháng "+(month)+" Năm " +(year));
+        List<OrderDetail> listByDate = new ArrayList<>();
+        List<String> listDate = new ArrayList<>();
+        
+        for(int i=0; i<orders.size(); i++)
+        {
+            Integer orderMonth = Integer.parseInt(orders.get(i).getDate().substring(3, 5));
+            Integer orderYear = Integer.parseInt(orders.get(i).getDate().substring(6));
+            
+            if(orderMonth.equals(month) && orderYear.equals(year)) 
+                for(int j=0; j<orderDetails.size(); j++)
+                    if(orders.get(i).getOrderID() == orderDetails.get(j).getOrderID())
+                        listByDate.add(orderDetails.get(j));                       
+        }        
+        showTable(listByDate);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JMonthChooser inpMonth;
+    private com.toedter.calendar.JYearChooser inpYear;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labDate;
+    private javax.swing.JLabel labTotal;
+    private javax.swing.JTable tblReport;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,13 +8,16 @@ import controllers.FileController;
 import controllers.Utils;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import models.Customer;
@@ -30,18 +33,14 @@ public class ManagementCustomerView extends javax.swing.JPanel {
      */
     public static DefaultTableModel model;
     public static List<Customer> customers= new ArrayList<>();
+    public static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
     public static Utils utils;
-
+  
     public ManagementCustomerView() {
         initComponents();
         model= (DefaultTableModel) tbCustomer.getModel();
         customers = FileController.readCustomerFromFile("customer.txt");
-        customers.forEach(a -> {
-            model.addRow(new Object[]{
-                a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
-            });
-        });
-
+        modelReload();
         inpCustomerId.setEnabled(false);
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
@@ -79,6 +78,21 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         inpCustomerName.setText("");
         inpCustomerPhone.setText("");
         inpAccumulatePoints.setText("");
+    }
+    
+    public void modelReload()
+    {
+        model.setRowCount(0);
+        customers.forEach(a -> {
+            String pointFormat = numberFormat.format(a.getAccumulatePoints());
+            model.addRow(new Object[]{
+                a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), pointFormat
+            });
+        });
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        
+        tbCustomer.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
     }
 
     /**
@@ -179,13 +193,14 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCustomerMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                tbCustomerMouseExited(evt);
-            }
         });
         jScrollPane3.setViewportView(tbCustomer);
+        if (tbCustomer.getColumnModel().getColumnCount() > 0) {
+            tbCustomer.getColumnModel().getColumn(0).setResizable(false);
+            tbCustomer.getColumnModel().getColumn(1).setResizable(false);
+        }
 
-        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 850, 260));
+        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 870, 260));
 
         btnAdd.setBackground(new java.awt.Color(75, 123, 236));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -265,7 +280,8 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         Integer id = (Integer)model.getValueAt(row, 0);
         String name = (String) model.getValueAt(row, 1);
         String phone = (String)model.getValueAt(row, 2);
-        Float accPoints = (Float) model.getValueAt(row, 3);
+        Float accPoints = customers.get(row).getAccumulatePoints();
+        //Float accPoints = (Float) model.getValueAt(row, 3);
 
         inpCustomerId.setText(id+"");
         inpCustomerName.setText(name);
@@ -277,10 +293,6 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnDelete.setEnabled(true);
         utils.setBgButtonHasColor(btnAdd, btnUpdate, btnDelete);
     }//GEN-LAST:event_tbCustomerMouseClicked
-
-    private void tbCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCustomerMouseExited
-
-    }//GEN-LAST:event_tbCustomerMouseExited
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
@@ -333,8 +345,6 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             error.setText("Vui lòng nhập tên");
             return;
         }
-//        String regexName = "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễếệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ].*[\\s\\.]{0,50}$";
-//        String regexName = "^[a-zA-Z ]{0,50}$";
 
         String regexName = "^[a-z A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
         Pattern pattern = Pattern.compile(regexName);
@@ -361,23 +371,13 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         String phone = inpCustomerPhone.getText().trim();
         Float accPoints = Float.parseFloat(inpAccumulatePoints.getText().trim());
 
-        
-//        Integer id = Integer.parseInt(inpCustomerId.getText().trim());
-//        String name= inpCustomerName.getText().trim();
-//        String phone= inpCustomerPhone.getText().trim();
-//        Float accPoints= Float.parseFloat(inpAccumulatePoints.getText().trim());
-
         int row= tbCustomer.getSelectedRow();
 
         customers.set(row, new Customer(id, name, phone, accPoints));
         FileController.writeListCustomerFile("customer.txt", customers);
-
-        tbCustomer.setValueAt(id, row, 0);
-        tbCustomer.setValueAt(name, row, 1);
-        tbCustomer.setValueAt(phone, row, 2);
-        tbCustomer.setValueAt(accPoints, row, 3);
         
         setInpNull();
+        modelReload();
         
         utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
         btnUpdate.setEnabled(false);
@@ -394,9 +394,8 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION,0);
         if(answer == 0){
             int row= tbCustomer.getSelectedRow();
-            //xoa tren giao dien
-            model.removeRow(row);
 
+            model.removeRow(row);
             customers.remove(row);
             FileController.writeListCustomerFile("customer.txt", customers);
 
@@ -434,6 +433,10 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnDelete.setEnabled(false);
         btnUpdate.setEnabled(false);
         inpAccumulatePoints.setEnabled(false);
+        modelReload();
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tbCustomer.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
 
         utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
     }//GEN-LAST:event_formMouseClicked
