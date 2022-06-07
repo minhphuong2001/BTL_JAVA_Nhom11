@@ -1,6 +1,7 @@
 package views;
 
 import controllers.FileController;
+import static controllers.Utils.iconimage;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,11 @@ import models.Customer;
 import models.Order;
 import models.OrderDetail;
 import models.product;
+import controllers.Utils;
+import static controllers.Utils.iconimage;
+import static controllers.Utils.setBgButtonHasColor;
+import static controllers.Utils.setBgButtonNull;
+import static controllers.Utils.setBgColor;
 
 /**
  *
@@ -54,22 +60,20 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         ProductDisplay();
         OrderDetailDisplay();        
       
-        ImageIcon addIcon=iconimage(24,24,"src/icons/plus icon.png");
+        ImageIcon addIcon=iconimage(24,24,"src/icons/add-product.png");
         addBtn.setIcon(addIcon);
-        ImageIcon updateIcon=iconimage(24,24,"src/icons/update.png");
-        updateBtn.setIcon(updateIcon);
-        ImageIcon deleteIcon=iconimage(24,24,"src/icons/bin.png");
+        ImageIcon deleteIcon=iconimage(25,25,"src/icons/bin2.png");
         deleteBtn.setIcon(deleteIcon);
+        ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
+        updateBtn.setIcon(updateIcon);
+        ImageIcon closeIcon=iconimage(40,40,"src/icons/exit.png");
+        closeBtn.setIcon(closeIcon);
+
+        setBgColor(addBtn,updateBtn,deleteBtn);
         
         
     }
-    public ImageIcon iconimage(int w, int h,String url){
-            ImageIcon icon=new ImageIcon(url);
-            Image img=icon.getImage();
-            Image imgScale =img.getScaledInstance(w,h,img.SCALE_SMOOTH);
-            ImageIcon Scale=new ImageIcon(imgScale);
-            return Scale;
-     } 
+  
     
     private ManagementOrderDetail() {
         initComponents();
@@ -111,112 +115,72 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         ipnCustomerID = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Chi tiết hóa đơn");
+        setPreferredSize(new java.awt.Dimension(1300, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 30)); // NOI18N
-        jLabel7.setText("Chi tiết hóa đơn");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, -1));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(75, 123, 236));
+        jLabel7.setText("CHI TIẾT HÓA ĐƠN");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin hóa đơn"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ipnProductID.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        ipnProductID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ipnProductID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ipnProductIDActionPerformed(evt);
             }
         });
+        jPanel2.add(ipnProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 275, 35));
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Mã sản phẩm");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Số lượng");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        ipnPrice.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        ipnPrice.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jPanel2.add(ipnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 275, 35));
 
-        addBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        addBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addBtn.setText("Thêm ");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 130, 50));
 
-        updateBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        updateBtn.setText("Sửa ");
+        updateBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        updateBtn.setText("Cập nhật");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 50));
 
-        deleteBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        deleteBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         deleteBtn.setText("Xóa");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 130, 50));
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Giá bán");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        ipnQuantity.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
+        ipnQuantity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel2.add(ipnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 275, 35));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(addBtn)
-                        .addGap(62, 62, 62)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ipnPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(40, 40, 40)
-                                .addComponent(ipnProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ipnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ipnProductID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ipnQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ipnPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(132, 132, 132))
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 460, 240));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 620, 230));
 
         orderDetailTbl.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         orderDetailTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -241,33 +205,42 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(orderDetailTbl);
+        if (orderDetailTbl.getColumnModel().getColumnCount() > 0) {
+            orderDetailTbl.getColumnModel().getColumn(0).setPreferredWidth(30);
+            orderDetailTbl.getColumnModel().getColumn(1).setPreferredWidth(50);
+        }
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, 460, 200));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 410, 260));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Ngày tạo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 100, 20));
 
         ipnDate.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        getContentPane().add(ipnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 170, -1));
+        getContentPane().add(ipnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 275, 35));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Mã hóa đơn");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 110, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 110, 20));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Mã khách hàng");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 130, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 130, 20));
 
-        ipnorderID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        getContentPane().add(ipnorderID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 170, -1));
+        ipnorderID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ipnorderID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ipnorderIDActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ipnorderID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 275, 35));
 
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Tổng tiền");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 100, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 100, 20));
 
         ipnTotal.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        getContentPane().add(ipnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 170, -1));
+        getContentPane().add(ipnTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 275, 35));
 
         productTbl.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         productTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -284,10 +257,13 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
             }
         });
         jScrollPane4.setViewportView(productTbl);
+        if (productTbl.getColumnModel().getColumnCount() > 0) {
+            productTbl.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 410, 200));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 610, 260));
 
-        closeBtn.setText("Thoát");
+        closeBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeBtnMouseClicked(evt);
@@ -298,10 +274,10 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 90, 40));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 660, 40, 40));
 
         ipnCustomerID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        getContentPane().add(ipnCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 170, -1));
+        getContentPane().add(ipnCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 275, 35));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -453,6 +429,10 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_productTblMouseClicked
+
+    private void ipnorderIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipnorderIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ipnorderIDActionPerformed
 
     /**
      * @param args the command line arguments

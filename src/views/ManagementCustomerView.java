@@ -6,6 +6,7 @@ package views;
 
 import controllers.FileController;
 import controllers.Utils;
+import static controllers.Utils.iconimage;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.DecimalFormat;
@@ -59,13 +60,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnAdd.setIcon(addIcon);
     }
 
-    public ImageIcon iconimage(int w,int h,String link){
-        ImageIcon Icon = new ImageIcon(link);
-        Image img= Icon.getImage();
-        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
-        ImageIcon Scale=new ImageIcon(imgScale);
-        return Scale;
-    }
+
     
     public void setID() {
         Integer id;
@@ -242,7 +237,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
 
         error.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         error.setForeground(new java.awt.Color(204, 0, 51));
-        form.add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 400, 40));
+        form.add(error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 470, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
