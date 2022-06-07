@@ -69,8 +69,14 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        inpUsername.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        inpPassword.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
+        username.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         username.setText("Username");
 
+        password.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         password.setText("Password");
 
         showError.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
