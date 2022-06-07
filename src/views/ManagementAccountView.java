@@ -6,6 +6,7 @@ package views;
 
 import controllers.FileController;
 import controllers.Utils;
+import static controllers.Utils.iconimage;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -200,8 +201,8 @@ public class ManagementAccountView extends javax.swing.JPanel {
         });
         add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 300, 130, 50));
 
-        showError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        showError.setForeground(new java.awt.Color(255, 0, 0));
+        showError.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        showError.setForeground(new java.awt.Color(204, 0, 51));
         add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 730, 40));
 
         searchField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -435,13 +436,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         JOptionPane.showConfirmDialog(null, title, subTitle, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public ImageIcon iconimage(int w,int h,String link){
-        ImageIcon Icon = new ImageIcon(link);
-        Image img= Icon.getImage();
-        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
-        ImageIcon Scale=new ImageIcon(imgScale);
-        return Scale;
-     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable accountTable;

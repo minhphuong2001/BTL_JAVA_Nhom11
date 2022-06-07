@@ -6,6 +6,7 @@ package views;
 
 import controllers.FileController;
 import controllers.Utils;
+import static controllers.Utils.iconimage;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
@@ -32,7 +33,7 @@ import models.Employee;
 
 /**
  *
- * @author 
+ * @author Hoan
  */
 public class ManagementEmployeeView extends javax.swing.JPanel {
 
@@ -43,6 +44,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
     public static List<Employee> employees= new ArrayList<>();
     Integer id;
     public static Utils utils;   
+    
     
 
     public ManagementEmployeeView() {
@@ -81,13 +83,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         ImageIcon addIcon=iconimage(25,25,"src/icons/add-user.png");
         addBtn.setIcon(addIcon); 
     }
-    public ImageIcon iconimage(int w,int h,String link){
-        ImageIcon Icon = new ImageIcon(link);
-        Image img= Icon.getImage();
-        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
-        ImageIcon Scale=new ImageIcon(imgScale);
-        return Scale;
-        }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,9 +130,9 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         employeeTitle.setText("QUẢN LÝ NHÂN VIÊN");
         employeePanel.add(employeeTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 260, 50));
 
-        Error.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        Error.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Error.setForeground(new java.awt.Color(204, 0, 51));
-        employeePanel.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 710, 30));
+        employeePanel.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 710, 40));
 
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -160,7 +156,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
 
         employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 870, 260));
 
-        addBtn.setBackground(new java.awt.Color(75, 123, 236));
+        addBtn.setBackground(new java.awt.Color(116, 213, 128));
         addBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("Thêm");
@@ -200,6 +196,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         jLabel2.setText("ID");
         employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 31, -1));
 
+        idField.setForeground(new java.awt.Color(255, 255, 255));
         idField.setPreferredSize(new java.awt.Dimension(6, 35));
         employeePanel.add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 275, 35));
 
@@ -240,7 +237,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 276, 36));
+        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 275, 35));
 
         searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchLabel.setMaximumSize(new java.awt.Dimension(60, 70));

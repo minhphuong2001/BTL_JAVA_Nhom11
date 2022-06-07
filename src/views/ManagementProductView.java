@@ -6,6 +6,7 @@ package views;
 
 import controllers.FileController;
 import controllers.Utils;
+import static controllers.Utils.iconimage;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -69,13 +70,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         ImageIcon addIcon=iconimage(25,25,"src/icons/add-product.png");
         themjButton.setIcon(addIcon);
     }
-    public ImageIcon iconimage(int w,int h,String link){
-        ImageIcon Icon = new ImageIcon(link);
-        Image img= Icon.getImage();
-        Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
-        ImageIcon Scale=new ImageIcon(imgScale);
-        return Scale;
-        }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,9 +194,9 @@ public class ManagementProductView extends javax.swing.JPanel {
         searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 60, 40));
 
-        showErr.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        showErr.setForeground(new java.awt.Color(255, 0, 0));
-        add(showErr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 720, 30));
+        showErr.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        showErr.setForeground(new java.awt.Color(204, 0, 51));
+        add(showErr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 720, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Mã sản phẩm");

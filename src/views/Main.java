@@ -5,9 +5,11 @@
 package views;
 
 import controllers.ScreenSwitchController;
+import static controllers.Utils.iconimage;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import models.CategoriesModel;
 /**
  *
@@ -32,6 +34,22 @@ public class Main extends javax.swing.JFrame {
         listCate.add(new CategoriesModel("ManagementRecept", management_receptPanel, receptLabel));
         listCate.add(new CategoriesModel("ManagementStatistical", management_statisticalPanel, statistifyLabel));
         ssController.setEvent(listCate);
+        
+        
+        ImageIcon homeIcon=iconimage(24,24,"src/icons/home.png");
+        homepageLabel.setIcon(homeIcon);
+        ImageIcon productIcon=iconimage(26,26,"src/icons/tshirt.png");
+        productLabel.setIcon(productIcon);
+//        ImageIcon customerIcon=iconimage(25,25,"src/icons/home.png");
+//        customerLabel.setIcon(customerIcon);
+        ImageIcon receptIcon=iconimage(25,25,"src/icons/quan_Li.png");
+        receptLabel.setIcon(receptIcon);
+//        ImageIcon accIcon=iconimage(25,25,"src/icons/home.png");
+//        accLabel.setIcon(accIcon);
+        ImageIcon employeeIcon=iconimage(26,26,"src/icons/thanh_toan.png");
+        employeeLabel.setIcon(employeeIcon);
+        ImageIcon statistifyIcon=iconimage(26,26,"src/icons/line-chart.png");
+        statistifyLabel.setIcon(statistifyIcon);
     }
 
     @SuppressWarnings("unchecked")
@@ -70,7 +88,6 @@ public class Main extends javax.swing.JFrame {
         homepageLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         homepageLabel.setForeground(new java.awt.Color(255, 255, 255));
         homepageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        homepageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/quan_Li.png"))); // NOI18N
         homepageLabel.setText("TRANG CHỦ");
 
         javax.swing.GroupLayout home_pagePanelLayout = new javax.swing.GroupLayout(home_pagePanel);
@@ -103,7 +120,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_customerPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(customerLabel)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         management_customerPanelLayout.setVerticalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +142,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_productPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(productLabel)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +155,6 @@ public class Main extends javax.swing.JFrame {
         receptLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         receptLabel.setForeground(new java.awt.Color(255, 255, 255));
         receptLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        receptLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         receptLabel.setText("QUẢN LÝ HÓA ĐƠN");
 
         javax.swing.GroupLayout management_receptPanelLayout = new javax.swing.GroupLayout(management_receptPanel);
@@ -148,7 +164,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_receptPanelLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(receptLabel)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +191,6 @@ public class Main extends javax.swing.JFrame {
         statistifyLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         statistifyLabel.setForeground(new java.awt.Color(255, 255, 255));
         statistifyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        statistifyLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         statistifyLabel.setText("THỐNG KÊ DOANH THU");
 
         javax.swing.GroupLayout management_statisticalPanelLayout = new javax.swing.GroupLayout(management_statisticalPanel);
@@ -183,7 +198,7 @@ public class Main extends javax.swing.JFrame {
         management_statisticalPanelLayout.setHorizontalGroup(
             management_statisticalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_statisticalPanelLayout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(statistifyLabel)
                 .addGap(36, 36, 36))
         );
@@ -221,7 +236,6 @@ public class Main extends javax.swing.JFrame {
 
         employeeLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         employeeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        employeeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thanh_toan.png"))); // NOI18N
         employeeLabel.setText("QUẢN LÝ NHÂN VIÊN");
         employeeLabel.setMaximumSize(new java.awt.Dimension(154, 50));
         employeeLabel.setMinimumSize(new java.awt.Dimension(154, 50));

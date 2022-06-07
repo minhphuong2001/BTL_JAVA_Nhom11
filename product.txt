@@ -1,17 +1,17 @@
 1|Áo Polo Nam|280000.0|200000.0|10.0|19
 2|Quần Jeans Clean Denim|599000.0|480000.0|10.0|17
-3|Áo thun nam Cotton Compact|259000.0|160000.0|20.0|26
+3|Áo thun nam Cotton Compact|259000.0|160000.0|20.0|25
 4|Quần Short nam Ultra Pro|189000.0|120000.0|15.0|23
-5|Đầm voan bèo vai|495000.0|400000.0|10.0|74
+5|Đầm voan bèo vai|495000.0|400000.0|10.0|72
 6|Áo thun nam Cotton Compact|120000.0|80000.0|20.0|415
-7|Quần Short nam Ultra Pro|220000.0|180000.0|15.0|9
+7|Quần Short nam Ultra Pro|220000.0|180000.0|15.0|8
 8|DAZY Quần jean Túi màu trơn|350000.0|280000.0|10.0|9
 9|Áo sơ mi dáng suông tay bong|220000.0|176000.0|5.0|16
 10|Áo sơ mi croptop|320000.0|256000.0|6.0|45
 11|Đầm dáng xòe hoa|522000.0|417600.0|8.0|18
 12|Chân váy dáng A bổ mảnh|555000.0|444000.0|10.0|38
 13|Chân váy xếp ly dáng A dài|450000.0|360000.0|12.0|77
-14|Chân váy bút chì|550000.0|440000.0|15.0|86
+14|Chân váy bút chì|550000.0|440000.0|15.0|84
 15|Đầm xếp ly 2 bên|1200000.0|960000.0|5.0|28
 16|Áo sơ mi lụa|585000.0|468000.0|5.0|63
 17|Áo cotton cổ tim|250000.0|200000.0|8.0|46
