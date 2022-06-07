@@ -5,6 +5,7 @@
 package views;
 
 import controllers.FileController;
+import controllers.Utils;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
@@ -41,7 +42,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
     public static DefaultTableModel table;
     public static List<Employee> employees= new ArrayList<>();
     Integer id;
-        
+    public static Utils utils;   
     
 
     public ManagementEmployeeView() {
@@ -69,20 +70,16 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         DateChooser.setDate(date1);
         deleteBtn.setEnabled(false);
         updateBtn.setEnabled(false);
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, updateBtn, deleteBtn);
  
-      ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
-      searchLabel.setIcon(searchIcon);
-      ImageIcon deleteIcon=iconimage(25,25,"src/icons/bin2.png");
-      deleteBtn.setIcon(deleteIcon);
-      ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
-      updateBtn.setIcon(updateIcon);
-      ImageIcon addIcon=iconimage(25,25,"src/icons/add-user.png");
-      addBtn.setIcon(addIcon);
-      
-//      ImageIcon employeesIcon=iconimage(40,40,"D:\\SUBJECT-A\\JAVA\\JAVA_BTL\\BTL_JAVA_Nhom11\\src\\icons\\employees.png");
-//      iconTitle.setIcon(employeesIcon);
-      
+        ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
+        searchLabel.setIcon(searchIcon);
+        ImageIcon deleteIcon=iconimage(25,25,"src/icons/bin2.png");
+        deleteBtn.setIcon(deleteIcon);
+        ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
+        updateBtn.setIcon(updateIcon);
+        ImageIcon addIcon=iconimage(25,25,"src/icons/add-user.png");
+        addBtn.setIcon(addIcon); 
     }
     public ImageIcon iconimage(int w,int h,String link){
         ImageIcon Icon = new ImageIcon(link);
@@ -239,9 +236,6 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         employeePanel.add(salaryField, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 275, 35));
 
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                searchFieldKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchFieldKeyReleased(evt);
             }
@@ -446,7 +440,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         Date date1 = new Date();
         DateChooser.setDate(date1);
         setIdField();
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, updateBtn, deleteBtn);
         }catch (Exception e) {
             Error.setText("Vui lòng lòng nhập đầy đủ thông tin");
             Error.setText(e.toString());
@@ -477,7 +471,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         Date date1 = new Date();
         DateChooser.setDate(date1);
         setIdField();
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, updateBtn, deleteBtn);
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
@@ -504,7 +498,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             addBtn.setEnabled(false);
             deleteBtn.setEnabled(true);
             updateBtn.setEnabled(true);
-            setBgButtonHasColor();
+            utils.setBgButtonHasColor(addBtn, updateBtn, deleteBtn);
         } catch (ParseException ex) {
             Logger.getLogger(ManagementEmployeeView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -518,17 +512,12 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_salaryFieldActionPerformed
 
-    private void searchFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyPressed
-
-        
-
-    }//GEN-LAST:event_searchFieldKeyPressed
-
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         DefaultTableModel tm=(DefaultTableModel) tblEmployee.getModel();
+
         TableRowSorter<DefaultTableModel> tr=new TableRowSorter<DefaultTableModel>(tm);
         tblEmployee.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(searchField.getText().trim()));
+        tr.setRowFilter(RowFilter.regexFilter("(?i)" + searchField.getText().trim().toLowerCase()));
     }//GEN-LAST:event_searchFieldKeyReleased
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -551,20 +540,9 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             System.out.println(id);
         }
         idField.setText(id.toString());
-        setBgButtonNull();
+        utils.setBgButtonNull(addBtn, updateBtn, deleteBtn);
     }//GEN-LAST:event_formMouseClicked
     
-    private void setBgButtonNull(){
-        addBtn.setBackground(new Color(75,123,236));
-        updateBtn.setBackground(new Color(153,255,153));
-        deleteBtn.setBackground(new Color(223, 230, 233));
-    }
-    private void setBgButtonHasColor(){
-        addBtn.setBackground(new Color(223, 230, 233));
-        updateBtn.setBackground(new Color(0,153,51));
-        //deleteBtn.setBackground(new Color(204,51,0));
-        deleteBtn.setBackground(new Color(204,37,31));      
-    }
     private void clearField(){
         idField.setText("");
         nameField.setText("");
@@ -572,6 +550,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         addressField.setText("");
         salaryField.setText("");
     }
+
     private void setIdField(){
         if(employees.size()==0){
             id=0;

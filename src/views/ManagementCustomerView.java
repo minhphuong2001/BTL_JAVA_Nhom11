@@ -5,6 +5,7 @@
 package views;
 
 import controllers.FileController;
+import controllers.Utils;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.DecimalFormat;
@@ -32,8 +33,9 @@ public class ManagementCustomerView extends javax.swing.JPanel {
      */
     public static DefaultTableModel model;
     public static List<Customer> customers= new ArrayList<>();
-    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
-    
+    public static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
+    public static Utils utils;
+  
     public ManagementCustomerView() {
         initComponents();
         model= (DefaultTableModel) tbCustomer.getModel();
@@ -44,7 +46,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnUpdate.setEnabled(false);
         inpAccumulatePoints.setEnabled(false);
 
-        setBgButtonNull();
+        utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
         setID();
         
         ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
@@ -56,22 +58,13 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         ImageIcon addIcon=iconimage(25,25,"src/icons/add-user.png");
         btnAdd.setIcon(addIcon);
     }
+
     public ImageIcon iconimage(int w,int h,String link){
         ImageIcon Icon = new ImageIcon(link);
         Image img= Icon.getImage();
         Image imgScale=img.getScaledInstance(w,h,Image.SCALE_SMOOTH);
         ImageIcon Scale=new ImageIcon(imgScale);
         return Scale;
-        }
-    private void setBgButtonNull(){
-        btnAdd.setBackground(new Color(75,123,236));
-        btnUpdate.setBackground(new Color(223, 230, 233));
-        btnDelete.setBackground(new Color(223, 230, 233));
-    }
-    private void setBgButtonHasColor(){
-        btnAdd.setBackground(new Color(223, 230, 233));
-        btnUpdate.setBackground(new Color(0,153,51));
-        btnDelete.setBackground(new Color(204,37,31));   
     }
     
     public void setID() {
@@ -238,7 +231,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             }
         });
         form.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 130, 50));
-        form.add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 263, 50, 40));
+        form.add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 50, 40));
 
         inpSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -298,7 +291,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         btnAdd.setEnabled(false);
         btnUpdate.setEnabled(true);
         btnDelete.setEnabled(true);
-        setBgButtonHasColor();
+        utils.setBgButtonHasColor(btnAdd, btnUpdate, btnDelete);
     }//GEN-LAST:event_tbCustomerMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -386,7 +379,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         setInpNull();
         modelReload();
         
-        setBgButtonNull();
+        utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
         btnUpdate.setEnabled(false);
         btnDelete.setEnabled(false);
         btnAdd.setEnabled(true);
@@ -411,7 +404,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             btnAdd.setEnabled(true);
             setID();
             inpCustomerId.requestFocus();
-            setBgButtonNull();
+            utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
             setInpNull();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -419,7 +412,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
     private void inpSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpSearchKeyReleased
         // TODO add your handling code here:
 
-        String search = inpSearch.getText().trim();
+        String search = inpSearch.getText().trim().toLowerCase();
 
         TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
 
@@ -443,9 +436,9 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         modelReload();
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        
         tbCustomer.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
-        setBgButtonNull();
+
+        utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
     }//GEN-LAST:event_formMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
