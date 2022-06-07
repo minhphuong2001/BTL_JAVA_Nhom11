@@ -38,7 +38,7 @@
                   <Component id="containerPanel" alignment="0" pref="800" max="32767" attributes="0"/>
                   <Component id="sidebarPanel" alignment="0" pref="800" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

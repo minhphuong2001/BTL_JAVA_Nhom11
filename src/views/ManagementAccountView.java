@@ -187,7 +187,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
             accountTable.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 378, 870, 300));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 378, 870, 350));
 
         deleteBtn.setBackground(new java.awt.Color(255, 0, 0));
         deleteBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

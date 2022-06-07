@@ -153,7 +153,7 @@ public class ManagementProductView extends javax.swing.JPanel {
             productTable.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 880, 240));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 880, 320));
 
         giamuaField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
