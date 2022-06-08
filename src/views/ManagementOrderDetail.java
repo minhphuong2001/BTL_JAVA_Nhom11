@@ -18,6 +18,8 @@ import static controllers.Utils.iconimage;
 import static controllers.Utils.setBgButtonHasColor;
 import static controllers.Utils.setBgButtonNull;
 import static controllers.Utils.setBgColor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -28,26 +30,34 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     /**
      * Creates new form ManagementOrderDetail
      */
-    static DefaultTableModel model;
+    static DefaultTableModel modelDetail;
     static DefaultTableModel modelPro;
     
-     static List<OrderDetail> orderDetails = new ArrayList<>();
+    static List<OrderDetail> orderDetails = new ArrayList<>();
     static  List<Customer> customers = new ArrayList<>();
     static List<Order> orders = new ArrayList<>();
     static List<product> products = new ArrayList<>();
     String maKH = "";
     public static Integer orderIndex = 0;
     static FileController fileController;
+    private ManagementReceptView homeRecept;
+    
+    static Integer orderID = 0;
+   
  
-    public ManagementOrderDetail(String mahd, String makh, String ngay) {
+    public ManagementOrderDetail(ManagementReceptView parent ,String mahd, String makh, String ngay) {
         
         initComponents();
+        this.setLocationRelativeTo(null);
+        homeRecept=(ManagementReceptView)parent;
         ipnorderID.setText(mahd);
         maKH = makh;
         ipnCustomerID.setText(makh);
         ipnDate.setText(ngay);
         orders = fileController.readOrderFromFile("order.txt");
         customers = fileController.readCustomerFromFile("customer.txt");
+        modelPro = (DefaultTableModel) productTbl.getModel();
+        products = FileController.readProductFromFile("product.txt");
         
         for (int i = 0; i < orders.size(); i++) {
             if (orders.get(i).getOrderID()==Integer.parseInt(mahd)) {
@@ -56,9 +66,11 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         }
         
         ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
-        
+        modelDetail = (DefaultTableModel) orderDetailTbl.getModel();
+        orderDetails = FileController.readOrderDetailFromFile("orderDetail.txt");
+        orderID =Integer.parseInt(ipnorderID.getText().trim());
         ProductDisplay();
-        OrderDetailDisplay();        
+        OrderDetailDisplay();     
       
         ImageIcon addIcon=iconimage(24,24,"src/icons/add-product.png");
         addBtn.setIcon(addIcon);
@@ -90,7 +102,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        JPanel1 = new javax.swing.JPanel();
         ipnProductID = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -113,10 +125,15 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         productTbl = new javax.swing.JTable();
         closeBtn = new javax.swing.JButton();
         ipnCustomerID = new javax.swing.JTextField();
+        showError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chi tiết hóa đơn");
-        setPreferredSize(new java.awt.Dimension(1300, 800));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -124,8 +141,8 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         jLabel7.setText("CHI TIẾT HÓA ĐƠN");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        JPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        JPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ipnProductID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ipnProductID.addActionListener(new java.awt.event.ActionListener() {
@@ -133,18 +150,18 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 ipnProductIDActionPerformed(evt);
             }
         });
-        jPanel2.add(ipnProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 275, 35));
+        JPanel1.add(ipnProductID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 275, 35));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Mã sản phẩm");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        JPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Số lượng");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        JPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         ipnPrice.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jPanel2.add(ipnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 275, 35));
+        JPanel1.add(ipnPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 275, 35));
 
         addBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addBtn.setText("Thêm ");
@@ -153,7 +170,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 130, 50));
+        JPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 130, 50));
 
         updateBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         updateBtn.setText("Cập nhật");
@@ -162,7 +179,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 updateBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 50));
+        JPanel1.add(updateBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 130, 50));
 
         deleteBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         deleteBtn.setText("Xóa");
@@ -171,16 +188,16 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 deleteBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 130, 50));
+        JPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, 130, 50));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Giá bán");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        JPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         ipnQuantity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel2.add(ipnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 275, 35));
+        JPanel1.add(ipnQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 275, 35));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 620, 230));
+        getContentPane().add(JPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 620, 230));
 
         orderDetailTbl.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         orderDetailTbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -264,11 +281,6 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 610, 260));
 
         closeBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        closeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                closeBtnMouseClicked(evt);
-            }
-        });
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeBtnActionPerformed(evt);
@@ -278,59 +290,130 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
 
         ipnCustomerID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getContentPane().add(ipnCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 275, 35));
+        getContentPane().add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 270, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         int row = orderDetailTbl.getSelectedRow();
-        int sl = 0;
-        Integer ProductID = Integer.parseInt(ipnProductID.getText());        
-        Integer Quantity = Integer.parseInt(ipnQuantity.getText());
-        Float money=(Float)model.getValueAt(row, 2);
-        Float Point =orders.get(orderIndex).getTotalMoneyDouble();
-        for (product pr : products) {
-            if (pr.getmaSP().equals(ProductID)) {
-                sl = pr.getSoLuong();
+        //lấy sản phẩm cũ
+        System.out.println("Cap nhat");
+        Integer OrderID = Integer.parseInt(ipnorderID.getText());
+        Integer ProductID = (Integer)modelDetail.getValueAt(row, 0);
+        Integer sl = (Integer)modelDetail.getValueAt(row, 1);
+        //lấy sản phẩm mới
+        
+        String ipnQuantityString=ipnQuantity.getText();
+        
+        if(ipnQuantityString.compareTo("")==0){
+            showError.setText("Nhập số lượng sản phẩm cần mua");
+            return;
+        }
+        String regQuantity="^\\d+$";
+        Pattern pattern=Pattern.compile(regQuantity);
+        Matcher match=pattern.matcher(ipnQuantityString);
+        if(!match.matches()){
+            showError.setText("Bạn cần nhập 1 số nguyên");
+            return;
+        }
+        Integer Quantity = Integer.parseInt(ipnQuantityString);
+        OrderDetail od=new OrderDetail(OrderID,ProductID,sl);
+        //Kiếm tra số lượng hàng
+        for(int a=0;a<products.size();a++)
+        {
+            if(products.get(a).getmaSP()==ProductID)
+            {
+                if (Quantity >(products.get(a).getSoLuong()+sl))
+                {
+                    showError.setText("Số sản phẩm không đủ");
+                    return;
+                }
+                
             }
         }
-        if (Quantity > sl) {
-            JOptionPane.showConfirmDialog(rootPane, "So luong san pham khong du");
-            return;
-        }        
-        Integer OrderID = Integer.parseInt(ipnorderID.getText());
-        orderDetails.set(row, new OrderDetail(OrderID, ProductID, Quantity));
-        Float Money = orderDetails.get(row).money();
-        fileController.updateListOrderDetail("orderDetail.txt", orderDetails);
-        model.setValueAt(ProductID, row, 0);
-        model.setValueAt(Quantity, row, 1);
-        model.setValueAt(Money, row, 2);
-        ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
-        //orders.get(orderIndex).setPoint(-money+Money); 
-        setNullIPN();
-        
-        orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
+        Float Point =orders.get(orderIndex).getTotalMoneyDouble();
+        for (int j= 0; j < products.size() ; j++) 
+                {
+                    if (products.get(j).getmaSP()== ProductID)
+                    {
+                        products.get(j).setSoLuong(products.get(j).getSoLuong()+sl - Quantity);
+                        modelPro.setValueAt(products.get(j).getSoLuong(), j, 4);
+
+                    }
+                }
+        for (int i=0;i<orderDetails.size();i++)
+        {
+            if(orderDetails.get(i).equals(od))
+            {
+                fileController.updateListProductToFile("product.txt", products);
+                orderDetails.set(i, new OrderDetail(OrderID, ProductID,Quantity ));
+                Float Money = orderDetails.get(i).money();
+                fileController.updateListOrderDetail("orderDetail.txt", orderDetails);
+                modelDetail.setValueAt(ProductID, row, 0);
+                modelDetail.setValueAt(Quantity, row, 1);
+                modelDetail.setValueAt(Money, row, 2);
+                ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
+
+                setNullIPN();
+
+                orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
+            }       
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
     
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        try
+        {
         int row = productTbl.getSelectedRow();
         int sl = (int) productTbl.getValueAt(row, 4);
-        Integer ProductID = Integer.parseInt(ipnProductID.getText());        
-        Integer Quantity = Integer.parseInt(ipnQuantity.getText());
+        Integer ProductID = Integer.parseInt(ipnProductID.getText());   
+        String ipnQuantityString=ipnQuantity.getText();
+        if(ipnQuantityString.compareTo("")==0){
+            showError.setText("Nhập số lượng sản phẩm cần mua");
+            return;
+        }
+        String regQuantity="^\\d+$";
+        Pattern pattern=Pattern.compile(regQuantity);
+        Matcher match=pattern.matcher(ipnQuantityString);
+        if(!match.matches()){
+            showError.setText("Bạn cần nhập 1 số nguyên");
+            return;
+        }
+        Integer Quantity = Integer.parseInt(ipnQuantityString);
         if (Quantity > sl) {
-            JOptionPane.showMessageDialog(rootPane, "So luong san pham khong du");
+            showError.setText("Số lượng sản phẩm không đủ");
             return;
         }
         Float Point =orders.get(orderIndex).getTotalMoneyDouble();
-        OrderDetail od = new OrderDetail(orders.get(orderIndex).getOrderID(), ProductID, Quantity);
-        orderDetails.add(od);
-        fileController.writeOrderDetailToFile("orderDetail.txt", od); 
-       
-        model.addRow(new Object[]{
-            ProductID, Quantity, od.money()
+        boolean check=false;
+        int index=0;
+        for(int j=0;j<orderDetails.size();j++)
+        {
+           
+            if((orderDetails.get(j).getOrderID()== orders.get(orderIndex).getOrderID())&&
+                (orderDetails.get(j).getProductID()== ProductID)){
+                check=true;
+                index=j;
+                break;
+            }
+             
         }
-        );
+        if(check)
+        {
+            orderDetails.get(index).setQuantity(orderDetails.get(index).getQuantity()+Quantity);
+           
+        }
+        else
+        {
+            OrderDetail od = new OrderDetail(orders.get(orderIndex).getOrderID(), ProductID, Quantity);
+            orderDetails.add(od);
+                
+        }  
+        fileController.updateListOrderDetail("orderDetail.txt", orderDetails);
+        OrderDetailDisplay();
+        //cap nhat lai bang san pham
         for (int i = 0; i <= products.size() - 1; i++) {
             if (Objects.equals(products.get(i).getmaSP(), ProductID)) {
                 
@@ -345,10 +428,17 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
         setNullIPN();
         orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
-        
+        }
+        catch (Exception e)
+        {
+            showError.setText("Vui lòng nhập đầy đủ thông tin"+e.toString());
+        }
     }//GEN-LAST:event_addBtnActionPerformed
     private void orderDetailTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderDetailTblMouseClicked
         //hiển thị bảng chi tiết hóa đơn
+        addBtn.setEnabled(false);
+        updateBtn.setEnabled(true);
+        deleteBtn.setEnabled(true);
         int row = orderDetailTbl.getSelectedRow();
         Integer ProductID = (Integer) orderDetailTbl.getValueAt(row, 0);
         Integer quantity = (Integer) orderDetailTbl.getValueAt(row, 1);
@@ -362,6 +452,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         }
         
         ipnQuantity.setText(quantity + "");
+        ProductDisplay();
         
     }//GEN-LAST:event_orderDetailTblMouseClicked
 
@@ -371,52 +462,51 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
-        
-        int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION, 0);
-        if (answer == 0) {
-            int row = orderDetailTbl.getSelectedRow();
-            Integer ProductID=(Integer)model.getValueAt(row, 0);
-            Integer Quantity=(Integer)model.getValueAt(row, 1);
-            Float money=(Float)model.getValueAt(row, 2);
-            
-            for(int i=0; i<products.size();i++){
-                if(products.get(i).getmaSP() ==ProductID){
-
-                    products.get(i).setSoLuong(products.get(i).getSoLuong()+Quantity);
-
-                    modelPro.setValueAt(products.get(i).getSoLuong(), i,4);
-
+        int row = orderDetailTbl.getSelectedRow();
+        int answer = JOptionPane.showConfirmDialog(null,
+                "Bạn có chắc muốn xóa sản phẩm này?", "Xác nhận",
+                JOptionPane.YES_NO_OPTION, 0);
+        if (answer == 0) 
+        {
+            Integer OrderID=Integer.parseInt(ipnorderID.getText());
+            Integer ProductID=(Integer)modelDetail.getValueAt(row, 0);
+            Integer Quantity=(Integer)modelDetail.getValueAt(row, 1);
+            OrderDetail od=new OrderDetail(OrderID,ProductID,Quantity);
+            for (int j=0;j<orderDetails.size();j++)
+            {   if(orderDetails.get(j).equals(od))
+                {
+                    for(int i=0; i<products.size();i++)
+                    {
+                        if(Objects.equals(products.get(i).getmaSP(), ProductID))
+                        {
+                            products.get(i).setSoLuong(products.get(i).getSoLuong()+Quantity);
+                            modelPro.setValueAt(products.get(i).getSoLuong(), i,4);
+                            break;
+                        }
+                    }
+                    Float Point =orders.get(orderIndex).getTotalMoneyDouble();
+                    //xoa tren giao dien
+                    modelDetail.removeRow(row);
+                    orderDetails.remove(j);
+                    fileController.updateListProductToFile("product.txt", products);
+                    FileController.updateListOrderDetail("orderDetail.txt", orderDetails);
+                    ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble()+"");
+                    orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));  
                     break;
-                }
+                }  
             }
-            Float Point =orders.get(orderIndex).getTotalMoneyDouble();
-            //xoa tren giao dien
-            model.removeRow(row);
-            orderDetails.remove(row);
-            FileController.updateListOrderDetail("orderDetail.txt", orderDetails);
-            ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble()+"");
-            orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));                                                                                  
-            
         }
-        
-        //ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble() + "");
-        setNullIPN();
-        //orders.get(orderIndex).setPoint(orders.get(orderIndex).getTotalMoneyDouble());
+       setNullIPN();
+       
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
             
-         this.dispose();
-         
+        homeRecept.actionDisplay();
+        homeRecept.CustomersDisplay();
+        this.dispose();
          
     }//GEN-LAST:event_closeBtnActionPerformed
-
-    private void closeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeBtnMouseClicked
-//        System.exit(0);
-        this.dispose();
-        // new Main().setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_closeBtnMouseClicked
 
     private void productTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productTblMouseClicked
         int row = productTbl.getSelectedRow();
@@ -426,6 +516,11 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         Integer quantity = (Integer) modelPro.getValueAt(row, 4);
         ipnProductID.setText(productID + "");
         ipnPrice.setText(Price + "");
+        OrderDetailDisplay();
+        updateBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
+        addBtn.setEnabled(true);
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_productTblMouseClicked
@@ -433,6 +528,17 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     private void ipnorderIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipnorderIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ipnorderIDActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        deleteBtn.setEnabled(false);
+        updateBtn.setEnabled(false);
+        addBtn.setEnabled(true);
+        ProductDisplay();
+        OrderDetailDisplay();
+        setNullIPN();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments
@@ -475,10 +581,12 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         ipnProductID.setText("");
         ipnPrice.setText("");
         ipnQuantity.setText("");
+        showError.setText("");
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanel1;
     private javax.swing.JButton addBtn;
     private javax.swing.JButton closeBtn;
     private javax.swing.JButton deleteBtn;
@@ -497,17 +605,17 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable orderDetailTbl;
     private javax.swing.JTable productTbl;
+    private javax.swing.JLabel showError;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    private void ProductDisplay() {
-        modelPro = (DefaultTableModel) productTbl.getModel();
-        products = FileController.readProductFromFile("product.txt");
+    private void ProductDisplay() 
+    {
+       modelPro.setRowCount(0);
         for (product a : products) {
             modelPro.addRow(new Object[]{
                 a.getmaSP(), a.getTenSP(), a.getGiaBan(), a.getGiamGia(), a.getSoLuong()
@@ -515,14 +623,12 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         }
     }
     
-    private void OrderDetailDisplay() {
-        
-        Integer orderID = Integer.parseInt(ipnorderID.getText().trim());
-        model = (DefaultTableModel) orderDetailTbl.getModel();
-        orderDetails = FileController.readOrderDetailFromFile("orderDetail.txt");
+    private void OrderDetailDisplay() 
+    {
+        modelDetail.setRowCount(0);
         for (OrderDetail a : orderDetails) {
             if (a.getOrderID().equals(orderID)) {
-                model.addRow(new Object[]{
+                modelDetail.addRow(new Object[]{
                     a.getProductID(), a.getQuantity(), a.money()
                 });
             }
