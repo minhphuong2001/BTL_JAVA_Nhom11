@@ -175,6 +175,8 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         });
         form.add(inpAccumulatePoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, 275, 35));
 
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 500));
+
         tbCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -183,6 +185,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 "ID", "Họ Tên", "Số điện thoại", "Điểm tích lũy"
             }
         ));
+        tbCustomer.setPreferredSize(new java.awt.Dimension(300, 700));
         tbCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCustomerMouseClicked(evt);
@@ -193,7 +196,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             tbCustomer.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 360));
+        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 320));
 
         btnAdd.setBackground(new java.awt.Color(75, 123, 236));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));

@@ -35,7 +35,6 @@ public class Main extends javax.swing.JFrame {
         listCate.add(new CategoriesModel("ManagementStatistical", management_statisticalPanel, statistifyLabel));
         ssController.setEvent(listCate);
         
-        
         ImageIcon homeIcon=iconimage(24,24,"src/icons/home.png");
         homepageLabel.setIcon(homeIcon);
         ImageIcon productIcon=iconimage(26,26,"src/icons/tshirt.png");
@@ -44,7 +43,7 @@ public class Main extends javax.swing.JFrame {
         customerLabel.setIcon(customerIcon);
         ImageIcon receptIcon=iconimage(25,25,"src/icons/quan_Li.png");
         receptLabel.setIcon(receptIcon);
-        ImageIcon accIcon=iconimage(25,25,"src/icons/home.png");
+        ImageIcon accIcon=iconimage(25,25,"src/icons/hoa_don.png");
         accLabel.setIcon(accIcon);
         ImageIcon employeeIcon=iconimage(26,26,"src/icons/thanh_toan.png");
         employeeLabel.setIcon(employeeIcon);
@@ -65,7 +64,7 @@ public class Main extends javax.swing.JFrame {
         productLabel = new javax.swing.JLabel();
         management_receptPanel = new javax.swing.JPanel();
         receptLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         management_statisticalPanel = new javax.swing.JPanel();
         statistifyLabel = new javax.swing.JLabel();
@@ -119,7 +118,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_customerPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(customerLabel)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         management_customerPanelLayout.setVerticalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +139,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_productPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(productLabel)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,19 +161,19 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_receptPanelLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(receptLabel)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(receptLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MINASHOP");
+        titleLabel.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 255, 255));
+        titleLabel.setText("MINNA SHOP");
 
-        logoutBtn.setBackground(new java.awt.Color(255, 51, 51));
-        logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        logoutBtn.setBackground(new java.awt.Color(255, 153, 51));
+        logoutBtn.setFont(new java.awt.Font("Cambria", 0, 16)); // NOI18N
         logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +195,7 @@ public class Main extends javax.swing.JFrame {
         management_statisticalPanelLayout.setHorizontalGroup(
             management_statisticalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_statisticalPanelLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addComponent(statistifyLabel)
                 .addGap(36, 36, 36))
         );
@@ -272,22 +271,21 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(management_employeePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                             .addComponent(management_statisticalPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))))
                 .addGap(28, 28, 28))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titleLabel)
+                .addGap(55, 55, 55))
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidebarPanelLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel1))
-                    .addGroup(sidebarPanelLayout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(77, 77, 77)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidebarPanelLayout.setVerticalGroup(
             sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
+                .addGap(44, 44, 44)
+                .addComponent(titleLabel)
+                .addGap(32, 32, 32)
                 .addComponent(home_pagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,9 +299,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(management_employeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(management_statisticalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(44, 44, 44))
         );
 
         containerPanel.setPreferredSize(new java.awt.Dimension(985, 670));
@@ -334,7 +332,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(containerPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addComponent(sidebarPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE))
-                .addGap(0, 100, Short.MAX_VALUE))
+                .addGap(0, 59, Short.MAX_VALUE))
         );
 
         pack();
@@ -351,7 +349,10 @@ public class Main extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                Main main = new Main();
+                main.pack();
+                main.setLocationRelativeTo(null);
+                main.setVisible(true);
             }
         });
     }
@@ -363,7 +364,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel employeeLabel;
     private javax.swing.JPanel home_pagePanel;
     private javax.swing.JLabel homepageLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel management_accPanel;
     private javax.swing.JPanel management_customerPanel;
@@ -375,5 +375,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel receptLabel;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JLabel statistifyLabel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

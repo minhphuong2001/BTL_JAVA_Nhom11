@@ -138,11 +138,11 @@ public class MainEmployee extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MINASHOP");
-        sidebarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 61, -1, -1));
+        jLabel1.setText("MINNA SHOP");
+        sidebarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
-        logoutBtn.setBackground(new java.awt.Color(255, 51, 51));
-        logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        logoutBtn.setBackground(new java.awt.Color(255, 153, 51));
+        logoutBtn.setFont(new java.awt.Font("Cambria", 0, 16)); // NOI18N
         logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {

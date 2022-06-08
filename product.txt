@@ -1,10 +1,10 @@
 1|Áo Polo Nam|280000.0|200000.0|10.0|16
 2|Quần Jeans Clean Denim|599000.0|480000.0|10.0|6
-3|Áo thun nam Cotton Compact|259000.0|160000.0|20.0|23
+3|Áo thun nam Cotton Compact|259000.0|160000.0|20.0|21
 4|Quần Short nam Ultra Pro|189000.0|120000.0|15.0|22
 5|Đầm voan bèo vai|495000.0|400000.0|10.0|67
 6|Áo thun nam Cotton Compact|120000.0|80000.0|20.0|386
-7|Quần Short nam Ultra Pro|220000.0|180000.0|15.0|2
+7|Chân váy dáng xòe dài |700000.0|400000.0|10.0|67
 8|DAZY Quần jean Túi màu trơn|350000.0|280000.0|10.0|3
 9|Áo sơ mi dáng suông tay bong|220000.0|176000.0|5.0|15
 10|Áo sơ mi croptop|320000.0|256000.0|6.0|45
@@ -28,3 +28,14 @@
 28|Váy công sở ôm dáng|400000.0|320000.0|8.0|40
 29|Chân váy xếp ly lưng cao|310000.0|248000.0|10.0|12
 30|Đồ bộ thu đông cao cấp dài tay|400000.0|320000.0|5.0|20
+31|Đồ bộ nữ Pijama dài tay|360000.0|288000.0|10.0|15
+32|Quần Jogger nỉ nữ bo gấu|280000.0|224000.0|5.0|10
+33|Quần Jogger Nữ Ống Rộng|250000.0|200000.0|10.0|25
+34|Quần Kaki Ống Suông Unisex Nam Nữ|300000.0|240000.0|10.0|35
+35|Quần ống suông nữ cạp cao|320000.0|256000.0|12.0|45
+36|Quần caro ống rộng|280000.0|224000.0|5.0|52
+37|Chân váy đuôi cá Maika|260000.0|208000.0|5.0|23
+38|Váy Kẻ Nữ Dáng Suông|270000.0|216000.0|8.0|52
+39|Chân váy xếp ly lưng cao BH 29|310000.0|248000.0|10.0|12
+40|Chân váy bút chì công sở update|540000.0|272000.0|20.0|63
+41|Chan vay|250000.0|180000.0|2.0|20
