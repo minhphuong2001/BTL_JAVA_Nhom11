@@ -78,7 +78,7 @@ public class Main extends javax.swing.JFrame {
         home_pagePanelLayout.setHorizontalGroup(
             home_pagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(home_pagePanelLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(35, 35, 35)
                 .addComponent(homepageLabel)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
@@ -100,7 +100,7 @@ public class Main extends javax.swing.JFrame {
         management_customerPanelLayout.setHorizontalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_customerPanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(38, 38, 38)
                 .addComponent(customerLabel)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
@@ -121,7 +121,7 @@ public class Main extends javax.swing.JFrame {
         management_productPanelLayout.setHorizontalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_productPanelLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(37, 37, 37)
                 .addComponent(productLabel)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
@@ -143,7 +143,7 @@ public class Main extends javax.swing.JFrame {
         management_receptPanelLayout.setHorizontalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_receptPanelLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(39, 39, 39)
                 .addComponent(receptLabel)
                 .addContainerGap(70, Short.MAX_VALUE))
         );
@@ -152,9 +152,9 @@ public class Main extends javax.swing.JFrame {
             .addComponent(receptLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Gill Sans MT Ext Condensed Bold", 1, 48)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("MINSHOP");
+        jLabel1.setText("MINASHOP");
 
         logoutBtn.setBackground(new java.awt.Color(204, 255, 204));
         logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -177,8 +177,8 @@ public class Main extends javax.swing.JFrame {
         management_statisticalPanel.setLayout(management_statisticalPanelLayout);
         management_statisticalPanelLayout.setHorizontalGroup(
             management_statisticalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(management_statisticalPanelLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_statisticalPanelLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(statistifyLabel)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -201,7 +201,7 @@ public class Main extends javax.swing.JFrame {
         management_accPanelLayout.setHorizontalGroup(
             management_accPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_accPanelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(40, 40, 40)
                 .addComponent(accLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -224,7 +224,7 @@ public class Main extends javax.swing.JFrame {
         management_employeePanelLayout.setHorizontalGroup(
             management_employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(management_employeePanelLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(41, 41, 41)
                 .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -259,7 +259,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(management_statisticalPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))))
                 .addGap(28, 28, 28))
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(69, 69, 69)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -282,7 +282,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(management_employeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(management_statisticalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
