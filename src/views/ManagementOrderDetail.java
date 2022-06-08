@@ -18,6 +18,9 @@ import static controllers.Utils.iconimage;
 import static controllers.Utils.setBgButtonHasColor;
 import static controllers.Utils.setBgButtonNull;
 import static controllers.Utils.setBgColor;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +44,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     public static Integer orderIndex = 0;
     static FileController fileController;
     private ManagementReceptView homeRecept;
+    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
     
     static Integer orderID = 0;
    
@@ -126,6 +130,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         closeBtn = new javax.swing.JButton();
         ipnCustomerID = new javax.swing.JTextField();
         showError = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chi tiết hóa đơn");
@@ -286,11 +291,19 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 660, 40, 40));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 20, 40, 40));
 
         ipnCustomerID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getContentPane().add(ipnCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 275, 35));
         getContentPane().add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 270, 30));
+
+        jButton1.setText("In hóa đơn");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 710, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -540,6 +553,16 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String date = ipnDate.getText();
+        String orderNumber = ipnorderID.getText().trim();
+        String customerID = ipnCustomerID.getText().trim();
+
+        PrintBill bill = new PrintBill(orderNumber, customerID, date);
+        bill.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -597,6 +620,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
     private javax.swing.JTextField ipnQuantity;
     private javax.swing.JTextField ipnTotal;
     private javax.swing.JTextField ipnorderID;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -629,7 +653,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         for (OrderDetail a : orderDetails) {
             if (a.getOrderID().equals(orderID)) {
                 modelDetail.addRow(new Object[]{
-                    a.getProductID(), a.getQuantity(), a.money()
+                    a.getProductID(), a.getQuantity(), numberFormat.format(a.money())
                 });
             }
         }

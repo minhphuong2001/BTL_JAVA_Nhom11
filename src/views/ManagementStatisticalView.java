@@ -16,8 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Order;
 import models.OrderDetail;
 import models.product;
-import static views.ManagementOrderDetail.model;
-import static views.ManagementOrderDetail.orderDetails;
+import static views.ManagementCustomerView.model;
 
 /**
  *
