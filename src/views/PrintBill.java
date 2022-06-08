@@ -41,6 +41,7 @@ public class PrintBill extends javax.swing.JFrame {
     public PrintBill() {}
 
     public PrintBill(String orderNumber, String customerID, String date) {
+        System.out.println(orderNumber + ".." + customerID + ".." + date);
         initComponents();
         ImageIcon printIcon=iconimage(25,25,"src/icons/print.png");
         btnPrint.setIcon(printIcon);
@@ -123,31 +124,40 @@ public class PrintBill extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÓA ĐƠN");
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(572, 900));
+        setPreferredSize(new java.awt.Dimension(700, 900));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Địa chỉ: Số 8, Nguyên Xá, Minh Khai, Bắc Từ Liêm, Hà Nội");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 94, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Điện thoại: 0389247621");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 129, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Ngày: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 164, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel5.setText("PHIẾU THANH TOÁN");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Khách hàng: ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Số hóa đơn: ");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Điện thoại: ");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Điểm tích lũy: ");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
 
         detailTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,36 +169,58 @@ public class PrintBill extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(detailTable);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, 530, 178));
+
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Tổng tiền hàng: ");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 640, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("Tổng phải trả");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 740, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Khuyễn mãi theo đơn: ");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, -1, -1));
 
         orderDetailNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        orderDetailNumber.setText("gg");
+        getContentPane().add(orderDetailNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 200, 35));
 
         customerName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        customerName.setText("gg");
+        getContentPane().add(customerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 200, 35));
 
         phoneNumber.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        phoneNumber.setText("gg");
+        getContentPane().add(phoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 200, 35));
 
         points.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        points.setText("ggg");
+        getContentPane().add(points, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 200, 35));
 
         totalProduct.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        totalProduct.setText("gg");
+        getContentPane().add(totalProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 630, 200, 35));
 
         promotion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        promotion.setText("ggg");
+        getContentPane().add(promotion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 680, 200, 35));
 
         totalMoney.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        totalMoney.setText("ggg");
+        getContentPane().add(totalMoney, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 730, 200, 30));
 
         jLabel10.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel10.setText("MINNA SHOP");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 21, -1, -1));
 
         date.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 200, 25));
 
         btnPrint.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPrint.setText("IN");
+        getContentPane().add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 780, -1, -1));
 
         closeBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         closeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -196,92 +228,7 @@ public class PrintBill extends javax.swing.JFrame {
                 closeBtnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180)
-                .addComponent(jLabel10))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel2))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel4))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jLabel5))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel7))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel6))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel8))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel9))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel11))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel14))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel12))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(btnPrint))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10))
-                .addGap(11, 11, 11)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(19, 19, 19)
-                .addComponent(jLabel5)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel7)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel6)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel8)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel9)
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel11)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel14)
-                .addGap(23, 23, 23)
-                .addComponent(jLabel12)
-                .addGap(28, 28, 28)
-                .addComponent(btnPrint))
-        );
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 40, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -300,11 +247,11 @@ public class PrintBill extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PrintBill bill = new PrintBill();
-                bill.pack();
-                bill.setLocationRelativeTo(null);
-                bill.setVisible(true);
-                bill.setVisible(true);
+//                PrintBill bill = new PrintBill();
+//                bill.pack();
+//                bill.setLocationRelativeTo(null);
+//                bill.setVisible(true);
+                new PrintBill().setVisible(true);
             }
         });
     }

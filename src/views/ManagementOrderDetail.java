@@ -378,6 +378,8 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));
             }       
         }
+
+        JOptionPane.showMessageDialog(null,"Cập nhật hóa đơn thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_updateBtnActionPerformed
     
 
@@ -460,7 +462,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         int row = orderDetailTbl.getSelectedRow();
         Integer ProductID = (Integer) orderDetailTbl.getValueAt(row, 0);
         Integer quantity = (Integer) orderDetailTbl.getValueAt(row, 1);
-        float Money = (Float) orderDetailTbl.getValueAt(row, 2);
+//        float Money = (Float) orderDetailTbl.getValueAt(row, 2);
         //sdet dữ liệu lên ô text
         ipnProductID.setText(ProductID + "");
         for (product a : products) {

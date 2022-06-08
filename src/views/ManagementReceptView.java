@@ -30,6 +30,7 @@ import models.Order;
 import models.OrderDetail;
 import models.product;
 import java.awt.Image;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -59,12 +60,15 @@ public class ManagementReceptView extends javax.swing.JPanel {
      
     public ManagementReceptView() {
         initComponents();
-        CustomersDisplay();
-        actionDisplay();
         Date date1=new Date();
         ipnDate.setDate(date1);
         orderDetails=fileController.readOrderDetailFromFile("orderDetail.txt");
         products =fileController.readProductFromFile("product.txt"); 
+        orders=FileController.readOrderFromFile("order.txt");
+
+        CustomersDisplay();
+        actionDisplay();
+
         autoIncreaseOrderID();
 
         ImageIcon detailIcon=iconimage(24,24,"src/icons/Ticket-add-icon.png");
@@ -129,6 +133,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         ipnOrderID = new javax.swing.JFormattedTextField();
         ipnDate = new com.toedter.calendar.JDateChooser();
+        Error = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         orderTbl = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -218,7 +223,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         });
         jPanel5.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 130, 50));
 
-        cbxstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang chờ xử lý", "Đã thanh toán", " " }));
+        cbxstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đã thanh toán", "Đã hoàn thành" }));
         cbxstatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxstatusActionPerformed(evt);
@@ -233,6 +238,10 @@ public class ManagementReceptView extends javax.swing.JPanel {
         ipnOrderID.setEnabled(false);
         jPanel5.add(ipnOrderID, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 21, 275, 35));
         jPanel5.add(ipnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 275, 35));
+
+        Error.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Error.setForeground(new java.awt.Color(204, 0, 51));
+        jPanel5.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 270, 35));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 61, 950, 290));
 
@@ -265,7 +274,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
             orderTbl.getColumnModel().getColumn(4).setMinWidth(110);
         }
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 480, 250));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 480, 330));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -299,7 +308,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
             customerTbl.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
 
-        jPanel6.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 430, 250));
+        jPanel6.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 430, 330));
 
         jButton1.setText("Thêm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -320,7 +329,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         });
         jPanel6.add(ipnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 10, 210, 35));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 480, 310));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 480, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -328,13 +337,13 @@ public class ManagementReceptView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 321, Short.MAX_VALUE))
+                .addGap(0, 61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
      
@@ -359,6 +368,16 @@ public class ManagementReceptView extends javax.swing.JPanel {
             String strdate=f.format(date);
             String status=cbxstatus.getSelectedItem().toString();
             ipnTotal.setText("0.0");
+
+            DateFormat dateFormat = null;
+            dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date d=dateFormat.parse(strdate);
+            Date datenow = new Date();
+            if(d.after(datenow)){
+                Error.setText("Không được chọn ngày trong tương lai");
+                return;
+            }
+            Error.setText("");
             Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
             Order order=new Order(id, cusID,strdate,status);
             orders.add(order);
@@ -373,7 +392,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi hệ thống" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -387,36 +406,46 @@ public class ManagementReceptView extends javax.swing.JPanel {
     }//GEN-LAST:event_detailBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        try {
+            Date date=ipnDate.getDate();
+            SimpleDateFormat fm= new SimpleDateFormat("dd/MM/yyyy");
+            String strdate=fm.format(date);
+            Date datenow = new Date();
+            if(date.after(datenow)){
+                Error.setText("Không được chọn ngày trong tương lai");
+                return;
+            }
+            Error.setText("");
 
-        Date date=ipnDate.getDate();
-        SimpleDateFormat fm= new SimpleDateFormat("dd/MM/yyyy");
-        String strdate=fm.format(date);
-        ipnTotal.setText(Tongtien+"");
-        Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
-        int row=orderTbl.getSelectedRow();
-        Float point=orders.get(row).getTotalMoneyDouble();
-        orders.get(row).setPoint(point, 0f);
-        Integer orderID=(Integer)orderTbl.getValueAt(row, 0);
-        String status=cbxstatus.getSelectedItem().toString();  
-        //update lai file
-        Order order=new Order(orderID,cusID,strdate,status);
-        orders.set(row,order);
-        FileController.updatelistOrderToFile("order.txt", orders);
-        orders.get(row).setPoint(0f, point);
+            ipnTotal.setText(Tongtien+"");
+            Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
+            int row=orderTbl.getSelectedRow();
+            Float point=orders.get(row).getTotalMoneyDouble();
+            orders.get(row).setPoint(point, 0f);
+            Integer orderID=(Integer)orderTbl.getValueAt(row, 0);
+            String status=cbxstatus.getSelectedItem().toString();  
 
-        //update table
-        orderTbl.setValueAt(orderID,row, 0);
-        orderTbl.setValueAt(cusID, row, 1);
-        orderTbl.setValueAt(strdate,row,2);
-        orderTbl.setValueAt(numberFormat.format(Tongtien),row,3);
-        orderTbl.setValueAt(status,row,4);
-        CustomersDisplay();
+            //update lai file
+            Order order=new Order(orderID,cusID,strdate,status);
+            orders.set(row,order);
+            FileController.updatelistOrderToFile("order.txt", orders);
+            orders.get(row).setPoint(0f, point);
 
-        //dua cac o text ve null;     
-        setNullTextField();
-        cbxstatus.setSelectedIndex(0);
-       
-       
+            //update table
+            orderTbl.setValueAt(orderID,row, 0);
+            orderTbl.setValueAt(cusID, row, 1);
+            orderTbl.setValueAt(strdate,row,2);
+            orderTbl.setValueAt(numberFormat.format(Tongtien),row,3);
+            orderTbl.setValueAt(status,row,4);
+            CustomersDisplay();
+
+            //dua cac o text ve null;     
+            setNullTextField();
+            cbxstatus.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(null,"Cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -520,19 +549,20 @@ public class ManagementReceptView extends javax.swing.JPanel {
     }//GEN-LAST:event_ipnSearchKeyReleased
 
     public void actionDisplay(){
+        updatestatus();
+
         detailBtn.setEnabled(true);
         model=(DefaultTableModel)orderTbl.getModel();
-        orders=FileController.readOrderFromFile("order.txt");
         model.setRowCount(0);
         orders.forEach(item -> {
             model.addRow(new Object[]{
                 item.getOrderID(), item.getCustomerID(),item.getDate(),numberFormat.format(item.getTotalMoneyDouble()),item.getStatus()
             });
         });
-    rightRender(orderTbl,3);
-
-        
+        rightRender(orderTbl,3);
+        rightRender(orderTbl,4);
     }
+
     public void CustomersDisplay()
     {
         
@@ -545,12 +575,26 @@ public class ManagementReceptView extends javax.swing.JPanel {
             });
         });
         rightRender(customerTbl,3);
-
     }
     
-   
+    public void updatestatus(){
+        try {  
+           Date date=new Date();
+           for(int i=0;i<orders.size();i++)
+           {
+                  Date a = new SimpleDateFormat("dd/MM/yyyy").parse(orders.get(i).getDate());
+                    if(((date.getTime()-a.getTime())/(24*60*60*1000))>5){
+                        orders.get(i).setStatus(cbxstatus.getItemAt(1));
+                    }
+           }
+           fileController.updatelistOrderToFile("order.txt", orders);
+        } catch (ParseException ex) {
+            Logger.getLogger(ManagementReceptView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Error;
     private javax.swing.JButton addBtn;
     private javax.swing.JComboBox<String> cbxstatus;
     private javax.swing.JTable customerTbl;

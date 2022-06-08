@@ -2,4 +2,4 @@
 2|minhphuong|123456|employee
 3|hoanpham|123456|employee
 4|hailuyen|123456|employee
-5|nguyenmoi|123456789|employee
+5|nguyenmoi123|123456789|employee
