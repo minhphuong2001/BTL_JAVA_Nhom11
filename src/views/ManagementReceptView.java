@@ -29,11 +29,13 @@ import models.Order;
 import models.OrderDetail;
 import models.product;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 import static views.ManagementCustomerView.model;
 import static views.ManagementEmployeeView.utils;
+
 public class ManagementReceptView extends javax.swing.JPanel {
     public static DefaultTableModel model;
     public static DefaultTableModel modelCus;
@@ -46,7 +48,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
     public static List<OrderDetail> orderDetails=new ArrayList<>();
     static FileController fileController;
     private  float Tongtien=0;
-
+    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
     /**
      * Creates new form ManagementReceptView
      */
@@ -517,7 +519,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         model.setRowCount(0);
         orders.forEach(item -> {
             model.addRow(new Object[]{
-                item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
+                item.getOrderID(), item.getCustomerID(),item.getDate(),numberFormat.format(item.getTotalMoneyDouble()),item.getStatus()
             });
         });
        
