@@ -66,34 +66,20 @@ public class HomePageView extends javax.swing.JPanel {
         listTotalMoneyByMonth = getMoney(2022, listOrder);
 
         for (int i=0;i<12;i++){
-            data.addValue(listTotalMoneyByMonth.get(i), "Tiền", (i+1)+"");
+            data.addValue(listTotalMoneyByMonth.get(i), "Tổng tiền", (i+1)+"");
         }
 
-        
-//        data.addValue(650000, "Tiền", "2");
-//        data.addValue(900000, "Tiền", "3");
-//        data.addValue(1100000, "Tiền", "4");
-//        data.addValue(3000000, "Tiền", "5");
-//        data.addValue(500000, "Tiền", "6");
-//        data.addValue(10000000, "Tiền", "7");
-//        data.addValue(11000000, "Tiền", "8");
-//        data.addValue(8000000, "Tiền", "9");
-//        data.addValue(12000000, "Tiền", "10");
-//        data.addValue(20000000, "Tiền", "11");
-//        data.addValue(18000000, "Tiền", "12");
-
-        JFreeChart barChart =  ChartFactory.createBarChart("THỐNG KÊ DOANH THU", "Tháng", "Tiền", 
-        data, PlotOrientation.VERTICAL, false, false, false);
+        JFreeChart barChart =  ChartFactory.createBarChart("DOANH THU", "Tháng", "Tổng tiền", 
+        data, PlotOrientation.VERTICAL, true, true, true);
 
         CategoryPlot plot = barChart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.PINK);
+        plot.setRangeGridlinePaint(Color.ORANGE);
 
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(100,430));
 
         pnlChart.removeAll();
         pnlChart.add(chartPanel, BorderLayout.CENTER);
-
     }
 
     private List<Float> getMoney(int year, List<Order> orders) {
