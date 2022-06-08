@@ -262,7 +262,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
             orderTbl.getColumnModel().getColumn(4).setMinWidth(110);
         }
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 480, 250));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 480, 120));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -363,11 +363,14 @@ public class ManagementReceptView extends javax.swing.JPanel {
             actionDisplay();
             JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công");
             setNullTextField();
-            
+            //orderTbl.changeSelection(0, 0, true, true);
+            orderTbl.changeSelection((orders.size()-1), 3, true, true);
+            orderTbl.setRowSelectionInterval((orders.size()-1),(orders.size()-1));
+                    
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
+            JOptionPane.showMessageDialog(null, "Lỗi hệ thống" + e.getMessage());
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
