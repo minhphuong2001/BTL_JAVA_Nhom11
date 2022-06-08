@@ -119,7 +119,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_customerPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(customerLabel)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         management_customerPanelLayout.setVerticalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +140,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_productPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(productLabel)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +162,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_receptPanelLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(receptLabel)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +173,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MINASHOP");
 
-        logoutBtn.setBackground(new java.awt.Color(204, 255, 204));
+        logoutBtn.setBackground(new java.awt.Color(255, 51, 51));
         logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
@@ -196,7 +196,7 @@ public class Main extends javax.swing.JFrame {
         management_statisticalPanelLayout.setHorizontalGroup(
             management_statisticalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_statisticalPanelLayout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(statistifyLabel)
                 .addGap(36, 36, 36))
         );
@@ -266,10 +266,6 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(home_pagePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
                             .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(management_accPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, sidebarPanelLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(sidebarPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -277,8 +273,13 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(management_statisticalPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))))
                 .addGap(28, 28, 28))
             .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1)
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebarPanelLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(jLabel1))
+                    .addGroup(sidebarPanelLayout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidebarPanelLayout.setVerticalGroup(
@@ -300,9 +301,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(management_employeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(management_statisticalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(50, 50, 50))
         );
 
         containerPanel.setPreferredSize(new java.awt.Dimension(985, 670));

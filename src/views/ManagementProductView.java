@@ -7,6 +7,7 @@ package views;
 import controllers.FileController;
 import controllers.Utils;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -53,9 +54,14 @@ public class ManagementProductView extends javax.swing.JPanel {
         listProduct = file.readProductFromFile("product.txt");
         for (product item : listProduct) {
             tableModal.addRow(new Object[]{
-                item.getmaSP(), item.getTenSP(), item.getGiaBan(), item.getGiaMua(), item.getGiamGia(), item.getSoLuong()
+                item.getmaSP(), item.getTenSP(), item.getGiaBan(), item.getGiaMua(), item.getGiamGia()+"%", item.getSoLuong()
             });
         }
+        rightRender(productTable,2);
+        rightRender(productTable,3);
+     
+
+        
         suajButton.setEnabled(false);
         xoajButton.setEnabled(false);
         increaseProductId();
@@ -69,6 +75,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton.setIcon(updateIcon);
         ImageIcon addIcon=iconimage(25,25,"src/icons/add-product.png");
         themjButton.setIcon(addIcon);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -167,6 +174,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         });
         add(giagiamField, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 275, 35));
 
+        giabanField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         giabanField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 giabanFieldKeyReleased(evt);
@@ -228,17 +236,19 @@ public class ManagementProductView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(105, 350, 310, 40));
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 280, 35));
     }// </editor-fold>//GEN-END:initComponents
 
     private void productTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productTableMouseClicked
 
         int row = productTable.getSelectedRow();
+        
+        
         Integer maSP = (Integer) tableModal.getValueAt(row, 0);
         String tenSP = (String) tableModal.getValueAt(row, 1);
-        Float giaBan = (Float) tableModal.getValueAt(row, 2);
-        Float giaMua = (Float) tableModal.getValueAt(row, 3);
-        Float giamGia = (Float) tableModal.getValueAt(row, 4);
+        Float giaBan = listProduct.get(row).getGiaBan();
+        Float giaMua = listProduct.get(row).getGiaMua();
+        Float giamGia = listProduct.get(row).getGiamGia();
         Integer soLuong = (Integer) tableModal.getValueAt(row, 5);
 
         idspField.setText("" + maSP);

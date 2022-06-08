@@ -18,6 +18,7 @@ import models.OrderDetail;
 import models.product;
 import static views.ManagementCustomerView.model;
 
+
 /**
  *
  * @author ADMIN
@@ -41,19 +42,18 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
         orders = FileController.readOrderFromFile("order.txt");
         products = FileController.readProductFromFile("product.txt");
         
-  }   
+        
+  }  
+  
 
     public void showTable(List<OrderDetail> orDetail)
     {
         List<Integer> listProductID = new ArrayList<>();
         List<String> listProductName = new ArrayList<>();
-        List<Float> listProductPrice = new ArrayList<>();
+        List<String> listProductPrice = new ArrayList<>();
         List<Integer> listProductSold = new ArrayList<>();
-        List<Float> listProductRevenue = new ArrayList<>();
+        List<String> listProductRevenue = new ArrayList<>();
         Float total = 0f;
-        String choiceFilter = cbxFilter.getSelectedItem().toString();
-                
-        System.out.println("views.ManagementStatisticalView.showTable()"+ choiceFilter);
         
         for(int i=0; i<orDetail.size(); i++)
             if(!listProductID.contains(orDetail.get(i).getProductID())) 
@@ -66,7 +66,8 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
                 if(products.get(j).getmaSP() == listProductID.get(i)) 
                 {
                     listProductName.add(products.get(j).getTenSP());
-                    listProductPrice.add(products.get(j).getGiaBan());
+                    String priceFormat = numberFormat.format(products.get(j).getGiaBan());
+                    listProductPrice.add(priceFormat);
                     break;
                 }
         
@@ -81,80 +82,16 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
                     totalRevenue += orDetail.get(j).money();        
                 }
             total += totalRevenue;
+            String revenueFormat = numberFormat.format(totalRevenue);
             listProductSold.add(totalQuantity);
-            listProductRevenue.add(totalRevenue);
+            listProductRevenue.add(revenueFormat);
         }
-        switch(choiceFilter)
-        {
-            case "Mã SP":
-            {
-                model.setRowCount(0); 
-                for (int i=0; i<listProductID.size(); i++) 
-                    model.addRow(new Object[]{
-                        listProductID.get(i), listProductName.get(i), listProductSold.get(i), numberFormat.format(listProductPrice.get(i)) , numberFormat.format(listProductRevenue.get(i))
-                    });  
-                break;
-            }
-            case "Doanh thu":
-            {          
-                List<Integer> index = new ArrayList<>();
-                for(int i=0; i<listProductRevenue.size();i++)
-                {
-                    index.add(i);
-                }
-                for(int i=0; i<listProductRevenue.size()-1;i++)
-                {
-                    for(int j=i+1; j<listProductRevenue.size();j++)
-                        if(listProductRevenue.get(i) > listProductRevenue.get(j))
-                        {
-                            Float tg = listProductRevenue.get(i);
-                            listProductRevenue.set(i, listProductRevenue.get(j));
-                            listProductRevenue.set(j, tg);        
-                            
-                            Integer tg1 = index.get(i);
-                            index.set(i, index.get(j));
-                            index.set(j, tg1);  
-                        }
-                }
                 
-                model.setRowCount(0); 
-                for (int i=0; i<listProductRevenue.size(); i++) 
-                    model.addRow(new Object[]{
-                        listProductID.get(index.get(i)), listProductName.get(index.get(i)), listProductSold.get(index.get(i)), numberFormat.format(listProductPrice.get(index.get(i))) , numberFormat.format(listProductRevenue.get(i))
-                    });  
-                break;
-            }
-            case "Số lượng":
-            {
-                List<Integer> index = new ArrayList<>();
-                for(int i=0; i<listProductRevenue.size();i++)
-                {
-                    index.add(i);
-                }
-                for(int i=0; i<listProductSold.size()-1;i++)
-                {
-                    for(int j=i+1; j<listProductSold.size();j++)
-                        if(listProductSold.get(i) > listProductSold.get(j))
-                        {
-                            Integer tg = listProductSold.get(i);
-                            listProductSold.set(i, listProductSold.get(j));
-                            listProductSold.set(j, tg);        
-                            
-                            Integer tg1 = index.get(i);
-                            index.set(i, index.get(j));
-                            index.set(j, tg1);  
-                        }
-                }
-                
-                model.setRowCount(0); 
-                for (int i=0; i<listProductSold.size(); i++) 
-                    model.addRow(new Object[]{
-                        listProductID.get(index.get(i)), listProductName.get(index.get(i)), listProductSold.get(i), numberFormat.format(listProductPrice.get(index.get(i))) , numberFormat.format(listProductRevenue.get(index.get(i)))
-                    });  
-                break;
-            }
-        }
-         
+        model.setRowCount(0); 
+        for (int i=0; i<listProductID.size(); i++) 
+            model.addRow(new Object[]{
+                listProductID.get(i), listProductName.get(i), listProductSold.get(i), listProductPrice.get(i), listProductRevenue.get(i)
+            });    
         
         tblReport.setAutoCreateRowSorter(true);
         
@@ -190,18 +127,22 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
         labDate = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         labTotal = new javax.swing.JLabel();
-        cbxFilter = new javax.swing.JComboBox<>();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(75, 123, 236));
         jLabel2.setText("THỐNG KÊ BÁO CÁO");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(331, 35, -1, -1));
 
         inpMonth.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inpMonth.setPreferredSize(new java.awt.Dimension(300, 300));
         inpMonth.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 inpMonthPropertyChange(evt);
             }
         });
+        add(inpMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 180, 29));
 
         inpYear.setFocusable(false);
         inpYear.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -209,6 +150,7 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
                 inpYearPropertyChange(evt);
             }
         });
+        add(inpYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 71, 29));
 
         tblReport.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -227,72 +169,17 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
             tblReport.getColumnModel().getColumn(2).setMaxWidth(200);
         }
 
-        labDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 827, 392));
+
+        labDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        add(labDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 124, 307, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Tổng:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 570, -1, 23));
 
         labTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        cbxFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã SP", "Số lượng", "Doanh thu" }));
-        cbxFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxFilterActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(315, 315, 315))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 30, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(labTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labDate, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(inpMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(inpYear, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbxFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2)
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inpYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inpMonth, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(cbxFilter))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labDate, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(labTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(116, 116, 116))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, labTotal});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {inpMonth, inpYear});
-
+        add(labTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(669, 570, 188, 23));
     }// </editor-fold>//GEN-END:initComponents
 
     private void inpMonthPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_inpMonthPropertyChange
@@ -305,11 +192,6 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
         // TODO add your handling code here:
         filter();
     }//GEN-LAST:event_inpYearPropertyChange
-
-    private void cbxFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFilterActionPerformed
-        // TODO add your handling code here:
-        filter();
-    }//GEN-LAST:event_cbxFilterActionPerformed
 
     public void filter()
     {
@@ -334,7 +216,6 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbxFilter;
     private com.toedter.calendar.JMonthChooser inpMonth;
     private com.toedter.calendar.JYearChooser inpYear;
     private javax.swing.JLabel jLabel1;

@@ -12,6 +12,7 @@ package views;
 
 import controllers.FileController;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import static controllers.Utils.setBgButtonHasColor;
 import static controllers.Utils.setBgButtonNull;
 import java.text.ParseException;
@@ -31,7 +32,9 @@ import models.product;
 import java.awt.Image;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
 import static views.ManagementCustomerView.model;
 import static views.ManagementEmployeeView.utils;
@@ -262,7 +265,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
             orderTbl.getColumnModel().getColumn(4).setMinWidth(110);
         }
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 480, 120));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 480, 250));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -291,7 +294,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         jScrollPane6.setViewportView(customerTbl);
         if (customerTbl.getColumnModel().getColumnCount() > 0) {
             customerTbl.getColumnModel().getColumn(0).setPreferredWidth(30);
-            customerTbl.getColumnModel().getColumn(1).setPreferredWidth(150);
+            customerTbl.getColumnModel().getColumn(1).setPreferredWidth(100);
             customerTbl.getColumnModel().getColumn(2).setPreferredWidth(50);
             customerTbl.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
@@ -331,7 +334,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
      
@@ -405,7 +408,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         orderTbl.setValueAt(orderID,row, 0);
         orderTbl.setValueAt(cusID, row, 1);
         orderTbl.setValueAt(strdate,row,2);
-        orderTbl.setValueAt(Tongtien,row,3);
+        orderTbl.setValueAt(numberFormat.format(Tongtien),row,3);
         orderTbl.setValueAt(status,row,4);
         CustomersDisplay();
 
@@ -490,6 +493,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         }
         else
         cbxstatus.setSelectedIndex(1);
+        setBgButtonHasColor(addBtn,updateBtn,deleteBtn,detailBtn);
     }//GEN-LAST:event_orderTblMouseClicked
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -525,7 +529,8 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 item.getOrderID(), item.getCustomerID(),item.getDate(),numberFormat.format(item.getTotalMoneyDouble()),item.getStatus()
             });
         });
-       
+    rightRender(orderTbl,3);
+
         
     }
     public void CustomersDisplay()
@@ -539,7 +544,8 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
             });
         });
-        
+        rightRender(customerTbl,3);
+
     }
     
    

@@ -5,8 +5,10 @@
 package views;
 import java.lang.Object;
 import controllers.ScreenSwitchController;
+import static controllers.Utils.iconimage;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import models.CategoriesModel;
 
 /**
@@ -32,6 +34,13 @@ public class MainEmployee extends javax.swing.JFrame {
         listCate.add(new CategoriesModel("ManagementRecept", management_receptPanel, receptLabel));
         //listCate.add(new CategoriesModel("ManagementStatistical", management_statisticalPanel, statistifyLabel));
         ssController.setEvent(listCate);
+        
+        ImageIcon productIcon=iconimage(26,26,"src/icons/tshirt.png");
+        productLabel.setIcon(productIcon);
+        ImageIcon customerIcon=iconimage(25,25,"src/icons/thanh_toan.png");
+        customerLabel.setIcon(customerIcon);
+        ImageIcon receptIcon=iconimage(25,25,"src/icons/quan_Li.png");
+        receptLabel.setIcon(receptIcon);
     }
 
     @SuppressWarnings("unchecked")
@@ -54,6 +63,7 @@ public class MainEmployee extends javax.swing.JFrame {
 
         sidebarPanel.setBackground(new java.awt.Color(153, 153, 153));
         sidebarPanel.setPreferredSize(new java.awt.Dimension(300, 630));
+        sidebarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         management_customerPanel.setBackground(new java.awt.Color(75, 123, 236));
         management_customerPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -61,7 +71,6 @@ public class MainEmployee extends javax.swing.JFrame {
 
         customerLabel.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        customerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thanh_toan.png"))); // NOI18N
         customerLabel.setText("QUẢN LÝ KHÁCH HÀNG");
 
         javax.swing.GroupLayout management_customerPanelLayout = new javax.swing.GroupLayout(management_customerPanel);
@@ -69,7 +78,7 @@ public class MainEmployee extends javax.swing.JFrame {
         management_customerPanelLayout.setHorizontalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, management_customerPanelLayout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(73, Short.MAX_VALUE)
                 .addComponent(customerLabel)
                 .addGap(45, 45, 45))
         );
@@ -78,12 +87,13 @@ public class MainEmployee extends javax.swing.JFrame {
             .addComponent(customerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
+        sidebarPanel.add(management_customerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 271, 277, -1));
+
         management_productPanel.setBackground(new java.awt.Color(75, 123, 236));
         management_productPanel.setPreferredSize(new java.awt.Dimension(270, 50));
 
         productLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         productLabel.setForeground(new java.awt.Color(255, 255, 255));
-        productLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/quan_Li.png"))); // NOI18N
         productLabel.setText("QUẢN LÝ SẢN PHẨM");
 
         javax.swing.GroupLayout management_productPanelLayout = new javax.swing.GroupLayout(management_productPanel);
@@ -93,12 +103,14 @@ public class MainEmployee extends javax.swing.JFrame {
             .addGroup(management_productPanelLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(productLabel)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(productLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
+
+        sidebarPanel.add(management_productPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 186, 277, -1));
 
         management_receptPanel.setBackground(new java.awt.Color(75, 123, 236));
         management_receptPanel.setPreferredSize(new java.awt.Dimension(270, 50));
@@ -106,7 +118,6 @@ public class MainEmployee extends javax.swing.JFrame {
         receptLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         receptLabel.setForeground(new java.awt.Color(255, 255, 255));
         receptLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        receptLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         receptLabel.setText("QUẢN LÝ HÓA ĐƠN");
 
         javax.swing.GroupLayout management_receptPanelLayout = new javax.swing.GroupLayout(management_receptPanel);
@@ -116,18 +127,21 @@ public class MainEmployee extends javax.swing.JFrame {
             .addGroup(management_receptPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(receptLabel)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(receptLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
+        sidebarPanel.add(management_receptPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 356, 277, -1));
+
         jLabel1.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MINASHOP");
+        sidebarPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 61, -1, -1));
 
-        logoutBtn.setBackground(new java.awt.Color(204, 255, 204));
+        logoutBtn.setBackground(new java.awt.Color(255, 51, 51));
         logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
@@ -136,43 +150,7 @@ public class MainEmployee extends javax.swing.JFrame {
                 logoutBtnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
-        sidebarPanel.setLayout(sidebarPanelLayout);
-        sidebarPanelLayout.setHorizontalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidebarPanelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(management_customerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(sidebarPanelLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel1)))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        sidebarPanelLayout.setVerticalGroup(
-            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarPanelLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel1)
-                .addGap(62, 62, 62)
-                .addComponent(management_productPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(management_customerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(management_receptPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 333, Short.MAX_VALUE)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
+        sidebarPanel.add(logoutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 739, 133, 38));
 
         containerPanel.setPreferredSize(new java.awt.Dimension(985, 670));
 

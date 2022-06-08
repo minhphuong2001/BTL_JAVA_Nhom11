@@ -5,10 +5,13 @@ import java.awt.Image;
 import java.awt.TextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import static views.ManagementCustomerView.model;
 
 /**
  *
@@ -77,4 +80,9 @@ public class Utils {
         ImageIcon Scale=new ImageIcon(imgScale);
         return Scale;
         }
+    public static void rightRender(JTable tbl,int column){
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        tbl.getColumnModel().getColumn(column).setCellRenderer(rightRenderer);
+    }
 }
