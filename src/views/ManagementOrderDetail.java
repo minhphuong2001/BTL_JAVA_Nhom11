@@ -135,7 +135,6 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chi tiết hóa đơn");
-        setPreferredSize(new java.awt.Dimension(1250, 900));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -601,7 +600,11 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
             
             @Override
             public void run() {
-                new ManagementOrderDetail().setVisible(true);
+                ManagementOrderDetail detail = new ManagementOrderDetail();
+                detail.pack();
+                detail.setLocationRelativeTo(null);
+                detail.setVisible(true);
+                detail.setVisible(true);
             }
         });        
     }

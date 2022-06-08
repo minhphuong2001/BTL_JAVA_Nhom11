@@ -10,6 +10,7 @@ import static controllers.Utils.iconimage;
 import static controllers.Utils.rightRender;
 import java.awt.Color;
 import java.awt.Image;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,6 +37,8 @@ public class ManagementProductView extends javax.swing.JPanel {
     static List<product> listProduct = new ArrayList<product>();
     static FileController file;
     static Utils utils;
+    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
+    static DecimalFormat number = new DecimalFormat( "#########" );
 
     Integer productID;
     public void increaseProductId(){
@@ -54,13 +57,15 @@ public class ManagementProductView extends javax.swing.JPanel {
         listProduct = file.readProductFromFile("product.txt");
         for (product item : listProduct) {
             tableModal.addRow(new Object[]{
-                item.getmaSP(), item.getTenSP(), item.getGiaBan(), item.getGiaMua(), item.getGiamGia()+"%", item.getSoLuong()
+                item.getmaSP(), item.getTenSP(), 
+                numberFormat.format(item.getGiaBan()), numberFormat.format(item.getGiaMua()), 
+                numberFormat.format(item.getGiamGia())+"%", item.getSoLuong()
             });
         }
         rightRender(productTable,2);
         rightRender(productTable,3);
-     
-
+        rightRender(productTable,4);
+        rightRender(productTable,5);
         
         suajButton.setEnabled(false);
         xoajButton.setEnabled(false);
@@ -75,7 +80,6 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton.setIcon(updateIcon);
         ImageIcon addIcon=iconimage(25,25,"src/icons/add-product.png");
         themjButton.setIcon(addIcon);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -253,9 +257,9 @@ public class ManagementProductView extends javax.swing.JPanel {
 
         idspField.setText("" + maSP);
         tenspField.setText(tenSP);
-        giabanField.setText("" + giaBan);
-        giamuaField.setText("" + giaMua);
-        giagiamField.setText("" + giamGia);
+        giabanField.setText("" + number.format(giaBan));
+        giamuaField.setText("" + number.format(giaMua));
+        giagiamField.setText("" + number.format(giamGia));
         soluongField.setText("" + soLuong);
 
         idspField.setEnabled(false);
@@ -325,7 +329,7 @@ public class ManagementProductView extends javax.swing.JPanel {
 
             FileController.writeProductToFile("product.txt", product);
             tableModal.addRow(new Object[]{
-                product.getmaSP(), product.getTenSP(), product.getGiaBan(), product.getGiaMua(), product.getGiamGia(), product.getSoLuong()
+                product.getmaSP(), product.getTenSP(),  product.getGiaBan(), product.getGiaMua(), product.getGiamGia(), product.getSoLuong()
             });
             listProduct.add(product);
             setTextNull("Thêm sản phẩm mới thành công", "Thêm mới sản phẩm");
@@ -357,9 +361,9 @@ public class ManagementProductView extends javax.swing.JPanel {
         //update UI
         productTable.setValueAt(maSP, row, 0);
         productTable.setValueAt(tenSP, row, 1);
-        productTable.setValueAt(giaBan, row, 2);
-        productTable.setValueAt(giaMua, row, 3);
-        productTable.setValueAt(giamGia, row, 4);
+        productTable.setValueAt(numberFormat.format(giaBan), row, 2);
+        productTable.setValueAt(numberFormat.format(giaMua), row, 3);
+        productTable.setValueAt(numberFormat.format(giamGia) + "%", row, 4);
         productTable.setValueAt(soLuong, row, 5);
 
         suajButton.setEnabled(false);
