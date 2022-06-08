@@ -7,6 +7,7 @@ package views;
 import controllers.FileController;
 import controllers.Utils;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import java.awt.Color;
 import java.awt.Image;
 import java.text.DecimalFormat;
@@ -84,10 +85,8 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), pointFormat
             });
         });
-        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
-        
-        tbCustomer.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        rightRender(tbCustomer,3);
+
     }
 
     /**
@@ -133,7 +132,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         form.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("ID");
+        jLabel2.setText("Mã khách hàng");
         form.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -153,7 +152,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 inpCustomerIdActionPerformed(evt);
             }
         });
-        form.add(inpCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 275, 35));
+        form.add(inpCustomerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 275, 35));
 
         inpCustomerPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +166,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 inpCustomerNameActionPerformed(evt);
             }
         });
-        form.add(inpCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 275, 35));
+        form.add(inpCustomerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 275, 35));
 
         inpAccumulatePoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,11 +190,10 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tbCustomer);
         if (tbCustomer.getColumnModel().getColumnCount() > 0) {
-            tbCustomer.getColumnModel().getColumn(0).setResizable(false);
             tbCustomer.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 340));
+        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 360));
 
         btnAdd.setBackground(new java.awt.Color(75, 123, 236));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -250,8 +248,8 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 80, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -180,6 +180,11 @@
       </Constraints>
     </Component>
     <Component class="java.awt.TextField" name="giabanField">
+      <Properties>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Text Cursor"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="giabanFieldKeyReleased"/>
       </Events>
@@ -334,7 +339,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="105" y="350" width="310" height="40"/>
+          <AbsoluteConstraints x="150" y="350" width="280" height="35"/>
         </Constraint>
       </Constraints>
     </Component>

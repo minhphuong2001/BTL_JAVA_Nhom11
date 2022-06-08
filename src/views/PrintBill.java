@@ -6,6 +6,7 @@ package views;
 
 import controllers.FileController;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,14 @@ public class PrintBill extends javax.swing.JFrame {
         totalProduct.setText(numberFormat.format(totalBefore));
         totalMoney.setText(numberFormat.format(totalDiscount));
         promotion.setText(numberFormat.format(totalBefore - totalDiscount));
+        
+         ImageIcon closeIcon=iconimage(40,40,"src/icons/return.png");
+        closeBtn.setIcon(closeIcon);
+        rightRender(detailTable,2);
+        rightRender(detailTable,4);
+
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -110,6 +118,7 @@ public class PrintBill extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
         btnPrint = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HÓA ĐƠN");
@@ -205,8 +214,22 @@ public class PrintBill extends javax.swing.JFrame {
         btnPrint.setText("IN");
         getContentPane().add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 780, -1, -1));
 
+        closeBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        closeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 40, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
+
+        this.dispose();
+
+    }//GEN-LAST:event_closeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +246,7 @@ public class PrintBill extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPrint;
+    private javax.swing.JButton closeBtn;
     private javax.swing.JLabel customerName;
     private javax.swing.JLabel date;
     private javax.swing.JTable detailTable;

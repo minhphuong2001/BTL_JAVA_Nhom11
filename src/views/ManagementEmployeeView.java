@@ -7,10 +7,12 @@ package views;
 import controllers.FileController;
 import controllers.Utils;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,7 +46,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
     public static List<Employee> employees= new ArrayList<>();
     Integer id;
     public static Utils utils;   
-    
+    static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
     
 
     public ManagementEmployeeView() {
@@ -55,9 +57,10 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         for(Employee item : employees){
             table.addRow(new Object[]{
                 item.getEmployeeId(), item.getEmployeeName(), item.getEmployeePhone(),
-                item.getEmployeeAddress(), item.getEmployeeSalary(),item.getEmployeeDate()
+                item.getEmployeeAddress(),numberFormat.format(item.getEmployeeSalary()),item.getEmployeeDate()
             });
         }
+        rightRender(tblEmployee,4);
         idField.setEnabled(false);
         
         if(employees.size()==0){
@@ -193,12 +196,12 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         employeePanel.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 330, 130, 50));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("ID");
-        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 31, -1));
+        jLabel2.setText("Mã nhân viên");
+        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 110, -1));
 
         idField.setForeground(new java.awt.Color(255, 255, 255));
         idField.setPreferredSize(new java.awt.Dimension(6, 35));
-        employeePanel.add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 275, 35));
+        employeePanel.add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 275, 35));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tên");
@@ -209,7 +212,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 nameFieldActionPerformed(evt);
             }
         });
-        employeePanel.add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 275, 35));
+        employeePanel.add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 275, 35));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Số điện thoại");
@@ -219,7 +222,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Địa chỉ");
         employeePanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 73, -1));
-        employeePanel.add(addressField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 275, 35));
+        employeePanel.add(addressField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 275, 35));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Lương");
@@ -237,7 +240,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 275, 35));
+        employeePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 275, 35));
 
         searchLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         searchLabel.setMaximumSize(new java.awt.Dimension(60, 70));
@@ -478,7 +481,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
             String name = (String) tblEmployee.getValueAt(row,1);
             String phone = (String) tblEmployee.getValueAt(row,2);
             String address = (String) tblEmployee.getValueAt(row,3);
-            Integer salary=(Integer) tblEmployee.getValueAt(row, 4);
+            Integer salary=employees.get(row).getEmployeeSalary();
             //Date date=(Date) tblEmployee.getValueAt(row, 5);
             SimpleDateFormat da=new SimpleDateFormat("dd-MM-YYYY");
             Date date;

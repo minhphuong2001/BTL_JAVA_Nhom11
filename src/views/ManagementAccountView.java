@@ -110,7 +110,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
         add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 310, 52));
 
         idLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        idLabel.setText("ID");
+        idLabel.setText("Mã tài khoản");
         add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
         add(idField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 275, 35));
 
@@ -211,7 +211,7 @@ public class ManagementAccountView extends javax.swing.JPanel {
                 searchFieldKeyReleased(evt);
             }
         });
-        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 310, 310, 40));
+        add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 310, 310, 35));
         add(searchLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 60, 50));
     }// </editor-fold>//GEN-END:initComponents
 

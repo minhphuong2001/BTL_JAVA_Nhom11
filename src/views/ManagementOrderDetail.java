@@ -15,6 +15,7 @@ import models.OrderDetail;
 import models.product;
 import controllers.Utils;
 import static controllers.Utils.iconimage;
+import static controllers.Utils.rightRender;
 import static controllers.Utils.setBgButtonHasColor;
 import static controllers.Utils.setBgButtonNull;
 import static controllers.Utils.setBgColor;
@@ -82,7 +83,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         deleteBtn.setIcon(deleteIcon);
         ImageIcon updateIcon=iconimage(25,25,"src/icons/update.png");
         updateBtn.setIcon(updateIcon);
-        ImageIcon closeIcon=iconimage(40,40,"src/icons/exit.png");
+        ImageIcon closeIcon=iconimage(40,40,"src/icons/return.png");
         closeBtn.setIcon(closeIcon);
 
         setBgColor(addBtn,updateBtn,deleteBtn);
@@ -134,6 +135,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chi tiết hóa đơn");
+        setPreferredSize(new java.awt.Dimension(1250, 900));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -291,19 +293,23 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 closeBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 20, 40, 40));
+        getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 40, 40));
 
         ipnCustomerID.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getContentPane().add(ipnCustomerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 275, 35));
-        getContentPane().add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 320, 270, 30));
 
+        showError.setForeground(new java.awt.Color(204, 0, 51));
+        getContentPane().add(showError, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, 420, 30));
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 51));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("In hóa đơn");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 710, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 670, -1, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -645,6 +651,7 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 a.getmaSP(), a.getTenSP(), a.getGiaBan(), a.getGiamGia(), a.getSoLuong()
             });
         }
+        rightRender(productTbl,2);
     }
     
     private void OrderDetailDisplay() 
@@ -657,6 +664,6 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                 });
             }
         }
-        
+        rightRender(orderDetailTbl,2);   
     }
 }
