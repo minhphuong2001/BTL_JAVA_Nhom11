@@ -43,8 +43,7 @@ public class ManagementStatisticalView extends javax.swing.JPanel {
         products = FileController.readProductFromFile("product.txt");
         
   }  
-  
-
+    
     public void showTable(List<OrderDetail> orDetail)
     {
         List<Integer> listProductID = new ArrayList<>();

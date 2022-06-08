@@ -399,7 +399,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION,0);
-        if(answer == 0){
+        if(answer == 1){
             int row= tbCustomer.getSelectedRow();
 
             model.removeRow(row);

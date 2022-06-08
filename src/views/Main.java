@@ -71,7 +71,6 @@ public class Main extends javax.swing.JFrame {
         homepageLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         homepageLabel.setForeground(new java.awt.Color(255, 255, 255));
         homepageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        homepageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/quan_Li.png"))); // NOI18N
         homepageLabel.setText("TRANG CHỦ");
 
         javax.swing.GroupLayout home_pagePanelLayout = new javax.swing.GroupLayout(home_pagePanel);
@@ -81,7 +80,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(home_pagePanelLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(homepageLabel)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         home_pagePanelLayout.setVerticalGroup(
             home_pagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +93,6 @@ public class Main extends javax.swing.JFrame {
 
         customerLabel.setFont(new java.awt.Font("Candara", 1, 16)); // NOI18N
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        customerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/hoa_don.png"))); // NOI18N
         customerLabel.setText("QUẢN LÝ KHÁCH HÀNG");
 
         javax.swing.GroupLayout management_customerPanelLayout = new javax.swing.GroupLayout(management_customerPanel);
@@ -104,7 +102,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_customerPanelLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(customerLabel)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         management_customerPanelLayout.setVerticalGroup(
             management_customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +114,6 @@ public class Main extends javax.swing.JFrame {
 
         productLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         productLabel.setForeground(new java.awt.Color(255, 255, 255));
-        productLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/quan_Li.png"))); // NOI18N
         productLabel.setText("QUẢN LÝ SẢN PHẨM");
 
         javax.swing.GroupLayout management_productPanelLayout = new javax.swing.GroupLayout(management_productPanel);
@@ -126,7 +123,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_productPanelLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(productLabel)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         management_productPanelLayout.setVerticalGroup(
             management_productPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +136,6 @@ public class Main extends javax.swing.JFrame {
         receptLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         receptLabel.setForeground(new java.awt.Color(255, 255, 255));
         receptLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        receptLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         receptLabel.setText("QUẢN LÝ HÓA ĐƠN");
 
         javax.swing.GroupLayout management_receptPanelLayout = new javax.swing.GroupLayout(management_receptPanel);
@@ -149,7 +145,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_receptPanelLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(receptLabel)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         management_receptPanelLayout.setVerticalGroup(
             management_receptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,7 +158,6 @@ public class Main extends javax.swing.JFrame {
 
         logoutBtn.setBackground(new java.awt.Color(204, 255, 204));
         logoutBtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thoat.png"))); // NOI18N
         logoutBtn.setText("Đăng xuất");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +171,6 @@ public class Main extends javax.swing.JFrame {
         statistifyLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         statistifyLabel.setForeground(new java.awt.Color(255, 255, 255));
         statistifyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        statistifyLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thong_ke.png"))); // NOI18N
         statistifyLabel.setText("THỐNG KÊ DOANH THU");
 
         javax.swing.GroupLayout management_statisticalPanelLayout = new javax.swing.GroupLayout(management_statisticalPanel);
@@ -186,7 +180,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(management_statisticalPanelLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(statistifyLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         management_statisticalPanelLayout.setVerticalGroup(
             management_statisticalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +194,6 @@ public class Main extends javax.swing.JFrame {
         accLabel.setBackground(new java.awt.Color(255, 255, 255));
         accLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         accLabel.setForeground(new java.awt.Color(255, 255, 255));
-        accLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thanh_toan.png"))); // NOI18N
         accLabel.setText("QUẢN LÝ TÀI KHOẢN");
 
         javax.swing.GroupLayout management_accPanelLayout = new javax.swing.GroupLayout(management_accPanel);
@@ -222,7 +215,6 @@ public class Main extends javax.swing.JFrame {
 
         employeeLabel.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         employeeLabel.setForeground(new java.awt.Color(255, 255, 255));
-        employeeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/thanh_toan.png"))); // NOI18N
         employeeLabel.setText("QUẢN LÝ NHÂN VIÊN");
         employeeLabel.setMaximumSize(new java.awt.Dimension(154, 50));
         employeeLabel.setMinimumSize(new java.awt.Dimension(154, 50));

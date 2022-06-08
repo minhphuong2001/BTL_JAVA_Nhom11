@@ -41,7 +41,7 @@ public class ScreenSwitchController {
 
         jPanelRoot.removeAll();
         jPanelRoot.setLayout(new BorderLayout());
-        jPanelRoot.add(new HomePageView());
+        jPanelRoot.add(new ManagementStatisticalView());
         jPanelRoot.validate();
         jPanelRoot.repaint();
     }

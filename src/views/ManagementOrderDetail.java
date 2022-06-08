@@ -399,12 +399,14 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
         int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm này?", "Xác nhận", JOptionPane.YES_NO_OPTION, 0);
         if (answer == 0) {
             int row = orderDetailTbl.getSelectedRow();
+            System.out.println("orderDetails trc" + orderDetails.size());
             Integer ProductID=(Integer)model.getValueAt(row, 0);
+            System.out.println("ProductID" + ProductID);
             Integer Quantity=(Integer)model.getValueAt(row, 1);
             Float money=(Float)model.getValueAt(row, 2);
             
             for(int i=0; i<products.size();i++){
-                if(products.get(i).getmaSP() ==ProductID){
+                if(products.get(i).getmaSP() == ProductID){
 
                     products.get(i).setSoLuong(products.get(i).getSoLuong()+Quantity);
 
@@ -413,10 +415,15 @@ public class ManagementOrderDetail extends javax.swing.JFrame {
                     break;
                 }
             }
+            
+            FileController.updateListProductToFile("product.txt", products);
             Float Point =orders.get(orderIndex).getTotalMoneyDouble();
             //xoa tren giao dien
             model.removeRow(row);
+            System.out.println("orderDetails trc" + orderDetails.size());
             orderDetails.remove(row);
+                        System.out.println("orderDetails trc" + orderDetails.size());
+
             FileController.updateListOrderDetail("orderDetail.txt", orderDetails);
             ipnTotal.setText(orders.get(orderIndex).getTotalMoneyDouble()+"");
             orders.get(orderIndex).setPoint(Point,Float.parseFloat(ipnTotal.getText()));                                                                                  
