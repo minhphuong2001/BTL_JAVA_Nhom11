@@ -63,7 +63,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         autoIncreaseOrderID();
 
         ImageIcon detailIcon=iconimage(24,24,"src/icons/Ticket-add-icon.png");
-        searchBtn.setIcon(detailIcon);
+        detailBtn.setIcon(detailIcon);
         ImageIcon updateIcon=iconimage(24,24,"src/icons/update.png");
         updateBtn.setIcon(updateIcon);
         ImageIcon deleteIcon=iconimage(24,24,"src/icons/bin2.png");
@@ -71,12 +71,10 @@ public class ManagementReceptView extends javax.swing.JPanel {
         ipnOrderID.setEnabled(false);
         updateBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
-        searchBtn.setEnabled(false);
-        setBgButtonNull(addBtn, updateBtn, deleteBtn,searchBtn);
+        detailBtn.setEnabled(false);
+        setBgButtonNull(addBtn, updateBtn, deleteBtn,detailBtn);
         ImageIcon searchIcon=iconimage(40,40,"src/icons/search.png");
         searchLabel.setIcon(searchIcon);
-        ImageIcon reloadIcon=iconimage(40,40,"src/icons/reload.png");
-        reloadBtn.setIcon(reloadIcon);
         ImageIcon addIcon=iconimage(28,28,"src/icons/add.png");
         addBtn.setIcon(addIcon);
     }
@@ -119,7 +117,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         ipnTotal = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
-        searchBtn = new javax.swing.JButton();
+        detailBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         cbxstatus = new javax.swing.JComboBox<>();
@@ -134,7 +132,6 @@ public class ManagementReceptView extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         searchLabel = new javax.swing.JLabel();
         ipnSearch = new javax.swing.JTextField();
-        reloadBtn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1200, 585));
         addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,15 +184,15 @@ public class ManagementReceptView extends javax.swing.JPanel {
         });
         jPanel5.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 130, 50));
 
-        searchBtn.setBackground(new java.awt.Color(102, 255, 102));
-        searchBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        searchBtn.setText("Xem");
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+        detailBtn.setBackground(new java.awt.Color(102, 255, 102));
+        detailBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        detailBtn.setText("Xem");
+        detailBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
+                detailBtnActionPerformed(evt);
             }
         });
-        jPanel5.add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 130, 50));
+        jPanel5.add(detailBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, 130, 50));
 
         updateBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         updateBtn.setText("Cập nhật");
@@ -320,13 +317,6 @@ public class ManagementReceptView extends javax.swing.JPanel {
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 480, 310));
 
-        reloadBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reloadBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(reloadBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 30, 30));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -357,43 +347,36 @@ public class ManagementReceptView extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         /*        // TODO add your handling code here:*/
         //them hoa don moi
-        try {
+       try {
             Integer id=Integer.parseInt(ipnOrderID.getText());
             Date date=ipnDate.getDate();
             SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
             String strdate=f.format(date);
-  
-            
             String status=cbxstatus.getSelectedItem().toString();
             ipnTotal.setText("0.0");
             Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
             Order order=new Order(id, cusID,strdate,status);
             orders.add(order);
             fileController.updatelistOrderToFile("order.txt", orders);
-            model.setRowCount(0);
-            orders.forEach(item -> {
-            model.addRow(new Object[]{
-                item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
-            });
-             });
-            JOptionPane.showMessageDialog(deleteBtn, "Thêm hóa đơn thành công");
+            actionDisplay();
+            JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công");
             setNullTextField();
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(deleteBtn, "Hãy nhập đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Hãy nhập đủ thông tin");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(deleteBtn, "Lỗi hệ thống");
+            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+    private void detailBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailBtnActionPerformed
         Date date=ipnDate.getDate();
         SimpleDateFormat fm= new SimpleDateFormat("dd/MM/yyyy");
         String strdate=fm.format(date);
-        ManagementOrderDetail hd=new ManagementOrderDetail(ipnOrderID.getText(),ipnCusmonerID.getText(),strdate);
+        ManagementOrderDetail hd=new ManagementOrderDetail(this,ipnOrderID.getText(),ipnCusmonerID.getText(),strdate);
         hd.setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBtnActionPerformed
+    }//GEN-LAST:event_detailBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
 
@@ -403,12 +386,15 @@ public class ManagementReceptView extends javax.swing.JPanel {
         ipnTotal.setText(Tongtien+"");
         Integer cusID=Integer.parseInt(ipnCusmonerID.getText().trim());
         int row=orderTbl.getSelectedRow();
+        Float point=orders.get(row).getTotalMoneyDouble();
+        orders.get(row).setPoint(point, 0f);
         Integer orderID=(Integer)orderTbl.getValueAt(row, 0);
         String status=cbxstatus.getSelectedItem().toString();  
         //update lai file
         Order order=new Order(orderID,cusID,strdate,status);
         orders.set(row,order);
         FileController.updatelistOrderToFile("order.txt", orders);
+        orders.get(row).setPoint(0f, point);
 
         //update table
         orderTbl.setValueAt(orderID,row, 0);
@@ -416,10 +402,9 @@ public class ManagementReceptView extends javax.swing.JPanel {
         orderTbl.setValueAt(strdate,row,2);
         orderTbl.setValueAt(Tongtien,row,3);
         orderTbl.setValueAt(status,row,4);
+        CustomersDisplay();
 
-        //dua cac o text ve null;
-       
-                
+        //dua cac o text ve null;     
         setNullTextField();
         cbxstatus.setSelectedIndex(0);
        
@@ -453,25 +438,17 @@ public class ManagementReceptView extends javax.swing.JPanel {
                 }
                 fileController.updateListProductToFile("product.txt", products);
                 fileController.updateListOrderDetail("orderDetail.txt",orderDetails);
-                
-                //orders.get(row).setPoint(-orders.get(row).getTotalMoneyDouble());
-                
                 orders.get(row).setPoint(Point,0f);
                 orders.remove(row);
                 fileController.updatelistOrderToFile("order.txt",orders);
-                model.setRowCount(0);
-                orders.forEach(item -> {
-                model.addRow(new Object[]{
-                    item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
-                 });
-                 });
-                JOptionPane.showMessageDialog(deleteBtn,"Đã xóa hóa đơn");
+                actionDisplay();
+                JOptionPane.showMessageDialog(null,"Đã xóa hóa đơn");
                 setNullTextField();
             }
         }
         else
         {
-            JOptionPane.showConfirmDialog(deleteBtn, "Đã thanh toán không thể xóa");
+            JOptionPane.showConfirmDialog(null, "Đã thanh toán không thể xóa");
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteBtnActionPerformed
@@ -484,7 +461,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
         addBtn.setEnabled(false);
         updateBtn.setEnabled(true);
         deleteBtn.setEnabled(true);
-        searchBtn.setEnabled(true);
+        detailBtn.setEnabled(true);
         int row=orderTbl.getSelectedRow();
         int orderID=(int)model.getValueAt(row,0);
         int cusID=(int)model.getValueAt(row,1);
@@ -497,19 +474,17 @@ public class ManagementReceptView extends javax.swing.JPanel {
         } catch (ParseException ex) {
             Logger.getLogger(ManagementReceptView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        float total=(float)model.getValueAt(row, 3);
+        Tongtien=orders.get(row).getTotalMoneyDouble();
         String status=(String)model.getValueAt(row,4);
         // đưa dữ liệu lên ô input
         ipnOrderID.setText(orderID+"");
         ipnCusmonerID.setText(cusID+"");
-
-        ipnTotal.setText(total+"");
+        ipnTotal.setText(Tongtien+"");
         if(status.equals(cbxstatus.getItemAt(0))){
             cbxstatus.setSelectedIndex(0);
         }
         else
         cbxstatus.setSelectedIndex(1);
-        setBgButtonHasColor(addBtn, updateBtn, deleteBtn,searchBtn);
     }//GEN-LAST:event_orderTblMouseClicked
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -523,7 +498,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
     private void ipnSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ipnSearchKeyReleased
         String search = ipnSearch.getText().trim();
 
-        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(model);
+        TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<DefaultTableModel>(modelCus);
 
         customerTbl.setRowSorter(rowSorter);
 
@@ -535,28 +510,11 @@ public class ManagementReceptView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ipnSearchKeyReleased
 
-    private void reloadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadBtnActionPerformed
-        // TODO add your handling code here:
-        model.setRowCount(0);
-            orders.forEach(item ->
-            {
-                model.addRow(new Object[]{
-                    item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
-                 });
-            });
-        modelCus.setRowCount(0);
-        customers.forEach(a -> {
-            modelCus.addRow(new Object[]{
-                a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
-            });
-        });
-        setNullTextField();
-    }//GEN-LAST:event_reloadBtnActionPerformed
-
-     private void actionDisplay(){
-        searchBtn.setEnabled(true);
+    public void actionDisplay(){
+        detailBtn.setEnabled(true);
         model=(DefaultTableModel)orderTbl.getModel();
         orders=FileController.readOrderFromFile("order.txt");
+        model.setRowCount(0);
         orders.forEach(item -> {
             model.addRow(new Object[]{
                 item.getOrderID(), item.getCustomerID(),item.getDate(),item.getTotalMoneyDouble(),item.getStatus()
@@ -565,17 +523,17 @@ public class ManagementReceptView extends javax.swing.JPanel {
        
         
     }
-    private void CustomersDisplay()
+    public void CustomersDisplay()
     {
         
         modelCus=(DefaultTableModel) customerTbl.getModel();
         customers=fileController.readCustomerFromFile("customer.txt");
-       
-            for(Customer a: customers ) {
+        modelCus.setRowCount(0);
+        customers.forEach(a -> {
             modelCus.addRow(new Object[]{
                 a.getCustomerId(), a.getCustomerName(), a.getCustomerPhone(), a.getAccumulatePoints()
             });
-            }
+        });
         
     }
     
@@ -586,6 +544,7 @@ public class ManagementReceptView extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbxstatus;
     private javax.swing.JTable customerTbl;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton detailBtn;
     private javax.swing.JTextField ipnCusmonerID;
     private com.toedter.calendar.JDateChooser ipnDate;
     private javax.swing.JFormattedTextField ipnOrderID;
@@ -604,8 +563,6 @@ public class ManagementReceptView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable orderTbl;
-    private javax.swing.JButton reloadBtn;
-    private javax.swing.JButton searchBtn;
     private javax.swing.JLabel searchLabel;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables

@@ -391,18 +391,23 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         int answer = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Xác nhận", JOptionPane.YES_NO_OPTION,0);
         if(answer == 0){
             int row= tbCustomer.getSelectedRow();
+            if(customers.get(row).getAccumulatePoints()>0)
+            {
+                JOptionPane.showMessageDialog(null, "Không thể xóa khách hàng này");
+            }
+            else{
+                model.removeRow(row);
+                customers.remove(row);
+                FileController.writeListCustomerFile("customer.txt", customers);
 
-            model.removeRow(row);
-            customers.remove(row);
-            FileController.writeListCustomerFile("customer.txt", customers);
-
-            btnUpdate.setEnabled(false);
-            btnDelete.setEnabled(false);
-            btnAdd.setEnabled(true);
-            setID();
-            inpCustomerId.requestFocus();
-            utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
-            setInpNull();
+                btnUpdate.setEnabled(false);
+                btnDelete.setEnabled(false);
+                btnAdd.setEnabled(true);
+                setID();
+                inpCustomerId.requestFocus();
+                utils.setBgButtonNull(btnAdd, btnUpdate, btnDelete);
+                setInpNull();
+                }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
