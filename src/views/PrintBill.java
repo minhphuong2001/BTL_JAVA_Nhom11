@@ -7,10 +7,14 @@ package views;
 import controllers.FileController;
 import static controllers.Utils.iconimage;
 import static controllers.Utils.rightRender;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Customer;
 import models.Order;
@@ -37,6 +41,7 @@ public class PrintBill extends javax.swing.JFrame {
     static List<OrderDetail> listOrderDetail = new ArrayList<>();
     static DefaultTableModel tableModel;
     static DecimalFormat numberFormat = new DecimalFormat( "###,###,###" );
+    static Float totalBefore = 0f, totalDiscount = 0f;
 
     public PrintBill() {}
 
@@ -64,8 +69,6 @@ public class PrintBill extends javax.swing.JFrame {
             }
         }
 
-        Float totalBefore = 0f, totalDiscount = 0f;
-
         for(OrderDetail item : listOrderDetail) {
             if(item.getOrderID().toString().equals(orderNumber)) {
                 for(product item2 : listProduct) {
@@ -88,9 +91,67 @@ public class PrintBill extends javax.swing.JFrame {
         closeBtn.setIcon(closeIcon);
         rightRender(detailTable,2);
         rightRender(detailTable,4);
-
     }
 
+    public void exportToFDF(String filename, String oID)
+    {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        try {
+            fw = new FileWriter(filename, false);
+            bw = new BufferedWriter(fw);
+            bw.write("\t\t\t\t MINNA"); 
+            bw.write("\nĐịa chỉ:   \t Số 8, Nguyên Xá, Minh Khai, Bắc Từ Liêm, Hà Nội"); 
+            bw.write("\nĐiện thoại:\t 0389247621"); 
+            bw.write("\nNgày:      \t" + date.getText());
+
+            bw.write("\n\n\t\t\t\t PHIẾU THANH TOÁN"); 
+            bw.write("\nSố hóa đơn:\t" + orderDetailNumber.getText()); 
+            bw.write("\nKhách hàng:\t" + customerName.getText()); 
+            bw.write("\nĐiểm tích lũy:\t" + points.getText()); 
+            bw.write("\nĐiện thoại:\t" + phoneNumber.getText()); 
+            bw.write(String.format("\n\n%-30s%20s%20s%20s%20s", "Tên hàng","Số lượng","Đơn giá","Khuyến mại","Thành tiền"));
+            for(OrderDetail item : listOrderDetail)    
+            {
+                if(item.getOrderID().toString().equals(oID)) 
+                {
+                    for(product item2 : listProduct) 
+                    {
+                        if(item.getProductID().equals(item2.getmaSP())) 
+                        {
+                            bw.write(String.format("\n%-30s%20s%20s%20s%20s", item2.getTenSP(),item.getQuantity(),
+                            item2.getGiaBan(),item2.getGiamGia(),item.money()));                
+                        }
+                    }
+                }
+            }
+
+            bw.write("\n\nTổng tiền hàng:    \t" + numberFormat.format(totalBefore)); 
+            bw.write("\nKhuyến mãi theo đơn: \t" + numberFormat.format(totalDiscount)); 
+            bw.write("\nTổng phải trả:       \t" + numberFormat.format(totalBefore - totalDiscount)); 
+            JOptionPane.showMessageDialog(rootPane, "In hóa đơn thành công");
+        } catch (IOException ex) {
+            System.out.println("Loi ghi file: " + ex);
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+                System.out.println("Loi close" + ex);
+            }
+        }
+    }
+
+    private String customText(String name) {
+        if(name.length() > 25) {
+            return name.substring(0, 20) + "...";
+        } else {
+            for(int i=2; i<=25-name.length();i++){
+                name += " ";
+            }
+        }
+        return name;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -177,7 +238,7 @@ public class PrintBill extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("Tổng phải trả");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 740, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 730, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Khuyễn mãi theo đơn: ");
@@ -209,7 +270,7 @@ public class PrintBill extends javax.swing.JFrame {
 
         totalMoney.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalMoney.setText("ggg");
-        getContentPane().add(totalMoney, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 730, 200, 30));
+        getContentPane().add(totalMoney, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 720, 200, 40));
 
         jLabel10.setFont(new java.awt.Font("Agency FB", 1, 52)); // NOI18N
         jLabel10.setText("MINNA SHOP");
@@ -220,6 +281,11 @@ public class PrintBill extends javax.swing.JFrame {
 
         btnPrint.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPrint.setText("IN");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 780, -1, -1));
 
         closeBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -239,6 +305,11 @@ public class PrintBill extends javax.swing.JFrame {
 
     }//GEN-LAST:event_closeBtnActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        exportToFDF("./customerOrder/" + "HD" + orderDetailNumber.getText() + ".txt", orderDetailNumber.getText());
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -247,10 +318,6 @@ public class PrintBill extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-//                PrintBill bill = new PrintBill();
-//                bill.pack();
-//                bill.setLocationRelativeTo(null);
-//                bill.setVisible(true);
                 new PrintBill().setVisible(true);
             }
         });

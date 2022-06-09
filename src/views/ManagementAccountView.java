@@ -299,6 +299,38 @@ public class ManagementAccountView extends javax.swing.JPanel {
         String role = roleComboBox.getSelectedItem().toString().toLowerCase();
         int row = accountTable.getSelectedRow();
 
+            if(username.compareTo("") == 0){
+                showError.setText("Vui lòng nhập tên");
+                return;
+            }
+            String regexUsername = "^[a-zA-Z0-9]{0,30}$";
+            Pattern pattern = Pattern.compile(regexUsername);
+            Matcher match = pattern.matcher(username);
+
+            if(!match.matches()){
+                showError.setText("Tên người dùng không bao gồm các kí tự đặc biệt");
+                return;
+            }
+            if(username.length() < 6){
+                showError.setText("Tên người dùng tối thiểu 6 kí tự");
+                return;
+            }
+
+            if(password.compareTo("") == 0){
+                showError.setText("Vui lòng nhập mật khẩu");
+                return;
+            }
+            if(password.length() < 6){
+                showError.setText("Mật khẩu phải lớn hơn hoặc bằng 6 kí tự");
+                return;
+            }
+
+            if(role.compareTo("") == 0){
+                showError.setText("Vui lòng nhập chọn vai trò");
+                return;
+            }
+            showError.setText(null);
+
         // update data in file
         Account account = new Account(id, username, password, role);
         listAcc.set(row, account);
