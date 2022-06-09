@@ -175,8 +175,6 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         });
         form.add(inpAccumulatePoints, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, 275, 35));
 
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(452, 500));
-
         tbCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -185,7 +183,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
                 "ID", "Họ Tên", "Số điện thoại", "Điểm tích lũy"
             }
         ));
-        tbCustomer.setPreferredSize(new java.awt.Dimension(300, 700));
+        tbCustomer.setPreferredSize(new java.awt.Dimension(450, 600));
         tbCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbCustomerMouseClicked(evt);
@@ -196,7 +194,7 @@ public class ManagementCustomerView extends javax.swing.JPanel {
             tbCustomer.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 870, 320));
+        form.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 880, 360));
 
         btnAdd.setBackground(new java.awt.Color(75, 123, 236));
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,14 +243,14 @@ public class ManagementCustomerView extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 350, Short.MAX_VALUE))
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 299, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, 819, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -282,7 +282,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
 //            System.out.println("g:"+d);
              String date=((JTextField)DateChooser.getDateEditor().getUiComponent()).getText();
 
-            String regexName = "^[a-z A-Z]{1,30}$";
+            String regexName = "^[a-z A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{0,50}$";
             Pattern pattern = Pattern.compile(regexName);
             Matcher match = pattern.matcher(name);
             if(name.compareTo("") == 0){
@@ -294,7 +294,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 return;
             }
 
-            String regexPhone = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$";
+            String regexPhone = "^[0-9]{10,11}$";
             Pattern patternPhone = Pattern.compile(regexPhone);
             Matcher matchPhone = patternPhone.matcher(phone);
             if(phone.compareTo("") == 0){
@@ -364,7 +364,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
         String salary=salaryField.getText();
         String date=((JTextField)DateChooser.getDateEditor().getUiComponent()).getText();
         
-            String regexName = "^[a-z A-Z]{1,30}$";
+            String regexName = "^[a-z A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{0,50}$";
             Pattern pattern = Pattern.compile(regexName);
             Matcher match = pattern.matcher(name);
             if(name.compareTo("") == 0){
@@ -376,7 +376,7 @@ public class ManagementEmployeeView extends javax.swing.JPanel {
                 return;
             }
 
-            String regexPhone = "^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$";
+            String regexPhone = "^[0-9]{10,11}$";
             Pattern patternPhone = Pattern.compile(regexPhone);
             Matcher matchPhone = patternPhone.matcher(phone);
             if(phone.compareTo("") == 0){

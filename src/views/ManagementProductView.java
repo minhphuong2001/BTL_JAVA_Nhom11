@@ -10,6 +10,7 @@ import static controllers.Utils.iconimage;
 import static controllers.Utils.rightRender;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.TextField;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,6 @@ public class ManagementProductView extends javax.swing.JPanel {
         suajButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         themjButton = new javax.swing.JButton();
-        tenspField = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
         giamuaField = new java.awt.TextField();
@@ -107,6 +107,7 @@ public class ManagementProductView extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         searchField = new java.awt.TextField();
+        tenspField = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -133,13 +134,6 @@ public class ManagementProductView extends javax.swing.JPanel {
             }
         });
         add(themjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 130, 50));
-
-        tenspField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tenspFieldKeyReleased(evt);
-            }
-        });
-        add(tenspField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 275, 35));
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -241,13 +235,19 @@ public class ManagementProductView extends javax.swing.JPanel {
             }
         });
         add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 280, 35));
+
+        tenspField.setPreferredSize(new java.awt.Dimension(6, 35));
+        tenspField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tenspFieldActionPerformed(evt);
+            }
+        });
+        add(tenspField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 270, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void productTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productTableMouseClicked
 
-        int row = productTable.getSelectedRow();
-        
-        
+        int row = productTable.getSelectedRow();        
         Integer maSP = (Integer) tableModal.getValueAt(row, 0);
         String tenSP = (String) tableModal.getValueAt(row, 1);
         Float giaBan = listProduct.get(row).getGiaBan();
@@ -270,7 +270,7 @@ public class ManagementProductView extends javax.swing.JPanel {
     }//GEN-LAST:event_productTableMouseClicked
 
     private void themjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themjButtonActionPerformed
-        //
+        
         try {
             Integer productId = Integer.parseInt(idspField.getText().trim());
             String productName = tenspField.getText().trim();
@@ -283,6 +283,7 @@ public class ManagementProductView extends javax.swing.JPanel {
                 showErr.setText("Vui lòng nhập tên sản phẩm");
                 return;
             }
+
             String isNumbber = "^\\d+$";
             Pattern patternNumber = Pattern.compile(isNumbber);
             if (price.compareTo("") == 0) {
@@ -329,7 +330,8 @@ public class ManagementProductView extends javax.swing.JPanel {
 
             FileController.writeProductToFile("product.txt", product);
             tableModal.addRow(new Object[]{
-                product.getmaSP(), product.getTenSP(),  product.getGiaBan(), product.getGiaMua(), product.getGiamGia(), product.getSoLuong()
+                product.getmaSP(), product.getTenSP(), numberFormat.format(product.getGiaBan()), numberFormat.format(product.getGiaMua()), 
+                product.getGiamGia() + "%", product.getSoLuong()
             });
             listProduct.add(product);
             setTextNull("Thêm sản phẩm mới thành công", "Thêm mới sản phẩm");
@@ -405,33 +407,32 @@ public class ManagementProductView extends javax.swing.JPanel {
     }
     private void giamuaFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_giamuaFieldKeyReleased
         // TODO add your handling code here:
-        validateField("price", giamuaField.getText(), "Giá mua");
+        validateField("price", giamuaField, "Giá mua");
     }//GEN-LAST:event_giamuaFieldKeyReleased
 
     private void giabanFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_giabanFieldKeyReleased
         // TODO add your handling code here:purchasePrice
-        validateField("purchasePrice", giabanField.getText(), "Giá bán");
+        validateField("purchasePrice", giabanField, "Giá bán");
     }//GEN-LAST:event_giabanFieldKeyReleased
 
     private void giagiamFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_giagiamFieldKeyReleased
         // TODO add your handling code here:
-        validateField("discount", giagiamField.getText(), "Giảm giá");
+        validateField("discount", giagiamField, "Giảm giá");
     }//GEN-LAST:event_giagiamFieldKeyReleased
 
     private void soluongFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soluongFieldKeyReleased
         // TODO add your handling code here:
-        validateField("quantity", soluongField.getText(), "Số lượng");
+        validateField("quantity", soluongField, "Số lượng");
     }//GEN-LAST:event_soluongFieldKeyReleased
-
-    private void tenspFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tenspFieldKeyReleased
-        // TODO add your handling code here:
-        validateField("productName", tenspField.getText(), "");
-    }//GEN-LAST:event_tenspFieldKeyReleased
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         // TODO: filter by account table
         utils.filterByTable(searchField, tableModal, productTable);
     }//GEN-LAST:event_searchFieldKeyReleased
+
+    private void tenspFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenspFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tenspFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -453,16 +454,16 @@ public class ManagementProductView extends javax.swing.JPanel {
     private javax.swing.JLabel showErr;
     private java.awt.TextField soluongField;
     private javax.swing.JButton suajButton;
-    private java.awt.TextField tenspField;
+    private javax.swing.JTextField tenspField;
     private javax.swing.JButton themjButton;
     private javax.swing.JButton xoajButton;
     // End of variables declaration//GEN-END:variables
 
-    private void validateField(String name, String value, String displayText){
+    private void validateField(String name, TextField value, String displayText){
         switch(name){
             case "productName":
-                if(value.compareTo("")==0){
-                showErr.setText("Vui lòng nhập tên sản phẩm");
+                if(value.getText().compareTo("")==0){
+                    showErr.setText("Vui lòng nhập tên sản phẩm");
                 }
                 showErr.setText(null);
                 break;
@@ -472,8 +473,8 @@ public class ManagementProductView extends javax.swing.JPanel {
             case "quantity": 
                 String isNumbber = "^\\d+$";
                 Pattern patternNumber = Pattern.compile(isNumbber);
-                Matcher matchNumber = patternNumber.matcher(value);
-                if(value.compareTo("")==0){
+                Matcher matchNumber = patternNumber.matcher(value.getText());
+                if(value.getText().compareTo("")==0){
                     showErr.setText("Vui lòng nhập " + displayText);
                 }
                 if(!matchNumber.matches()){
